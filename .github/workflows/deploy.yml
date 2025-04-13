@@ -1,36 +1,40 @@
-# .github/workflows/deploy.yml
-name: MLflow Model CI/CD
+name: build-and-deploy
 
 on:
   push:
-    branches: [ main ]  
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: '3.10'  # Match this with your local Jupyter version
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install jupyter mlflow
 
-      - name: Run training and log with MLflow
+      - name: ⚙️ Run Jupyter notebook
         run: |
-          python train.py  # Replace with your actual script
+          jupyter nbconvert --to notebook --execute your_notebook.ipynb --output executed_notebook.ipynb
 
-      - name: Upload artifact (optional)
-        uses: actions/upload-artifact@v4
-        with:
-          name: trained-model
-          path: ./models/  # or wherever you save models
-
-      
+      - name: 🚀 Commit & push executed notebook
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add executed_notebook.ipynb
+          git commit -m "Executed notebook from GitHub Actions" || echo "Nothing to commit"
+          git push origin main
