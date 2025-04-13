@@ -1,0 +1,32 @@
+Status Code: 200
+Raw Response Content: <?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2025-01-25T07:07:35Z</responseDate>
+    <request verb="Identify">https://localhost/api/oai</request>
+    <Identify>
+    <repositoryName>Database Repository</repositoryName>
+    <baseURL>http://localhost</baseURL>
+    <protocolVersion>2.0</protocolVersion>
+    <adminEmail>noreply@localhost</adminEmail>
+    <earliestDatestamp></earliestDatestamp>
+    <deletedRecord>persistent</deletedRecord>
+    <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+</Identify>
+</OAI-PMH>
+Response is not valid JSON. Here's the raw response:
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2025-01-25T07:07:35Z</responseDate>
+    <request verb="Identify">https://localhost/api/oai</request>
+    <Identify>
+    <repositoryName>Database Repository</repositoryName>
+    <baseURL>http://localhost</baseURL>
+    <protocolVersion>2.0</protocolVersion>
+    <adminEmail>noreply@localhost</adminEmail>
+    <earliestDatestamp></earliestDatestamp>
+    <deletedRecord>persistent</deletedRecord>
+    <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+</Identify>
+</OAI-PMH>
