@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.venv.bak/
+venv.bak/
+
+# MLflow tracking directories
+mlruns/
+mlartifacts/
+*.log
+*.db
+*.json
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VSCode project files
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Output folders
+output/
+logs/
+artifacts/
+
+# Environment or credentials
+.env
+*.env
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+*.egg
