@@ -29,7 +29,7 @@ jobs:
 
       - name: ⚙️ Run Jupyter notebook
         run: |
-          jupyter nbconvert --to notebook --execute your_notebook.ipynb --output executed_notebook.ipynb
+          jupyter nbconvert --to notebook --execute test.ipynb --output executed_notebook.ipynb
 
       - name: 🚀 Commit & push executed notebook
         run: |
