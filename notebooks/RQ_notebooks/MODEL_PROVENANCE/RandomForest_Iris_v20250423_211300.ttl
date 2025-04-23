@@ -3,33 +3,42 @@
 
 <urn:run:709a304e4b4140c4b3c2a8c5055ee259> a prov:Activity ;
     prov:generated [ a prov:Entity ;
-            prov:label "feature_importances.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
             prov:label "model/input_example.json" ;
             prov:location "{\"columns\": [\"Id\", \"SepalLengt…" ],
         [ a prov:Entity ;
-            prov:label "pr_curve_cls_Iris-virginica.png" ;
+            prov:label "model/python_env.yaml" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "roc_curve_cls_Iris-versicolor.png" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "training_confusion_matrix.png" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "roc_curve_cls_Iris-virginica.png" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "estimator.html" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "commit_diff.json" ;
+            prov:location """{
+  "previous_commit": "ef5711…""" ],
+        [ a prov:Entity ;
+            prov:label "RandomForest_Iris_v20250423_211300/RandomForest_Iris_v20250423_211300.pkl" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "model/model.pkl" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "roc_curve_cls_Iris-setosa.png" ;
             prov:location "" ],
         [ a prov:Entity ;
             prov:label "model/requirements.txt" ;
             prov:location """mlflow==2.21.2
 backports-funct…""" ],
         [ a prov:Entity ;
-            prov:label "commit_diff.json" ;
-            prov:location """{
-  "previous_commit": "ef5711…""" ],
-        [ a prov:Entity ;
-            prov:label "model/python_env.yaml" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "pr_curve_cls_Iris-versicolor.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "roc_curve_cls_Iris-setosa.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "confusion_matrix.png" ;
+            prov:label "model/MLmodel" ;
             prov:location "" ],
         [ a prov:Entity ;
             prov:label "model/serving_input_example.json" ;
@@ -37,19 +46,13 @@ backports-funct…""" ],
   "dataframe_split": {
     "…""" ],
         [ a prov:Entity ;
-            prov:label "estimator.html" ;
+            prov:label "pr_curve_cls_Iris-versicolor.png" ;
             prov:location "" ],
         [ a prov:Entity ;
-            prov:label "model/model.pkl" ;
+            prov:label "pr_curve_cls_Iris-setosa.png" ;
             prov:location "" ],
         [ a prov:Entity ;
-            prov:label "training_confusion_matrix.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "model/MLmodel" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "RandomForest_Iris_v20250423_211300/RandomForest_Iris_v20250423_211300.pkl" ;
+            prov:label "pr_curve_cls_Iris-virginica.png" ;
             prov:location "" ],
         [ a prov:Entity ;
             prov:label "model/conda.yaml" ;
@@ -58,83 +61,71 @@ backports-funct…""" ],
             prov:label "shap_summary.png" ;
             prov:location "" ],
         [ a prov:Entity ;
-            prov:label "roc_curve_cls_Iris-versicolor.png" ;
+            prov:label "feature_importances.png" ;
             prov:location "" ],
         [ a prov:Entity ;
-            prov:label "roc_curve_cls_Iris-virginica.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "pr_curve_cls_Iris-setosa.png" ;
+            prov:label "confusion_matrix.png" ;
             prov:location "" ] ;
     prov:hadParameter [ a prov:Entity ;
-            prov:label "oob_score" ;
-            prov:value "False" ],
-        [ a prov:Entity ;
-            prov:label "sklearn_version" ;
-            prov:value "1.3.0" ],
-        [ a prov:Entity ;
-            prov:label "warm_start" ;
-            prov:value "False" ],
-        [ a prov:Entity ;
-            prov:label "seaborn_version" ;
-            prov:value "0.12.2" ],
-        [ a prov:Entity ;
-            prov:label "max_leaf_nodes" ;
-            prov:value "None" ],
-        [ a prov:Entity ;
-            prov:label "random_state" ;
-            prov:value "42" ],
-        [ a prov:Entity ;
-            prov:label "shap_version" ;
-            prov:value "0.47.1" ],
+            prov:label "pandas_version" ;
+            prov:value "2.2.3" ],
         [ a prov:Entity ;
             prov:label "n_estimators" ;
             prov:value "200" ],
         [ a prov:Entity ;
-            prov:label "n_jobs" ;
-            prov:value "-1" ],
-        [ a prov:Entity ;
-            prov:label "ccp_alpha" ;
+            prov:label "min_weight_fraction_leaf" ;
             prov:value "0.0" ],
-        [ a prov:Entity ;
-            prov:label "max_features" ;
-            prov:value "sqrt" ],
-        [ a prov:Entity ;
-            prov:label "n_features" ;
-            prov:value "5" ],
-        [ a prov:Entity ;
-            prov:label "n_train_samples" ;
-            prov:value "120" ],
-        [ a prov:Entity ;
-            prov:label "max_depth" ;
-            prov:value "12" ],
-        [ a prov:Entity ;
-            prov:label "numpy_version" ;
-            prov:value "1.24.4" ],
-        [ a prov:Entity ;
-            prov:label "verbose" ;
-            prov:value "1" ],
-        [ a prov:Entity ;
-            prov:label "class_weight" ;
-            prov:value "None" ],
-        [ a prov:Entity ;
-            prov:label "matplotlib_version" ;
-            prov:value "3.7.2" ],
-        [ a prov:Entity ;
-            prov:label "pandas_version" ;
-            prov:value "2.2.3" ],
-        [ a prov:Entity ;
-            prov:label "max_samples" ;
-            prov:value "None" ],
         [ a prov:Entity ;
             prov:label "bootstrap" ;
             prov:value "True" ],
         [ a prov:Entity ;
-            prov:label "min_samples_split" ;
-            prov:value "5" ],
+            prov:label "n_train_samples" ;
+            prov:value "120" ],
+        [ a prov:Entity ;
+            prov:label "ccp_alpha" ;
+            prov:value "0.0" ],
+        [ a prov:Entity ;
+            prov:label "class_weight" ;
+            prov:value "None" ],
+        [ a prov:Entity ;
+            prov:label "max_features" ;
+            prov:value "sqrt" ],
+        [ a prov:Entity ;
+            prov:label "n_test_samples" ;
+            prov:value "30" ],
+        [ a prov:Entity ;
+            prov:label "max_samples" ;
+            prov:value "None" ],
+        [ a prov:Entity ;
+            prov:label "oob_score" ;
+            prov:value "False" ],
         [ a prov:Entity ;
             prov:label "python_version" ;
             prov:value "3.11.5" ],
+        [ a prov:Entity ;
+            prov:label "min_impurity_decrease" ;
+            prov:value "0.0" ],
+        [ a prov:Entity ;
+            prov:label "min_samples_split" ;
+            prov:value "5" ],
+        [ a prov:Entity ;
+            prov:label "sklearn_version" ;
+            prov:value "1.3.0" ],
+        [ a prov:Entity ;
+            prov:label "n_jobs" ;
+            prov:value "-1" ],
+        [ a prov:Entity ;
+            prov:label "test_size" ;
+            prov:value "0.2" ],
+        [ a prov:Entity ;
+            prov:label "os_platform" ;
+            prov:value "Windows 10" ],
+        [ a prov:Entity ;
+            prov:label "n_features" ;
+            prov:value "5" ],
+        [ a prov:Entity ;
+            prov:label "random_state" ;
+            prov:value "42" ],
         [ a prov:Entity ;
             prov:label "min_samples_leaf" ;
             prov:value "2" ],
@@ -142,55 +133,64 @@ backports-funct…""" ],
             prov:label "criterion" ;
             prov:value "entropy" ],
         [ a prov:Entity ;
-            prov:label "test_size" ;
-            prov:value "0.2" ],
+            prov:label "numpy_version" ;
+            prov:value "1.24.4" ],
         [ a prov:Entity ;
-            prov:label "n_test_samples" ;
-            prov:value "30" ],
+            prov:label "matplotlib_version" ;
+            prov:value "3.7.2" ],
         [ a prov:Entity ;
-            prov:label "os_platform" ;
-            prov:value "Windows 10" ],
+            prov:label "warm_start" ;
+            prov:value "False" ],
         [ a prov:Entity ;
-            prov:label "min_weight_fraction_leaf" ;
-            prov:value "0.0" ],
+            prov:label "max_leaf_nodes" ;
+            prov:value "None" ],
         [ a prov:Entity ;
-            prov:label "min_impurity_decrease" ;
-            prov:value "0.0" ] ;
+            prov:label "max_depth" ;
+            prov:value "12" ],
+        [ a prov:Entity ;
+            prov:label "verbose" ;
+            prov:value "1" ],
+        [ a prov:Entity ;
+            prov:label "shap_version" ;
+            prov:value "0.47.1" ],
+        [ a prov:Entity ;
+            prov:label "seaborn_version" ;
+            prov:value "0.12.2" ] ;
     prov:hadQuality [ a prov:Entity ;
-            prov:label "accuracy" ;
+            prov:label "recall_macro" ;
             prov:value 1.0 ],
         [ a prov:Entity ;
-            prov:label "training_recall_score" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "training_f1_score" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "f1_macro" ;
+            prov:label "training_roc_auc" ;
             prov:value 1.0 ],
         [ a prov:Entity ;
             prov:label "training_score" ;
             prov:value 1.0 ],
         [ a prov:Entity ;
-            prov:label "roc_auc" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "training_log_loss" ;
-            prov:value 0.020402182597499856 ],
-        [ a prov:Entity ;
-            prov:label "training_roc_auc" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "training_accuracy_score" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "precision_macro" ;
+            prov:label "training_f1_score" ;
             prov:value 1.0 ],
         [ a prov:Entity ;
             prov:label "training_precision_score" ;
             prov:value 1.0 ],
         [ a prov:Entity ;
-            prov:label "recall_macro" ;
+            prov:label "training_accuracy_score" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
+            prov:label "accuracy" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
+            prov:label "roc_auc" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
+            prov:label "f1_macro" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
+            prov:label "training_recall_score" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
+            prov:label "training_log_loss" ;
+            prov:value 0.020402182597499856 ],
+        [ a prov:Entity ;
+            prov:label "precision_macro" ;
             prov:value 1.0 ] ;
     prov:startedAtTime "2025-04-23T19:13:00.296000+00:00"^^xsd:dateTime ;
     prov:used [ a prov:Entity ;

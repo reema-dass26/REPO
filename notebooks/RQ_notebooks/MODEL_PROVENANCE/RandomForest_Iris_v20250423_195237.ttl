@@ -9,10 +9,7 @@
             prov:label "roc_curve_cls_Iris-virginica.png" ;
             prov:location "" ],
         [ a prov:Entity ;
-            prov:label "pr_curve_cls_Iris-versicolor.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "pr_curve_cls_Iris-virginica.png" ;
+            prov:label "confusion_matrix.png" ;
             prov:location "" ],
         [ a prov:Entity ;
             prov:label "roc_curve_cls_Iris-versicolor.png" ;
@@ -25,53 +22,32 @@
             prov:location """{
   "previous_commit": "03e36f…""" ],
         [ a prov:Entity ;
+            prov:label "pr_curve_cls_Iris-setosa.png" ;
+            prov:location "" ],
+        [ a prov:Entity ;
             prov:label "RandomForest_Iris_v20250423_195237/RandomForest_Iris_v20250423_195237.pkl" ;
             prov:location "" ],
         [ a prov:Entity ;
-            prov:label "confusion_matrix.png" ;
+            prov:label "pr_curve_cls_Iris-versicolor.png" ;
+            prov:location "" ],
+        [ a prov:Entity ;
+            prov:label "pr_curve_cls_Iris-virginica.png" ;
             prov:location "" ],
         [ a prov:Entity ;
             prov:label "roc_curve_cls_Iris-setosa.png" ;
-            prov:location "" ],
-        [ a prov:Entity ;
-            prov:label "pr_curve_cls_Iris-setosa.png" ;
             prov:location "" ] ;
     prov:hadParameter [ a prov:Entity ;
+            prov:label "min_samples_split" ;
+            prov:value "5" ],
+        [ a prov:Entity ;
+            prov:label "pandas_version" ;
+            prov:value "2.2.3" ],
+        [ a prov:Entity ;
             prov:label "n_test_samples" ;
             prov:value "30" ],
         [ a prov:Entity ;
-            prov:label "n_features" ;
-            prov:value "5" ],
-        [ a prov:Entity ;
-            prov:label "python_version" ;
-            prov:value "3.11.5" ],
-        [ a prov:Entity ;
             prov:label "matplotlib_version" ;
             prov:value "3.7.2" ],
-        [ a prov:Entity ;
-            prov:label "seaborn_version" ;
-            prov:value "0.12.2" ],
-        [ a prov:Entity ;
-            prov:label "bootstrap" ;
-            prov:value "True" ],
-        [ a prov:Entity ;
-            prov:label "class_weight" ;
-            prov:value "None" ],
-        [ a prov:Entity ;
-            prov:label "random_state" ;
-            prov:value "42" ],
-        [ a prov:Entity ;
-            prov:label "sklearn_version" ;
-            prov:value "1.3.0" ],
-        [ a prov:Entity ;
-            prov:label "numpy_version" ;
-            prov:value "1.24.4" ],
-        [ a prov:Entity ;
-            prov:label "test_size" ;
-            prov:value "0.2" ],
-        [ a prov:Entity ;
-            prov:label "shap_version" ;
-            prov:value "0.47.1" ],
         [ a prov:Entity ;
             prov:label "oob_score" ;
             prov:value "False" ],
@@ -79,36 +55,66 @@
             prov:label "n_estimators" ;
             prov:value "200" ],
         [ a prov:Entity ;
-            prov:label "pandas_version" ;
-            prov:value "2.2.3" ],
+            prov:label "shap_version" ;
+            prov:value "0.47.1" ],
         [ a prov:Entity ;
-            prov:label "os_platform" ;
-            prov:value "Windows 10" ],
+            prov:label "python_version" ;
+            prov:value "3.11.5" ],
         [ a prov:Entity ;
-            prov:label "max_depth" ;
-            prov:value "12" ],
+            prov:label "class_weight" ;
+            prov:value "None" ],
+        [ a prov:Entity ;
+            prov:label "numpy_version" ;
+            prov:value "1.24.4" ],
         [ a prov:Entity ;
             prov:label "min_samples_leaf" ;
             prov:value "2" ],
         [ a prov:Entity ;
-            prov:label "n_jobs" ;
-            prov:value "-1" ],
+            prov:label "bootstrap" ;
+            prov:value "True" ],
         [ a prov:Entity ;
-            prov:label "max_features" ;
-            prov:value "sqrt" ],
+            prov:label "sklearn_version" ;
+            prov:value "1.3.0" ],
         [ a prov:Entity ;
             prov:label "verbose" ;
             prov:value "1" ],
         [ a prov:Entity ;
+            prov:label "max_depth" ;
+            prov:value "12" ],
+        [ a prov:Entity ;
             prov:label "n_train_samples" ;
             prov:value "120" ],
+        [ a prov:Entity ;
+            prov:label "n_jobs" ;
+            prov:value "-1" ],
+        [ a prov:Entity ;
+            prov:label "test_size" ;
+            prov:value "0.2" ],
+        [ a prov:Entity ;
+            prov:label "max_features" ;
+            prov:value "sqrt" ],
+        [ a prov:Entity ;
+            prov:label "n_features" ;
+            prov:value "5" ],
+        [ a prov:Entity ;
+            prov:label "random_state" ;
+            prov:value "42" ],
         [ a prov:Entity ;
             prov:label "criterion" ;
             prov:value "entropy" ],
         [ a prov:Entity ;
-            prov:label "min_samples_split" ;
-            prov:value "5" ] ;
+            prov:label "seaborn_version" ;
+            prov:value "0.12.2" ],
+        [ a prov:Entity ;
+            prov:label "os_platform" ;
+            prov:value "Windows 10" ] ;
     prov:hadQuality [ a prov:Entity ;
+            prov:label "accuracy" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
+            prov:label "f1_macro" ;
+            prov:value 1.0 ],
+        [ a prov:Entity ;
             prov:label "roc_auc" ;
             prov:value 1.0 ],
         [ a prov:Entity ;
@@ -116,12 +122,6 @@
             prov:value 1.0 ],
         [ a prov:Entity ;
             prov:label "precision_macro" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "accuracy" ;
-            prov:value 1.0 ],
-        [ a prov:Entity ;
-            prov:label "f1_macro" ;
             prov:value 1.0 ] ;
     prov:startedAtTime "2025-04-23T17:52:37.829000+00:00"^^xsd:dateTime ;
     prov:used [ a prov:Entity ;
