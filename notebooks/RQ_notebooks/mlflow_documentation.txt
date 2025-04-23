@@ -1,0 +1,28 @@
+mlflow.log_param("n_estimators", 100)
+mlflow.log_params({"learning_rate":0.01, "batch_size":32})
+
+
+mlflow.log_metric("accuracy", acc)
+mlflow.log_metrics({"loss": train_loss, "val_loss": val_loss}, step=epoch)
+
+
+mlflow.set_tag("git_commit", sha)
+mlflow.set_tags({"dataset":"Iris", "notebook":"RQ1.ipynb"})
+
+
+mlflow.log_artifact("confusion_matrix.png")
+mlflow.log_artifacts("models/", artifact_path="exported_models")
+
+
+mlflow.log_text(diff_text, artifact_file="commit_diff.patch")
+mlflow.log_dict(run_summary, artifact_file="run_summary.json")
+
+
+mlflow.set_experiment("Iris_Classification")
+mlflow.log_params(hyperparams)
+mlflow.set_tags(env_tags)
+mlflow.log_metric("accuracy", acc)
+mlflow.log_artifact("confusion_matrix.png")
+mlflow.log_text(diff_text, "diff.patch")
+mlflow.log_dict(run_summary, "run_summary.json")
+mlflow.sklearn.log_model(model, "rf_model", registered_model_name="IrisRF")
