@@ -315,10 +315,12 @@ with st.sidebar:
             "⚠️ Deprecated Code Check",
             "🧭 Model-Dataset Mapping",
             "📣 Notify Outdated Forks",
-            "📘 Researcher Justifications"
+            "📘 Researcher Justifications",
+            "📚 Invenio Metadata"
+
         ],
         icons=[
-            "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" 
+            "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" , "book"
         ],
         menu_icon="cast",
         default_index=0,
@@ -929,3 +931,43 @@ elif selected == "📘 Researcher Justifications":
         st.dataframe(df_just, use_container_width=True)
     except Exception as e:
         st.error(f"Failed to load justification data: {e}")
+elif selected == "📚 Invenio Metadata":
+    st.title("📚 Invenio Metadata")
+    st.markdown("""
+    View metadata fetched from publication repositories (e.g., Zenodo or DBRepo).
+    
+    🔍 This includes:
+    - Title, creators, publication date
+    - PID and status info
+    - Files and stats (views/downloads)
+    """)
+
+    # Get model name for the latest run
+    latest_dir = max(glob.glob("MODEL_PROVENANCE/*"), key=os.path.getmtime)
+    model_name = os.path.basename(latest_dir)
+    summary_path = os.path.join(latest_dir, f"{model_name}_run_summary.json")
+
+    try:
+        with open(summary_path, "r") as f:
+            run_data = json.load(f)
+        invenio_meta = run_data.get("invenio_metadata", {})
+
+        if invenio_meta:
+            df_view = pd.DataFrame([{
+                "Title": invenio_meta.get("title", ""),
+                "Creator": invenio_meta.get("creator", ""),
+                "Published": invenio_meta.get("publication_date", ""),
+                "Status": invenio_meta.get("status", ""),
+                "Views": invenio_meta.get("views", 0),
+                "Downloads": invenio_meta.get("downloads", 0)
+            }])
+            st.dataframe(df_view)
+
+            st.markdown("#### 📁 Files in Publication")
+            st.json(invenio_meta.get("files", []))
+        else:
+            st.warning("ℹ️ No `invenio_metadata` found in the run summary.")
+
+    except Exception as e:
+        st.error(f"Error loading Invenio metadata: {e}")
+
