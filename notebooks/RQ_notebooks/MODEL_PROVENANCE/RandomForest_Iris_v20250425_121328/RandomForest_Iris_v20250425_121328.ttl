@@ -1,0 +1,57 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] <artifacts> [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    <experiment_id> "615223710259862608" ;
+    prov:generated <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/commit_diff.json>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/label_mapping.json>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/metric_info.json>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/RandomForest_Iris_v20250425_121328/RandomForest_Iris_v20250425_121328.pkl>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/confusion_matrix.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/estimator.html>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/feature_importances.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/model/MLmodel>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/model/conda.yaml>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/model/model.pkl>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/model/python_env.yaml>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/pr_curve_cls_0.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/pr_curve_cls_1.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/pr_curve_cls_2.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/roc_curve_cls_0.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/roc_curve_cls_1.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/roc_curve_cls_2.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/shap_summary.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts/training_confusion_matrix.png>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/model/input_example.json>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/model/requirements.txt>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/model/serving_input_example.json>,
+        <file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/public_datasetRepository_metadata.json> ;
+    prov:startedAtTime "2025-04-25T10:13:27.206000+00:00"^^xsd:dateTime ;
+    <metrics> [ ] ;
+    <params> [ ] ;
+    <run_id> "28f01e38b7f04d2f948fe21f57f41d0c" ;
+    <run_name> "amazing-sponge-952" ;
+    <tags> [ ] .
+
