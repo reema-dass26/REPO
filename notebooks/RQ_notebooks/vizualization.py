@@ -19,7 +19,8 @@ import streamlit.components.v1 as components
 import networkx as nx
 from streamlit_agraph import agraph, Node, Edge, Config
 import time
-
+from datetime import datetime
+import re
 
 st.set_page_config(
     page_title="Building Bridges in Research: Integrating Provenance and Data Management in Virtual Research Environments",
@@ -213,7 +214,42 @@ USE_CASES = {
         'optional_params': [],
     },
 }
+# —— Find latest run summary with justification data ——
 
+def get_latest_justification_summary(base_dir="MODEL_PROVENANCE"):
+    folders = [d for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
+    timestamped_folders = []
+    for folder in folders:
+        match = re.search(r'_(v\d{8}_\d{6})', folder)
+        if match:
+            try:
+                timestamp = datetime.strptime(match.group(1), "v%Y%m%d_%H%M%S")
+                timestamped_folders.append((timestamp, folder))
+            except ValueError:
+                continue
+
+    if not timestamped_folders:
+        raise FileNotFoundError("No timestamped folders found in MODEL_PROVENANCE")
+
+    latest_folder = max(timestamped_folders)[1]
+    file_path = os.path.join(base_dir, latest_folder, f"{latest_folder}_run_summary.json")
+    return file_path
+
+# —— Load justifications and return as DataFrame ——
+
+def load_justification_table(path):
+    with open(path, "r") as f:
+        js = json.load(f)
+
+    justifications = {
+        k: v for k, v in js.get("tags", {}).items()
+        if k.startswith("justification_")
+    }
+    rows = [
+        {"Decision": k.replace("justification_", ""), "Justification": v}
+        for k, v in justifications.items()
+    ]
+    return pd.DataFrame(rows)
 # -------- Load the metadata (flattened like before) ----------
 @st.cache_data
 def load_data():
@@ -278,7 +314,8 @@ with st.sidebar:
             "🛰️ Provenance Trace",
             "⚠️ Deprecated Code Check",
             "🧭 Model-Dataset Mapping",
-            "📣 Notify Outdated Forks"
+            "📣 Notify Outdated Forks",
+            "📘 Researcher Justifications"
         ],
         icons=[
             "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" 
@@ -874,3 +911,21 @@ Detect whether collaborators' forks of your GitHub repository are out-of-date wi
 
                 except Exception as e:
                     st.error(f"An error occurred: {e}")
+elif selected == "📘 Researcher Justifications":
+    st.title("📘 Researcher Justifications")
+    st.markdown("""
+    This section displays all recorded **justifications** provided by the researcher 
+    for specific modeling decisions, such as hyperparameter choices, dataset version, and evaluation criteria.
+    
+    🧠 These justifications help ensure **transparency**, **explainability**, and support for reproducibility.
+    """)
+
+    try:
+        latest_path = get_latest_justification_summary()
+        st.success(f"Loaded: `{latest_path}`")
+
+        df_just = load_justification_table(latest_path)
+        st.write("### Justification Table")
+        st.dataframe(df_just, use_container_width=True)
+    except Exception as e:
+        st.error(f"Failed to load justification data: {e}")
