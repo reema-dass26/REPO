@@ -42,6 +42,7 @@ def detect_deprecated_code(df: pd.DataFrame, deprecated_commits: List[str], **_)
 
 def map_model_dataset(df: pd.DataFrame, **_) -> List[Dict[str, Any]]:
     model_col = 'tag_model_name' if 'tag_model_name' in df.columns else 'param_model_name'
+    
     cols = [
         'run_id',
         model_col,
@@ -51,7 +52,18 @@ def map_model_dataset(df: pd.DataFrame, **_) -> List[Dict[str, Any]]:
         'param_dataset.publisher'
     ]
     cols = [c for c in cols if c in df.columns]
-    return df[cols].to_dict(orient='records')
+    
+    data = df[cols].to_dict(orient='records')
+    
+    # 🔥 Post-process: make DOI into clickable links
+    for record in data:
+        doi = record.get('param_dataset.doi')
+        if doi:
+            # If the DOI is already a URL, fine; else, prepend https://doi.org/
+            doi_link = f"https://doi.org/{doi}" if not doi.startswith("http") else doi
+            record['param_dataset.doi'] = f"[{doi}]({doi_link})"
+    
+    return data
 
 
 @st.cache_data
@@ -59,17 +71,37 @@ def load_data():
     """
     Load and flatten JSON metadata files from the MODEL_PROVENANCE directory.
     """
-    files = glob.glob("MODEL_PROVENANCE/*_run_summary.json")
+    files = glob.glob(os.path.join("MODEL_PROVENANCE", "*", "*_run_summary.json"))
+
+    if not files:
+        st.warning("⚠️ No run summary JSON files found inside MODEL_PROVENANCE!")
+        return pd.DataFrame()
+
     rows = []
-    for f in files:
-        with open(f) as fh:
-            summary = json.load(f)
-        row = {"run_id": summary.get("run_id")}
-        row.update({f"param_{k}": v for k, v in summary.get("params", {}).items()})
-        row.update({f"metric_{k}": v for k, v in summary.get("metrics", {}).items()})
-        row.update({f"tag_{k}": v for k, v in summary.get("tags", {}).items()})
-        rows.append(row)
-    return pd.DataFrame(rows)
+    for file_path in files:
+        try:
+            with open(file_path, "r", encoding="utf-8") as fh:
+                content = fh.read()
+                summary = json.loads(content)  # <- Load content, not file handle!
+
+            row = {"run_id": summary.get("run_id", "")}
+            row.update({f"param_{k}": v for k, v in summary.get("params", {}).items()})
+            row.update({f"metric_{k}": v for k, v in summary.get("metrics", {}).items()})
+            row.update({f"tag_{k}": v for k, v in summary.get("tags", {}).items()})
+            rows.append(row)
+
+        except Exception as e:
+            st.error(f"❌ Error loading file {file_path}: {e}")
+
+    if not rows:
+        st.warning("⚠️ No valid run summary data could be loaded!")
+        return pd.DataFrame()
+
+    df = pd.DataFrame(rows)
+    st.success(f"✅ Loaded {len(df)} runs with {len(df.columns)} columns.")
+   
+    
+    return df
 
 def _get_all_features(df):
     """
@@ -250,18 +282,6 @@ def load_justification_table(path):
         for k, v in justifications.items()
     ]
     return pd.DataFrame(rows)
-# -------- Load the metadata (flattened like before) ----------
-@st.cache_data
-def load_data():
-    with open("updated_metadata.json", "r") as fh:
-        summary = json.load(fh)
-
-    row = {"run_id": summary.get("run_id")}
-    row.update({f"param_{k}": v for k, v in summary.get("params", {}).items()})
-    row.update({f"metric_{k}": v for k, v in summary.get("metrics", {}).items()})
-    row.update({f"tag_{k}": v for k, v in summary.get("tags", {}).items()})
-    return pd.DataFrame([row])
-
 
 
 df = load_data()
@@ -538,30 +558,66 @@ Review comprehensive metadata for the datasets used in your machine learning exp
 - Ensure FAIR (Findable, Accessible, Interoperable, Reusable) data principles  
 - Provide proper attribution in research outputs
 """)
+# 📁 Dataset Metadata (updated based on selected run)
 
-    # Filter relevant columns
-    dataset_cols = [
-        "param_dataset.title", "param_dataset.doi", "param_dataset.authors",
-        "param_dataset.publisher", "param_dataset.published",
-        "tag_dataset_id", "tag_dataset_name", "tag_dataset_version",
-        "tag_data_source", "param_database.name", "param_database.owner",
-        "tag_dbrepo.repository_name"
-    ]
-
-    dataset_info = df[dataset_cols].copy()
-
-    # Dropdown to select dataset (optional, if more than one)
-    dataset_names = dataset_info["tag_dataset_name"].dropna().unique()
-
-    selected_dataset = st.selectbox("Choose dataset", dataset_names)
-
-    filtered_df = dataset_info[dataset_info["tag_dataset_name"] == selected_dataset]
-
-    if not filtered_df.empty:
-        st.write("### Selected Dataset Metadata")
-        st.dataframe(filtered_df.T)
+    st.title("📁 Dataset Metadata")
+    st.markdown("""
+    Review comprehensive metadata for the datasets used in your machine learning experiments.
+    """)
+    
+    # 1. Detect available runs
+    run_ids = df['run_id'].dropna().unique()
+    
+    if not run_ids.any():
+        st.warning("⚠️ No runs found. Please train a model first.")
     else:
-        st.warning("No matching dataset found.")
+        # 2. User selects a run
+        selected_run = st.selectbox("Select a Run ID", run_ids)
+    
+        # 3. Filter the DataFrame for the selected run
+        run_df = df[df["run_id"] == selected_run]
+    
+        # 4. Define relevant dataset metadata columns
+        dataset_cols = [
+            "param_dataset.title", "param_dataset.doi", "param_dataset.authors",
+            "param_dataset.publisher", "param_dataset.published",
+            "tag_dataset_id", "tag_dataset_name", "tag_dataset_version",
+            "tag_data_source", "param_database.name", "param_database.owner",
+            "tag_dbrepo.repository_name"
+        ]
+    
+        # 5. Only keep existing columns
+        dataset_cols = [c for c in dataset_cols if c in run_df.columns]
+        dataset_info = run_df[dataset_cols]
+    
+        if not dataset_info.empty:
+            st.write("### Selected Run - Dataset Metadata")
+            st.dataframe(dataset_info.T, use_container_width=True)
+        else:
+            st.warning("No dataset metadata available for this run.")
+    # # Filter relevant columns
+    # dataset_cols = [
+    #     "param_dataset.title", "param_dataset.doi", "param_dataset.authors",
+    #     "param_dataset.publisher", "param_dataset.published",
+    #     "tag_dataset_id", "tag_dataset_name", "tag_dataset_version",
+    #     "tag_data_source", "param_database.name", "param_database.owner",
+    #     "tag_dbrepo.repository_name"
+    # ]
+
+    # dataset_info = df[dataset_cols].copy()
+
+    # # Dropdown to select dataset (optional, if more than one)
+    # dataset_names = dataset_info["tag_dataset_name"].dropna().unique()
+
+    # selected_dataset = st.selectbox("Choose dataset", dataset_names)
+
+    # filtered_df = dataset_info[dataset_info["tag_dataset_name"] == selected_dataset]
+
+    # if not filtered_df.empty:
+    #     st.write("### Selected Dataset Metadata")
+    #     st.dataframe(filtered_df.T)
+    # else:
+    #     st.warning("No matching dataset found.")
 
 
 elif selected == "🧠 ML Model Metadata":
@@ -637,52 +693,48 @@ elif selected == "📊 Model Plots":
     st.title("📊 Model Explainability & Evaluation Plots")
     st.markdown("""
 Visualize how your machine learning model is performing — and understand **why** it's making the predictions it does.
-
-📊 **What you can explore**:
-- **Feature Importances** – Understand which features drive model decisions
-- **Confusion Matrix** – See how well your classifier is performing across classes
-- **SHAP Summary Plot** – Interpret individual feature contributions using SHAP values
-- **ROC & Precision-Recall Curves** – Evaluate classification performance under different thresholds
-
-🧠 **Why it's valuable**:
-- Gain insights into model behavior and interpretability  
-- Identify possible sources of bias or poor generalization  
-- Use visual diagnostics to improve model transparency and trustworthiness
-
-🔧 Select a plot from the dropdown to view it. You can also adjust the display size for better visibility.
 """)
 
-    plot_dir = "plots"  # Adjust if you store plots elsewhere
+    # 1. Detect available plot folders
+    plot_folders = glob.glob(os.path.join("plots", "RandomForest_Iris_v*"))
+    plot_folders = [os.path.basename(folder) for folder in plot_folders]
 
-    plot_options = {
-        "Feature Importances": "RandomForest_Iris_v20250424_111946/feature_importances.png",
-        "Confusion Matrix": "RandomForest_Iris_v20250424_111946/confusion_matrix.png",
-        "SHAP Summary": "RandomForest_Iris_v20250424_111946/shap_summary.png",
-        "ROC Curve (Class 0)": "RandomForest_Iris_v20250424_111946/roc_curve_cls_0.png",
-        "Precision-Recall (Class 0)": "RandomForest_Iris_v20250424_111946/pr_curve_cls_0.png"
-    }
+    if not plot_folders:
+        st.warning("⚠️ No plot folders found. Please run a training job first.")
+    else:
+        # 2. Let user pick which run
+        selected_folder = st.selectbox("Select a Run (for plots)", plot_folders)
 
-    selected_plot = st.selectbox("Choose a plot to view", list(plot_options.keys()))
+        # 3. Define plot options dynamically
+        plot_options = {
+            "Feature Importances": "feature_importances.png",
+            "Confusion Matrix": "confusion_matrix.png",
+            "SHAP Summary": "shap_summary.png",
+            "ROC Curve (Class 0)": "roc_curve_cls_0.png",
+            "Precision-Recall (Class 0)": "pr_curve_cls_0.png"
+        }
 
-    try:
-        plot_path = os.path.join(plot_dir, plot_options[selected_plot])
-        # st.image(plot_path, caption=selected_plot, width=600)
-        plot_width = st.slider("Adjust plot width", 400, 1000, 600)
-        st.image(plot_path, caption=selected_plot, width=plot_width)
+        selected_plot = st.selectbox("Choose a Plot Type", list(plot_options.keys()))
 
-        # Optional: add explanation under plot
-        if "Feature Importances" in selected_plot:
-            st.markdown("**Interpretation:** Shows which features contribute most to predictions.")
-        elif "SHAP" in selected_plot:
-            st.markdown("**Interpretation:** SHAP summary plots show feature impact and distribution.")
-        elif "ROC" in selected_plot:
-            st.markdown("**Interpretation:** ROC curves visualize classifier trade-off between sensitivity and specificity.")
-        elif "Precision-Recall" in selected_plot:
-            st.markdown("**Interpretation:** Precision-Recall curves help understand classifier performance on imbalanced data.")
-        elif "Confusion" in selected_plot:
-            st.markdown("**Interpretation:** The confusion matrix shows how many predictions were correct or misclassified.")
-    except FileNotFoundError:
-        st.warning("Plot not found. Please ensure the image exists in the correct directory.")
+        plot_path = os.path.join("plots", selected_folder, plot_options[selected_plot])
+
+        if os.path.exists(plot_path):
+            plot_width = st.slider("Adjust Plot Width", 400, 1000, 600)
+            st.image(plot_path, caption=f"{selected_plot} — {selected_folder}", width=plot_width)
+
+            if "Feature Importances" in selected_plot:
+                st.markdown("**Interpretation:** Shows which features contribute most to predictions.")
+            elif "SHAP" in selected_plot:
+                st.markdown("**Interpretation:** SHAP summary plots show feature impact and distribution.")
+            elif "ROC" in selected_plot:
+                st.markdown("**Interpretation:** ROC curves visualize classifier trade-off between sensitivity and specificity.")
+            elif "Precision-Recall" in selected_plot:
+                st.markdown("**Interpretation:** Precision-Recall curves help understand classifier performance on imbalanced data.")
+            elif "Confusion" in selected_plot:
+                st.markdown("**Interpretation:** The confusion matrix shows how many predictions were correct or misclassified.")
+        else:
+            st.error("❌ Selected plot file not found!")
+
 
 
 elif selected == "🛰️ Provenance Trace":
@@ -922,52 +974,82 @@ elif selected == "📘 Researcher Justifications":
     🧠 These justifications help ensure **transparency**, **explainability**, and support for reproducibility.
     """)
 
-    try:
-        latest_path = get_latest_justification_summary()
-        st.success(f"Loaded: `{latest_path}`")
+   # 1. Detect available MODEL_PROVENANCE folders
+    provenance_folders = glob.glob(os.path.join("MODEL_PROVENANCE", "RandomForest_Iris_v*"))
+    provenance_folders = [os.path.basename(folder) for folder in provenance_folders]
+    
+    if not provenance_folders:
+        st.warning("⚠️ No provenance folders found.")
+    else:
+        # 2. Let user pick the run
+        selected_provenance_folder = st.selectbox("Select a Run (for Justifications)", provenance_folders)
+    
+        # 3. Build path to justification file
+        justification_file = os.path.join(
+            "MODEL_PROVENANCE",
+            selected_provenance_folder,
+            f"{selected_provenance_folder}_run_summary.json"
+        )
+    
+        try:
+            df_just = load_justification_table(justification_file)
+            st.success(f"Loaded: `{justification_file}`")
+            st.write("### Justification Table")
+            st.dataframe(df_just, use_container_width=True)
+        except Exception as e:
+            st.error(f"❌ Failed to load justification data: {e}")
 
-        df_just = load_justification_table(latest_path)
-        st.write("### Justification Table")
-        st.dataframe(df_just, use_container_width=True)
-    except Exception as e:
-        st.error(f"Failed to load justification data: {e}")
 elif selected == "📚 Invenio Metadata":
     st.title("📚 Invenio Metadata")
     st.markdown("""
-    View metadata fetched from publication repositories (e.g., Zenodo or DBRepo).
-    
+    View metadata fetched from INVENIO, after data being published).
+    Here you can see the details of the lastest model and other files 
     🔍 This includes:
     - Title, creators, publication date
     - PID and status info
     - Files and stats (views/downloads)
     """)
-
-    # Get model name for the latest run
-    latest_dir = max(glob.glob("MODEL_PROVENANCE/*"), key=os.path.getmtime)
-    model_name = os.path.basename(latest_dir)
-    summary_path = os.path.join(latest_dir, f"{model_name}_run_summary.json")
-
-    try:
-        with open(summary_path, "r") as f:
-            run_data = json.load(f)
-        invenio_meta = run_data.get("invenio_metadata", {})
-
-        if invenio_meta:
-            df_view = pd.DataFrame([{
-                "Title": invenio_meta.get("title", ""),
-                "Creator": invenio_meta.get("creator", ""),
-                "Published": invenio_meta.get("publication_date", ""),
-                "Status": invenio_meta.get("status", ""),
-                "Views": invenio_meta.get("views", 0),
-                "Downloads": invenio_meta.get("downloads", 0)
-            }])
-            st.dataframe(df_view)
-
-            st.markdown("#### 📁 Files in Publication")
-            st.json(invenio_meta.get("files", []))
-        else:
-            st.warning("ℹ️ No `invenio_metadata` found in the run summary.")
-
-    except Exception as e:
-        st.error(f"Error loading Invenio metadata: {e}")
-
+    # 1. List all available MODEL_PROVENANCE folders
+    provenance_folders = glob.glob(os.path.join("MODEL_PROVENANCE", "RandomForest_Iris_v*"))
+    provenance_folders = [os.path.basename(folder) for folder in provenance_folders]
+    
+    if not provenance_folders:
+        st.warning("⚠️ No provenance folders found.")
+    else:
+        # 2. User selects which run
+        selected_run = st.selectbox("Select a Run for Invenio Metadata", provenance_folders)
+    
+        # 3. Build the path to the summary JSON
+        summary_path = os.path.join("MODEL_PROVENANCE", selected_run, f"{selected_run}_run_summary.json")
+    
+        try:
+            with open(summary_path, "r") as f:
+                run_data = json.load(f)
+            invenio_meta = run_data.get("invenio_metadata", {})
+    
+            if invenio_meta:
+                # 4. Neat DataFrame view for quick glance
+                df_view = pd.DataFrame([{
+                    "Title": invenio_meta.get("title", ""),
+                    "Creator": invenio_meta.get("creator", ""),
+                    "Published": invenio_meta.get("publication_date", ""),
+                    "Status": invenio_meta.get("status", ""),
+                    "Views": invenio_meta.get("views", 0),
+                    "Downloads": invenio_meta.get("downloads", 0)
+                }])
+    
+                st.header("📚 Invenio Metadata Overview")
+                st.dataframe(df_view, use_container_width=True)
+    
+                # 5. Show full file info
+                st.header("📁 Files in Publication")
+                files_list = invenio_meta.get("files", [])
+                if files_list:
+                    st.json(files_list)
+                else:
+                    st.info("ℹ️ No files recorded in the publication.")
+            else:
+                st.warning("ℹ️ No `invenio_metadata` found for this run.")
+    
+        except Exception as e:
+            st.error(f"❌ Error loading Invenio metadata: {e}")
