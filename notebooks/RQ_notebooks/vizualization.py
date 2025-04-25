@@ -4,14 +4,13 @@ import pandas as pd
 import json
 import plotly.graph_objects as go
 import ast
+from math import ceil
 import glob
-from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-## --------------------------------------------
-# Helper Functions
-# --------------------------------------------
+import requests
+from dotenv import load_dotenv
 from typing import List, Dict, Any
 from pprint import pprint
 from streamlit_option_menu import option_menu
@@ -19,57 +18,17 @@ from pyvis.network import Network
 import streamlit.components.v1 as components
 import networkx as nx
 from streamlit_agraph import agraph, Node, Edge, Config
+import time
 
-st.set_page_config(page_title="ML Provenance Dashboard", layout="wide")
-# Right-corner floating box with vibrant agraph
-# with st.container():
 
-#     st.markdown("""
-# <div style='background: linear-gradient(to right, #ff6a00, #ee0979); border-radius: 10px; padding: 10px;'>
-# """, unsafe_allow_html=True)
-#     st.subheader("🎯 Infra Flow")
-#     nodes = [
-#             Node(id="DBRepo", label="DBRepo 📚", color="#f94144"),
-#             Node(id="Invenio", label="Invenio 💃", color="#f3722c"),
-#             Node(id="JupyterHub", label="Jupyter 💻", color="#f8961e"),
-#             Node(id="GitHub", label="GitHub 🧠", color="#f9844a"),
-#             Node(id="VRE", label="VRE 🧪", color="#43aa8b"),
-#             Node(id="Metadata", label="Metadata 🧰", color="#577590"),
-#             Node(id="Provenance JSON", label="JSON 📜", color="#277da1"),
-#             Node(id="Visualization", label="Viz 🌐", color="#9b5de5")
-#         ]
-
-#     edges = [
-#             Edge(source="DBRepo", target="VRE"),
-#             Edge(source="Invenio", target="VRE"),
-#             Edge(source="JupyterHub", target="VRE"),
-#             Edge(source="GitHub", target="VRE"),
-#             Edge(source="Metadata", target="Provenance JSON"),
-#             Edge(source="Provenance JSON", target="Visualization"),
-#             Edge(source="VRE", target="Visualization")
-#         ]
-
-#     config = Config(width=150, height=130, directed=True, physics=True)
-#     agraph(nodes=nodes, edges=edges, config=config)
-#     st.markdown("""
-#     <script>
-#     const el = document.getElementById('infraBox');
-#     let offsetX = 0, offsetY = 0, isDown = false;
-#     el.addEventListener('mousedown', function(e) {
-#         isDown = true;
-#         offsetX = e.clientX - el.getBoundingClientRect().left;
-#         offsetY = e.clientY - el.getBoundingClientRect().top;
-#     });
-#     document.addEventListener('mouseup', () => isDown = false);
-#     document.addEventListener('mousemove', function(e) {
-#         if (!isDown) return;
-#         el.style.left = (e.clientX - offsetX) + 'px';
-#         el.style.top = (e.clientY - offsetY) + 'px';
-#     });
-#     </script>
-#     </div>
-#     """, unsafe_allow_html=True)
-
+st.set_page_config(
+    page_title="Building Bridges in Research: Integrating Provenance and Data Management in Virtual Research Environments",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)############################################################################
+#Helper functions
+############################################################################
 
 def detect_deprecated_code(df: pd.DataFrame, deprecated_commits: List[str], **_) -> List[Dict[str, Any]]:
     commit_col = 'tag_git_current_commit_hash'
@@ -121,19 +80,42 @@ def _get_all_features(df):
 
 def evaluate_subset(features, test_size=0.2, random_state=42, n_estimators=200):
     """
-    Train and evaluate a RandomForestClassifier on a subset of features.
+    Train and evaluate a RandomForestClassifier on a subset of features from iris_data.json.
     """
-    iris = load_iris()
-    X = pd.DataFrame(iris.data, columns=iris.feature_names)
-    canon = _get_all_features(df)
-    mapping = dict(zip(iris.feature_names, canon))
-    X = X.rename(columns=mapping)
+    # 1. Load and parse the dataset
+    with open("iris_data.json", "r") as f:
+        dataset = json.load(f)
+
+    df = pd.DataFrame(dataset)
+    target_col = df.columns[-1]  # Assuming the last column is the label
+    y = df[target_col]
+    X = df.drop(columns=[target_col])
+
+    # 2. Drop ID column if it exists
+    id_cols = [c for c in X.columns if c.lower() == "id"]
+    X = X.drop(columns=id_cols, errors="ignore")
+
+    # 3. Coerce numeric columns
+    for c in X.columns:
+        try:
+            X[c] = pd.to_numeric(X[c])
+        except Exception:
+            pass
+
+    # 4. Label encode the target
+    from sklearn.preprocessing import LabelEncoder
+    le = LabelEncoder()
+    y = le.fit_transform(y)
+
+    # 5. Use only the selected features
     X_sub = X[features]
-    y = iris.target
+
+    # 6. Train/test split and model evaluation
     Xtr, Xte, ytr, yte = train_test_split(X_sub, y, test_size=test_size, random_state=random_state)
     m = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
     m.fit(Xtr, ytr)
     return accuracy_score(yte, m.predict(Xte))
+
 
 def trace_preprocessing(df, run_id=None):
     """
@@ -285,22 +267,6 @@ USE_CASES = {
     },
 }
 
-
-
-
-# -------- App Layout --------
-
-# # Sidebar navigation
-# st.sidebar.title("📂 Navigation")
-# page = st.sidebar.radio("Go to", [
-#     "🏠 Dashboard",
-#     "📁 Dataset Metadata",
-#     "🧠 ML Model Metadata",
-#     "📊 Model Plots",
-#     "🛰️ Provenance Trace",
-#     "⚠️ Deprecated Code Check"
-# ])
-# Sidebar navigation menu
 with st.sidebar:
     selected = option_menu(
         menu_title="📂 Navigation",
@@ -311,16 +277,79 @@ with st.sidebar:
             "📊 Model Plots",
             "🛰️ Provenance Trace",
             "⚠️ Deprecated Code Check",
-            "🧭 Model-Dataset Mapping"
+            "🧭 Model-Dataset Mapping",
+            "📣 Notify Outdated Forks"
         ],
         icons=[
-            "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle"
+            "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" 
         ],
         menu_icon="cast",
         default_index=0,
     )
+    st.sidebar.markdown("---")
+    st.sidebar.markdown(
+        "<div style='text-align: center; font-size: 13px; color: gray;'>"
+        "🚀 Designed with ❤️ by <strong>Reema Dass</strong>"
+        "</div>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <div style='
+            font-weight: bold;
+            color: #ff4b4b;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        '>🎯 Infra Flow</div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    infra_nodes = [
+        Node(id="DBRepo", label="DBRepo 📚", color="#f94144"),
+        Node(id="Invenio", label="Invenio 💃", color="#f3722c"),
+        Node(id="JupyterHub", label="Jupyter 💻", color="#f8961e"),
+        Node(id="GitHub", label="GitHub 🧠", color="#f9844a"),
+        Node(id="VRE", label="VRE 🧪", color="#43aa8b"),
+        Node(id="Metadata", label="Metadata 🧰", color="#577590"),
+        Node(id="Provenance JSON", label="JSON 📜", color="#277da1"),
+        Node(id="Visualization", label="Viz 🌐", color="#9b5de5")
+    ]
+
+    infra_edges = [
+        Edge(source="DBRepo", target="VRE"),
+        Edge(source="Invenio", target="VRE"),
+        Edge(source="JupyterHub", target="VRE"),
+        Edge(source="GitHub", target="VRE"),
+        Edge(source="Metadata", target="Provenance JSON"),
+        Edge(source="Provenance JSON", target="Visualization"),
+        Edge(source="VRE", target="Visualization")
+    ]
+
+    node_count = len(infra_nodes)
+    graph_height = max(300, ceil(node_count * 80))
+    
+    graph_config = Config(
+    width=250,  # slightly wider than before
+    height=graph_height,
+    directed=True,
+    physics=True,
+    hierarchical=False,
+    nodeHighlightBehavior=True,
+    highlightColor="#FFDD00",
+    collapsible=True,
+    node={'labelProperty': 'label'},
+    link={'renderLabel': False},
+    fontColor="#000000"
+)
+
+    
+    agraph(nodes=infra_nodes, edges=infra_edges, config=graph_config)
+
+
 # Header
-st.markdown("<h1 style='text-align: center;'>ML Provenance Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Building Bridges in Research: Integrating Provenance and Data Management in Virtual Research Environments</h1>", unsafe_allow_html=True)
 
 # Main content switching
 
@@ -328,9 +357,7 @@ st.markdown("<h1 style='text-align: center;'>ML Provenance Dashboard</h1>", unsa
 # Main content area
 if selected == "🏠 Dashboard":
     st.title("🏠 Dashboard")
-    st.write("Welcome to the Dashboard!")
-
-    st.markdown("## 👋 Welcome to the ML Provenance Dashboard")
+    st.markdown("## 👋 Welcome to the End to End Provenance Dashboard")
     st.markdown("""
 This dashboard is designed to assist researchers and practitioners in managing and understanding the provenance of machine learning experiments conducted in virtual research environments (VREs). It provides an interactive and structured overview of key aspects of ML workflows, enabling **traceability, reproducibility, and transparency**.
 
@@ -372,171 +399,106 @@ This dashboard is designed to assist researchers and practitioners in managing a
 """)
         
     st.markdown("---")
-    st.subheader("🔁 Infrastructure Provenance Flow")
+    st.markdown("---")
+    st.markdown("## 🔄 ML Infrastructure Flow: Visual + Narrative")
+    
+    col1, col2 = st.columns([1, 1.4])
+    
+    with col1:
+        if st.button("▶️ Start Flow"):
+            st.markdown("### 🔍 Narrative Walkthrough")
+            st.markdown("**📦 DBRepo** — provides structured datasets to power experiments")
+            time.sleep(1)
+            st.markdown("**💻 JupyterHub** — where ML code is developed and run")
+            time.sleep(1)
+            st.markdown("**🧠 GitHub** — version control for all notebooks & code")
+            time.sleep(1)
+            st.markdown("**🗃️ Invenio** — stores trained models, logs, and artifacts")
+            time.sleep(1)
+            st.markdown("**🧪 VRE (Virtual Research Environment)** — a unified system connecting code, data, compute, and storage")
+            time.sleep(1)
+            st.markdown("**🧰 Metadata Extractor** — pulls details from each component to track provenance")
+            time.sleep(1)
+            st.markdown("**📜 Provenance JSON** — centralized record of your entire workflow")
+            time.sleep(1)
+            st.markdown("**🌐 Dashboard** — interactive viewer to explore results & metadata")
+            st.balloons()
+    
+    with col2:
+        st.markdown("### 🧭 Visual Flow Diagram")
+    
+        svg = """
+        <svg width="100%" height="560" xmlns="http://www.w3.org/2000/svg" style="background-color: transparent;">
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#00d4ff"/>
+            </marker>
+          </defs>
         
-        # Define nodes in the infrastructure
-    nodes = [
-            "DBRepo (Structured Repository)",    # 0
-            "Invenio (Unstructured Repository)", # 1
-            "JupyterHub (Computational Layer)",  # 2
-            "GitHub (Version Control)",          # 3
-            "Virtual Research Environment (VRE)",# 4
-            "Metadata Extraction",               # 5
-            "Provenance JSON",                   # 6
-            "Interactive Visualization"          # 7
-        ]
+          <!-- VRE Dashed Box -->
+          <rect x="35" y="10" width="500" height="120" fill="none" stroke="#00d4ff" stroke-dasharray="5" rx="15"/>
+          <text x="250" y="145" fill="#00d4ff" font-size="13">🔁 VRE</text>
         
-        # Define links (source-target-flow)
-    sources = [0, 1, 2, 3, 5, 6, 4]
-    targets = [4, 4, 4, 4, 6, 7, 7]
-    values =  [1, 1, 1, 1, 1, 1, 1]
+          <!-- Nodes -->
+          <rect x="50" y="20" width="120" height="40" fill="#f94144" rx="10"/>
+          <text x="60" y="45" fill="white">📦 DBRepo</text>
         
-        # Build Sankey Diagram
-    fig = go.Figure(data=[go.Sankey(
-            node=dict(
-                pad=15,
-                thickness=20,
-                line=dict(color="black", width=0.5),
-                label=nodes
-            ),
-            link=dict(
-                source=sources,
-                target=targets,
-                value=values
-            )
-        )])
+          <rect x="200" y="20" width="150" height="40" fill="#f3722c" rx="10"/>
+          <text x="210" y="45" fill="white">💻 JupyterHub</text>
         
-    fig.update_layout(title_text="Infrastructure Provenance Flow", font_size=12)
-    st.plotly_chart(fig, use_container_width=True)
-###################################################################################
-###################################################################################
-    # st.subheader("🔁 Infrastructure Provenance Flow (Graph View)")
-    
-    # # Create graph
-    # G = nx.DiGraph()
-    
-    # nodes = [
-    #     "DBRepo (Structured Repository)",
-    #     "Invenio (Unstructured Repository)",
-    #     "JupyterHub (Computational Layer)",
-    #     "GitHub (Version Control)",
-    #     "Virtual Research Environment (VRE)",
-    #     "Metadata Extraction",
-    #     "Provenance JSON",
-    #     "Interactive Visualization"
-    # ]
-    
-    # edges = [
-    #     ("DBRepo (Structured Repository)", "Virtual Research Environment (VRE)"),
-    #     ("Invenio (Unstructured Repository)", "Virtual Research Environment (VRE)"),
-    #     ("JupyterHub (Computational Layer)", "Virtual Research Environment (VRE)"),
-    #     ("GitHub (Version Control)", "Virtual Research Environment (VRE)"),
-    #     ("Metadata Extraction", "Provenance JSON"),
-    #     ("Provenance JSON", "Interactive Visualization"),
-    #     ("Virtual Research Environment (VRE)", "Interactive Visualization")
-    # ]
-    
-    # # Add to graph
-    # G.add_nodes_from(nodes)
-    # G.add_edges_from(edges)
-    
-    # # Build and display interactive network
-    # net = Network(height="500px", width="100%", directed=True)
-    # net.from_nx(G)
-    # net.set_options('''{
-    #   "nodes": {
-    #     "font": {"size": 14},
-    #     "shape": "box",
-    #     "color": {"background": "#add8e6"}
-    #   },
-    #   "edges": {
-    #     "arrows": {"to": {"enabled": true}},
-    #     "smooth": {"type": "cubicBezier"}
-    #   },
-    #   "physics": {
-    #     "enabled": true,
-    #     "barnesHut": {"gravitationalConstant": -20000}
-    #   }
-    # }''')
-    
-    # net.save_graph("infra_flow.html")
-    # components.html(open("infra_flow.html", "r").read(), height=600)
-    ##############################################################################################
-    ##############################################################################################
-
-
-    # st.subheader("🎬 Infrastructure Provenance Journey")
-
-    # st.markdown("### Follow the data on its adventure 🚀")
-    
-    # col1, col2, col3, col4 = st.columns(4)
-    
-    # with col1:
-    #     st.markdown("### 📚 DBRepo")
-    #     st.image("https://img.icons8.com/external-flat-juicy-fish/64/database.png", width=50)
-    #     st.write("Structured storage")
-    
-    # with col2:
-    #     st.markdown("### 🗃️ Invenio")
-    #     st.image("https://img.icons8.com/external-flaticons-flat-flat-icons/64/open-archive.png", width=50)
-    #     st.write("Unstructured repository")
-    
-    # with col3:
-    #     st.markdown("### 💻 JupyterHub")
-    #     st.image("https://img.icons8.com/ios/50/jupyter.png", width=50)
-    #     st.write("Interactive computation")
-    
-    # with col4:
-    #     st.markdown("### 🧠 GitHub")
-    #     st.image("https://img.icons8.com/ios-filled/50/github.png", width=50)
-    #     st.write("Version control")
-    
-    # st.markdown("↓ ↓ ↓")
-    
-    # col5, col6 = st.columns([1, 2])
-    
-    # with col5:
-    #     st.markdown("### 🧰 Metadata Extraction")
-    #     st.image("https://img.icons8.com/external-icongeek26-flat-icongeek26/64/extract.png", width=50)
-    
-    # with col6:
-    #     st.markdown("### 📜 Provenance JSON → 🌐 Visualization")
-    #     st.image("https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/data-visualization.png", width=60)
-    #     st.write("All roads lead to insight ✨")
-#############################################################################
-#############################################################################
-
-
-    # st.subheader("🎯 Animated Infra Flow")
-    
-    # nodes = [
-    #     Node(id="DBRepo", label="DBRepo 📚"),
-    #     Node(id="Invenio", label="Invenio 🗃️"),
-    #     Node(id="JupyterHub", label="Jupyter 💻"),
-    #     Node(id="GitHub", label="GitHub 🧠"),
-    #     Node(id="VRE", label="VRE 🧪"),
-    #     Node(id="Metadata", label="Metadata 🧰"),
-    #     Node(id="Provenance JSON", label="JSON 📜"),
-    #     Node(id="Visualization", label="Viz 🌐")
-    # ]
-    
-    # edges = [
-    #     Edge(source="DBRepo", target="VRE"),
-    #     Edge(source="Invenio", target="VRE"),
-    #     Edge(source="JupyterHub", target="VRE"),
-    #     Edge(source="GitHub", target="VRE"),
-    #     Edge(source="Metadata", target="Provenance JSON"),
-    #     Edge(source="Provenance JSON", target="Visualization"),
-    #     Edge(source="VRE", target="Visualization")
-    # ]
-    
-    # config = Config(width=800, height=500, directed=True, physics=True)
-    # agraph(nodes=nodes, edges=edges, config=config)
+          <rect x="380" y="20" width="130" height="40" fill="#f9c74f" rx="10"/>
+          <text x="390" y="45" fill="black">🧠 GitHub</text>
+        
+          <rect x="200" y="80" width="150" height="40" fill="#90be6d" rx="10"/>
+          <text x="210" y="105" fill="white">🗃️ Invenio</text>
+        
+          <rect x="180" y="180" width="180" height="40" fill="#4d908e" rx="10"/>
+          <text x="190" y="205" fill="white">🧰 Metadata Extractor</text>
+        
+          <rect x="180" y="250" width="180" height="40" fill="#577590" rx="10"/>
+          <text x="200" y="275" fill="white">📜 Provenance JSON</text>
+        
+          <rect x="180" y="320" width="180" height="40" fill="#9b5de5" rx="10"/>
+          <text x="200" y="345" fill="white">🌐 Dashboard</text>
+        
+          <!-- VRE Flow Arrows -->
+          <line x1="170" y1="40" x2="200" y2="40" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="350" y1="40" x2="380" y2="40" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="275" y1="60" x2="275" y2="80" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+        
+          <!-- Metadata Curved Arrows -->
+          <path d="M60 60 C 100 150, 100 150, 190 190" stroke="#00d4ff" fill="none" stroke-width="2" marker-end="url(#arrow)"/>
+          <path d="M290 60 C 290 140, 270 140, 270 180" stroke="#00d4ff" fill="none" stroke-width="2" marker-end="url(#arrow)"/>
+          <path d="M450 60 C 400 150, 350 150, 360 190" stroke="#00d4ff" fill="none" stroke-width="2" marker-end="url(#arrow)"/>
+          <path d="M275 120 C 275 160, 275 160, 275 180" stroke="#00d4ff" fill="none" stroke-width="2" marker-end="url(#arrow)"/>
+        
+          <!-- Downstream Flow -->
+          <line x1="270" y1="220" x2="270" y2="250" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="270" y1="290" x2="270" y2="320" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+        </svg>
+        """
+        
+        components.html(f"""
+        <div style="text-align:center; background-color: transparent;">
+          {svg}
+        </div>
+        """, height=580)
 
 elif selected == "📁 Dataset Metadata":
     st.title("📁 Dataset Metadata")
-    st.write("Here is the dataset metadata.")
-    st.subheader("📁 Dataset Metadata")
+    st.markdown("""
+Review comprehensive metadata for the datasets used in your machine learning experiments.
+
+📁 **What you’ll find**:
+- Dataset titles, versions, and identifiers
+- Authorship, publication dates, and publisher information
+- Source platforms and linked repositories (e.g., DBRepo, Invenio)
+
+🔍 **Why it matters**:
+- Track the origin and integrity of training data  
+- Ensure FAIR (Findable, Accessible, Interoperable, Reusable) data principles  
+- Provide proper attribution in research outputs
+""")
 
     # Filter relevant columns
     dataset_cols = [
@@ -565,10 +527,20 @@ elif selected == "📁 Dataset Metadata":
 
 elif selected == "🧠 ML Model Metadata":
     st.title("🧠 ML Model Metadata")
-    st.write("Details about the ML model.")
+    st.markdown("""
+Explore detailed metadata about each machine learning model used in your experiments.
 
-    st.subheader("🧠 ML Training Configuration")
+🧠 **What’s included**:
+- Model hyperparameters (e.g., tree depth, split criteria)
+- Training and test dataset configuration
+- Python and ML library versions (e.g., scikit-learn, NumPy)
+- Evaluation metrics such as accuracy, F1 score, ROC AUC
 
+🔍 **Why it matters**:
+- Validate model training conditions  
+- Ensure consistent environments across experiments  
+- Support reproducibility and audit readiness
+""")
     run_ids = df['run_id'].dropna().unique()
     selected_run = st.selectbox("Select a Run ID", run_ids)
     run_df = df[df["run_id"] == selected_run]
@@ -615,7 +587,7 @@ elif selected == "🧠 ML Model Metadata":
                     regex=r'^metric_training_'
                 ).T)
 
-            st.markdown("#### 🛢️ DBRepo Lineage (Optional)")
+            st.markdown("#### 🛢️ DBRepo Lineage ")
             st.dataframe(run_df.filter(
                 regex=r'^metric_dbrepo\..*'
             ).T)
@@ -623,9 +595,23 @@ elif selected == "🧠 ML Model Metadata":
 
 
 elif selected == "📊 Model Plots":
-    st.title("📊 Model Plots")
-    st.write("Visualizations of the model.")
-    st.subheader("📊 Model Explainability & Evaluation Plots")
+    st.title("📊 Model Explainability & Evaluation Plots")
+    st.markdown("""
+Visualize how your machine learning model is performing — and understand **why** it's making the predictions it does.
+
+📊 **What you can explore**:
+- **Feature Importances** – Understand which features drive model decisions
+- **Confusion Matrix** – See how well your classifier is performing across classes
+- **SHAP Summary Plot** – Interpret individual feature contributions using SHAP values
+- **ROC & Precision-Recall Curves** – Evaluate classification performance under different thresholds
+
+🧠 **Why it's valuable**:
+- Gain insights into model behavior and interpretability  
+- Identify possible sources of bias or poor generalization  
+- Use visual diagnostics to improve model transparency and trustworthiness
+
+🔧 Select a plot from the dropdown to view it. You can also adjust the display size for better visibility.
+""")
 
     plot_dir = "plots"  # Adjust if you store plots elsewhere
 
@@ -662,14 +648,28 @@ elif selected == "📊 Model Plots":
 
 elif selected == "🛰️ Provenance Trace":
     st.title("🛰️ Provenance Trace")
-    st.write("Tracing the provenance.")
 
-    st.subheader("🛰️ Provenance Trace")
 
-    # Select a use case
-    use_case_name = st.selectbox("Select a Use Case", list(USE_CASES.keys()))
+    use_case_descriptions = {
+    "trace_preprocessing": "🔍 Trace preprocessing steps for a run (e.g., dropped columns, features used).",
+    "drop_impact": "📉 Measure accuracy impact of dropping a single feature.",
+    "drop_impact_all": "🧪 Test each feature’s drop impact to assess global importance.",
+    "best_feature_subset": "🎯 Evaluate model accuracy on a custom subset of features.",
+    "common_high_accuracy": "🏆 Find preprocessing patterns in high-accuracy runs (above a threshold)."
+}
+    st.markdown("### 📘 Use Case Selector")
+    for key, desc in use_case_descriptions.items():
+        st.markdown(f"**`{key}`** – {desc}")
+    
+    # Use case selection
+    use_case_name = st.selectbox(
+        "Select a Use Case",
+        options=list(USE_CASES.keys()),
+        help="Choose an analysis utility to run on your ML provenance data."
+    )
+    	
     use_case = USE_CASES[use_case_name]
-
+    
     # Collect required parameters
     params = {}
     for param in use_case['required_params']:
@@ -717,8 +717,20 @@ elif selected == "🛰️ Provenance Trace":
 
 elif selected == "🧭 Model-Dataset Mapping":
     st.title("🧭 Model-Dataset Mapping")
-    st.write("Mapping between models and datasets.")
-    st.subheader("🔗 Model to Dataset Mapping")
+    st.markdown("""
+Gain insights into which machine learning models were trained on which datasets — and view the associated metadata.
+
+🔗 **What you’ll see**:
+- Model names used in experiments
+- Dataset titles, DOIs, publishers, and version info
+- Attribution-ready links for research transparency
+
+🧪 **Why it's useful**:
+- Ensure proper dataset-model pairing  
+- Validate that models were trained on published or approved datasets  
+- Maintain clear provenance and reproducibility
+
+""")   
 
     try:
         results = map_model_dataset(df)
@@ -731,8 +743,19 @@ elif selected == "🧭 Model-Dataset Mapping":
 
 elif selected == "⚠️ Deprecated Code Check":
     st.title("⚠️ Deprecated Code Check")
-    st.write("Checking for deprecated code.")
-    st.subheader("⚠️ Deprecated Code Check")
+    st.markdown("""
+    Identify ML experiment runs that were executed using outdated or deprecated code versions.
+
+    🔍 **How it works**:  
+    Provide one or more Git commit hashes below (e.g., from GitHub history). The system will compare these against the commit hashes recorded in your experiment metadata and flag any matching runs.
+
+    🧪 **Use cases**:
+    - Track experiments run on stale forks or branches  
+    - Maintain codebase hygiene across collaborators  
+    - Ensure reproducibility by auditing legacy runs
+
+    💡 You can enter multiple commit hashes (one per line).
+    """)
     
         # Input for deprecated commits
     deprecated_commits_input = st.text_area(
@@ -755,258 +778,99 @@ elif selected == "⚠️ Deprecated Code Check":
     else:
             st.info("Please enter at least one deprecated commit hash.")
 
-# if page == "🏠 DASHBOARD":
 
-#         st.markdown("## 👋 Welcome to the ML Provenance Dashboard")
-#         st.markdown("""
-#         This tool is designed for researchers to interactively inspect:
-#         - 🧬 Dataset metadata  
-#         - 🧠 Training configuration  
-#         - 🛰️ Provenance trace  
-#         - ⚠️ Deprecated code usage  
-        
-#         Use the left menu to navigate between sections.
-#         """)
-        
-#         st.markdown("---")
-#         st.subheader("🔁 Infrastructure Provenance Flow")
-        
-#         # Define nodes in the infrastructure
-#         nodes = [
-#             "DBRepo (Structured Repository)",    # 0
-#             "Invenio (Unstructured Repository)", # 1
-#             "JupyterHub (Computational Layer)",  # 2
-#             "GitHub (Version Control)",          # 3
-#             "Virtual Research Environment (VRE)",# 4
-#             "Metadata Extraction",               # 5
-#             "Provenance JSON",                   # 6
-#             "Interactive Visualization"          # 7
-#         ]
-        
-#         # Define links (source-target-flow)
-#         sources = [0, 1, 2, 3, 5, 6, 4]
-#         targets = [4, 4, 4, 4, 6, 7, 7]
-#         values =  [1, 1, 1, 1, 1, 1, 1]
-        
-#         # Build Sankey Diagram
-#         fig = go.Figure(data=[go.Sankey(
-#             node=dict(
-#                 pad=15,
-#                 thickness=20,
-#                 line=dict(color="black", width=0.5),
-#                 label=nodes
-#             ),
-#             link=dict(
-#                 source=sources,
-#                 target=targets,
-#                 value=values
-#             )
-#         )])
-        
-#         fig.update_layout(title_text="Infrastructure Provenance Flow", font_size=12)
-#         st.plotly_chart(fig, use_container_width=True)
+elif selected == "📣 Notify Outdated Forks":
+    st.title("📣 Notify Outdated Forks")
+    st.markdown("""
+Detect whether collaborators' forks of your GitHub repository are out-of-date with the main branch — and automatically notify them by opening a GitHub Issue.
 
+📣 **What it does**:
+- Checks the latest commit in the main repository
+- Compares it with the latest commit in each fork
+- Identifies forks that are behind
+- Sends a polite issue notification to encourage syncing
 
-# elif page == "📁 Dataset Metadata":
-#     st.subheader("📁 Dataset Metadata")
+🔧 **How to use**:
+1. Enter the GitHub **owner**, **repository name**, and your **personal access token**  
+2. Click **🔔 Notify Fork Owners**  
+3. A GitHub Issue will be opened for any forks that are not up-to-date
 
-#     # Filter relevant columns
-#     dataset_cols = [
-#         "param_dataset.title", "param_dataset.doi", "param_dataset.authors",
-#         "param_dataset.publisher", "param_dataset.published",
-#         "tag_dataset_id", "tag_dataset_name", "tag_dataset_version",
-#         "tag_data_source", "param_database.name", "param_database.owner",
-#         "tag_dbrepo.repository_name"
-#     ]
+💡 Useful for collaborative research, codebase alignment, and project maintenance.
+""")
+    # Input fields
+    owner = st.text_input("GitHub Owner", value="reema-dass26")
+    repo = st.text_input("Repository Name", value="REPO")
+    token = st.text_input("GitHub Token", type="password")
 
-#     dataset_info = df[dataset_cols].copy()
+    if st.button("🔔 Notify Fork Owners"):
+        if not all([owner, repo, token]):
+            st.warning("Please fill in all fields before proceeding.")
+        else:
+            with st.spinner("Checking forks..."):
+                try:
+                    headers = {
+                        "Authorization": f"token {token}",
+                        "Accept": "application/vnd.github.v3+json"
+                    }
 
-#     # Dropdown to select dataset (optional, if more than one)
-#     dataset_names = dataset_info["tag_dataset_name"].dropna().unique()
+                    main_commits = requests.get(
+                        f"https://api.github.com/repos/{owner}/{repo}/commits",
+                        headers=headers,
+                        params={"per_page": 1}
+                    )
+                    main_commits.raise_for_status()
+                    new_commit_hash = main_commits.json()[0]["sha"]
+                    st.success(f"✅ Latest commit: `{new_commit_hash}`")
 
-#     selected_dataset = st.selectbox("Choose dataset", dataset_names)
+                    forks_resp = requests.get(
+                        f"https://api.github.com/repos/{owner}/{repo}/forks",
+                        headers=headers
+                    )
+                    forks_resp.raise_for_status()
+                    forks = forks_resp.json()
 
-#     filtered_df = dataset_info[dataset_info["tag_dataset_name"] == selected_dataset]
+                    outdated = []
+                    for fork in forks:
+                        fork_owner = fork["owner"]["login"]
+                        fork_comm = requests.get(
+                            fork["url"] + "/commits",
+                            headers=headers,
+                            params={"per_page": 1}
+                        )
+                        if fork_comm.status_code != 200:
+                            st.warning(f"⚠️ Could not check @{fork_owner}")
+                            continue
 
-#     if not filtered_df.empty:
-#         st.write("### Selected Dataset Metadata")
-#         st.dataframe(filtered_df.T)
-#     else:
-#         st.warning("No matching dataset found.")
+                        fork_sha = fork_comm.json()[0]["sha"]
+                        if fork_sha != new_commit_hash:
+                            outdated.append(fork_owner)
 
-# elif page == "🧠 ML Model Metadata":
-    # st.subheader("🧠 ML Training Configuration")
+                    if outdated:
+                        st.warning(f"These forks are outdated: {', '.join(outdated)}")
 
-    # run_ids = df['run_id'].dropna().unique()
-    # selected_run = st.selectbox("Select a Run ID", run_ids)
-    # run_df = df[df["run_id"] == selected_run]
+                        title = "🔔 Notification: Your fork is behind the latest commit"
+                        body = (
+                            f"Hi {' '.join(f'@{u}' for u in outdated)},\n\n"
+                            f"The main repository has been updated to commit `{new_commit_hash}`.\n"
+                            "Please consider pulling the latest changes to stay in sync.\n\n"
+                            "Thanks!"
+                        )
 
-    # if run_df.empty:
-    #     st.warning("No matching run found.")
-    # else:
-    #     tab1, tab2, tab3, tab4 = st.tabs([
-    #         "🛠️ Hyperparameters", "💻 Environment", "📊 Dataset Sampling", "📈 Metrics"
-    #     ])
+                        issue_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+                        issue_resp = requests.post(
+                            issue_url,
+                            headers=headers,
+                            json={"title": title, "body": body}
+                        )
 
-    #     with tab1:
-    #         st.write("### Training Hyperparameters")
-    #         st.dataframe(run_df.filter(
-    #             regex=r'^param_(criterion|max_depth|max_features|min_samples_split|min_samples_leaf|n_estimators|bootstrap|warm_start|oob_score|random_state)'
-    #         ).T)
+                        if issue_resp.status_code == 201:
+                            issue_link = issue_resp.json().get("html_url")
+                            st.success(f"Issue created: [View Issue]({issue_link})")
+                        else:
+                            st.error("❌ Failed to create issue.")
+                            st.code(issue_resp.text)
+                    else:
+                        st.success("✅ All forks are up-to-date!")
 
-    #     with tab2:
-    #         st.write("### Environment Info")
-    #         st.dataframe(run_df.filter(
-    #             regex=r'^param_(numpy_version|pandas_version|python_version|sklearn_version|matplotlib_version|seaborn_version|os_platform)'
-    #         ).T)
-
-    #     with tab3:
-    #         st.write("### Dataset Size & Sampling")
-    #         st.dataframe(run_df.filter(
-    #             regex=r'^param_(n_records|n_features|n_train_samples|n_test_samples|test_size|max_samples)'
-    #         ).T)
-
-    #     with tab4:
-    #         st.write("### Model Performance Metrics")
-
-    #         col1, col2 = st.columns(2)
-
-    #         with col1:
-    #             st.markdown("#### ✅ Evaluation (Test Set)")
-    #             st.dataframe(run_df.filter(
-    #                 regex=r'^metric_(accuracy$|f1_score_X_test|precision_score_X_test|recall_score_X_test|roc_auc_score_X_test)'
-    #             ).T)
-
-    #         with col2:
-    #             st.markdown("#### 🏋️ Training Set")
-    #             st.dataframe(run_df.filter(
-    #                 regex=r'^metric_training_'
-    #             ).T)
-
-    #         st.markdown("#### 🛢️ DBRepo Lineage (Optional)")
-    #         st.dataframe(run_df.filter(
-    #             regex=r'^metric_dbrepo\..*'
-    #         ).T)
-
-
-# elif page == "🛰️ Provenance Trace":
-#     st.subheader("🛰️ Provenance Trace")
-
-#     # Select a use case
-#     use_case_name = st.selectbox("Select a Use Case", list(USE_CASES.keys()))
-#     use_case = USE_CASES[use_case_name]
-
-#     # Collect required parameters
-#     params = {}
-#     for param in use_case['required_params']:
-#         if param == 'feature':
-#             all_features = _get_all_features(df)
-#             selected_feature = st.selectbox("Select a Feature", all_features)
-#             params['feature'] = selected_feature
-#         elif param == 'features':
-#             all_features = _get_all_features(df)
-#             selected_features = st.multiselect("Select Features", all_features)
-#             params['features'] = selected_features
-#         elif param == 'threshold':
-#             threshold = st.slider("Set Accuracy Threshold", min_value=0.0, max_value=1.0, value=0.95)
-#             params['threshold'] = threshold
-#         else:
-#             param_value = st.text_input(f"Enter value for {param}")
-#             params[param] = param_value
-
-#     # Collect optional parameters
-#     for param in use_case['optional_params']:
-#         if param == 'run_id':
-#             run_ids = df['run_id'].dropna().unique()
-#             selected_run_id = st.selectbox("Select a Run ID (Optional)", run_ids)
-#             params['run_id'] = selected_run_id
-#         else:
-#             param_value = st.text_input(f"Enter value for {param} (Optional)")
-#             params[param] = param_value
-
-#     # Execute the selected use case
-#     if st.button("Run Use Case"):
-#         try:
-#             result = use_case['func'](df, **params)
-#             if isinstance(result, pd.DataFrame):
-#                 st.dataframe(result)
-#             elif isinstance(result, list):
-#                 st.json(result)
-#             elif isinstance(result, dict):
-#                 st.json(result)
-#             else:
-#                 st.write(result)
-#         except Exception as e:
-#             st.error(f"An error occurred: {e}")
-
-
-# elif page == "⚠️ Deprecated Code Check":
-    # st.subheader("⚠️ Deprecated Code Check")
-    
-    #     # Input for deprecated commits
-    # deprecated_commits_input = st.text_area(
-    #         "Enter deprecated commit hashes (one per line):",
-    #         height=100
-    #     )
-    
-    # if deprecated_commits_input:
-    #         deprecated_commits = [line.strip() for line in deprecated_commits_input.strip().split('\n') if line.strip()]
-    #         if st.button("Run Check"):
-    #             try:
-    #                 results = detect_deprecated_code(df, deprecated_commits=deprecated_commits)
-    #                 if results:
-    #                     st.write("### Runs using deprecated commits:")
-    #                     st.dataframe(pd.DataFrame(results))
-    #                 else:
-    #                     st.success("No runs found with deprecated commits.")
-    #             except Exception as e:
-    #                 st.error(f"An error occurred: {e}")
-    # else:
-    #         st.info("Please enter at least one deprecated commit hash.")
-
-# elif page == "📊 Model Plots":
-    # st.subheader("📊 Model Explainability & Evaluation Plots")
-
-    # plot_dir = "plots"  # Adjust if you store plots elsewhere
-
-    # plot_options = {
-    #     "Feature Importances": "RandomForest_Iris_v20250424_111946/feature_importances.png",
-    #     "Confusion Matrix": "RandomForest_Iris_v20250424_111946/confusion_matrix.png",
-    #     "SHAP Summary": "RandomForest_Iris_v20250424_111946/shap_summary.png",
-    #     "ROC Curve (Class 0)": "RandomForest_Iris_v20250424_111946/roc_curve_cls_0.png",
-    #     "Precision-Recall (Class 0)": "RandomForest_Iris_v20250424_111946/pr_curve_cls_0.png"
-    # }
-
-    # selected_plot = st.selectbox("Choose a plot to view", list(plot_options.keys()))
-
-    # try:
-    #     plot_path = os.path.join(plot_dir, plot_options[selected_plot])
-    #     # st.image(plot_path, caption=selected_plot, width=600)
-    #     plot_width = st.slider("Adjust plot width", 400, 1000, 600)
-    #     st.image(plot_path, caption=selected_plot, width=plot_width)
-
-    #     # Optional: add explanation under plot
-    #     if "Feature Importances" in selected_plot:
-    #         st.markdown("**Interpretation:** Shows which features contribute most to predictions.")
-    #     elif "SHAP" in selected_plot:
-    #         st.markdown("**Interpretation:** SHAP summary plots show feature impact and distribution.")
-    #     elif "ROC" in selected_plot:
-    #         st.markdown("**Interpretation:** ROC curves visualize classifier trade-off between sensitivity and specificity.")
-    #     elif "Precision-Recall" in selected_plot:
-    #         st.markdown("**Interpretation:** Precision-Recall curves help understand classifier performance on imbalanced data.")
-    #     elif "Confusion" in selected_plot:
-    #         st.markdown("**Interpretation:** The confusion matrix shows how many predictions were correct or misclassified.")
-    # except FileNotFoundError:
-    #     st.warning("Plot not found. Please ensure the image exists in the correct directory.")
-
-# elif page == "Model-Dataset Mapping":
-#     st.subheader("🔗 Model to Dataset Mapping")
-
-#     try:
-#         results = map_model_dataset(df)
-#         if results:
-#             st.dataframe(pd.DataFrame(results))
-#         else:
-#             st.warning("No model-dataset mappings found.")
-#     except Exception as e:
-#         st.error(f"An error occurred: {e}")
+                except Exception as e:
+                    st.error(f"An error occurred: {e}")
