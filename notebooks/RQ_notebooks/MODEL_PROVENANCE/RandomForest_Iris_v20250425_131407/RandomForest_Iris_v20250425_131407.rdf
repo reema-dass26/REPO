@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:prov="http://www.w3.org/ns/prov#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://example.org/RandomForest_Iris_v20250425_131407">
+    <prov:run_id>8f7521eaa562415d9a450f4167a127ab</prov:run_id>
+    <prov:run_name>defiant-bat-29</prov:run_name>
+    <prov:experiment_id>615223710259862608</prov:experiment_id>
+    <prov:start_time>1745579646269</prov:start_time>
+    <prov:end_time>None</prov:end_time>
+    <prov:params_bootstrap>True</prov:params_bootstrap>
+    <prov:params_ccp_alpha>0.0</prov:params_ccp_alpha>
+    <prov:params_class_weight>None</prov:params_class_weight>
+    <prov:params_columns_raw>['id', 'sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm', 'species']</prov:params_columns_raw>
+    <prov:params_criterion>entropy</prov:params_criterion>
+    <prov:params_database_description>None</prov:params_database_description>
+    <prov:params_database_id>c3a42d17-42b7-43c9-a504-2363fb4c9c8d</prov:params_database_id>
+    <prov:params_database_name>Iris</prov:params_database_name>
+    <prov:params_database_owner>reema</prov:params_database_owner>
+    <prov:params_dataset_authors>["Marshall Michael"]</prov:params_dataset_authors>
+    <prov:params_dataset_doi>10.5281/ZENODO.1404173</prov:params_dataset_doi>
+    <prov:params_dataset_published>2018-8-27</prov:params_dataset_published>
+    <prov:params_dataset_publisher>Zenodo</prov:params_dataset_publisher>
+    <prov:params_dataset_title>Scikit-Learn Iris</prov:params_dataset_title>
+    <prov:params_dropped_columns>['id']</prov:params_dropped_columns>
+    <prov:params_feature_names>['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']</prov:params_feature_names>
+    <prov:params_matplotlib_version>3.7.2</prov:params_matplotlib_version>
+    <prov:params_max_depth>12</prov:params_max_depth>
+    <prov:params_max_features>sqrt</prov:params_max_features>
+    <prov:params_max_leaf_nodes>None</prov:params_max_leaf_nodes>
+    <prov:params_max_samples>None</prov:params_max_samples>
+    <prov:params_min_impurity_decrease>0.0</prov:params_min_impurity_decrease>
+    <prov:params_min_samples_leaf>2</prov:params_min_samples_leaf>
+    <prov:params_min_samples_split>5</prov:params_min_samples_split>
+    <prov:params_min_weight_fraction_leaf>0.0</prov:params_min_weight_fraction_leaf>
+    <prov:params_numpy_version>1.24.4</prov:params_numpy_version>
+    <prov:params_n_estimators>200</prov:params_n_estimators>
+    <prov:params_n_features>4</prov:params_n_features>
+    <prov:params_n_features_final>4</prov:params_n_features_final>
+    <prov:params_n_jobs>-1</prov:params_n_jobs>
+    <prov:params_n_records>150</prov:params_n_records>
+    <prov:params_n_test_samples>30</prov:params_n_test_samples>
+    <prov:params_n_train_samples>120</prov:params_n_train_samples>
+    <prov:params_oob_score>False</prov:params_oob_score>
+    <prov:params_os_platform>Windows 10</prov:params_os_platform>
+    <prov:params_pandas_version>2.2.3</prov:params_pandas_version>
+    <prov:params_python_version>3.11.5</prov:params_python_version>
+    <prov:params_random_state>42</prov:params_random_state>
+    <prov:params_retrieval_time>2025-04-25T11:14:07.431218</prov:params_retrieval_time>
+    <prov:params_seaborn_version>0.12.2</prov:params_seaborn_version>
+    <prov:params_shap_version>0.47.1</prov:params_shap_version>
+    <prov:params_sklearn_version>1.3.0</prov:params_sklearn_version>
+    <prov:params_test_size>0.2</prov:params_test_size>
+    <prov:params_verbose>1</prov:params_verbose>
+    <prov:params_warm_start>False</prov:params_warm_start>
+    <prov:metrics_accuracy>1.0</prov:metrics_accuracy>
+    <prov:metrics_dbrepo_num_deletes>0.0</prov:metrics_dbrepo_num_deletes>
+    <prov:metrics_dbrepo_num_inserts>1.0</prov:metrics_dbrepo_num_inserts>
+    <prov:metrics_dbrepo_row_count_end>150.0</prov:metrics_dbrepo_row_count_end>
+    <prov:metrics_dbrepo_row_count_start>150.0</prov:metrics_dbrepo_row_count_start>
+    <prov:metrics_f1_macro>1.0</prov:metrics_f1_macro>
+    <prov:metrics_precision_macro>1.0</prov:metrics_precision_macro>
+    <prov:metrics_recall_macro>1.0</prov:metrics_recall_macro>
+    <prov:metrics_roc_auc>1.0</prov:metrics_roc_auc>
+    <prov:metrics_training_accuracy_score>0.9666666666666667</prov:metrics_training_accuracy_score>
+    <prov:metrics_training_f1_score>0.9666666666666667</prov:metrics_training_f1_score>
+    <prov:metrics_training_log_loss>0.06535223011958341</prov:metrics_training_log_loss>
+    <prov:metrics_training_precision_score>0.9674588284344383</prov:metrics_training_precision_score>
+    <prov:metrics_training_recall_score>0.9666666666666667</prov:metrics_training_recall_score>
+    <prov:metrics_training_roc_auc>0.9987492182614135</prov:metrics_training_roc_auc>
+    <prov:metrics_training_score>0.9666666666666667</prov:metrics_training_score>
+    <prov:tags_dataset_id>iris_local</prov:tags_dataset_id>
+    <prov:tags_dataset_name>Iris</prov:tags_dataset_name>
+    <prov:tags_dataset_version>1.0.0</prov:tags_dataset_version>
+    <prov:tags_data_source>http://localhost/api/database/c3a42d17-42b7-43c9-a504-2363fb4c9c8d/table/5315e7da-64fb-4fdb-b493-95b4138c765f/data?size=100000&amp;page=0</prov:tags_data_source>
+    <prov:tags_dbrepo_admin_email>noreply@localhost</prov:tags_dbrepo_admin_email>
+    <prov:tags_dbrepo_base_url>http://localhost</prov:tags_dbrepo_base_url>
+    <prov:tags_dbrepo_granularity>YYYY-MM-DDThh:mm:ssZ</prov:tags_dbrepo_granularity>
+    <prov:tags_dbrepo_protocol_version>2.0</prov:tags_dbrepo_protocol_version>
+    <prov:tags_dbrepo_repository_name>Database Repository</prov:tags_dbrepo_repository_name>
+    <prov:tags_dbrepo_table_last_modified>2025-04-23T20:42:29.501Z</prov:tags_dbrepo_table_last_modified>
+    <prov:tags_estimator_class>sklearn.ensemble._forest.RandomForestClassifier</prov:tags_estimator_class>
+    <prov:tags_estimator_name>RandomForestClassifier</prov:tags_estimator_name>
+    <prov:tags_git_current_commit_hash>ac1670d33efd1522e7eb68bb44b935d9574f8bf0</prov:tags_git_current_commit_hash>
+    <prov:tags_git_previous_commit_hash>e67d756afe694e01d42bbac8ab69de73007f473a</prov:tags_git_previous_commit_hash>
+    <prov:tags_git__current_commit_url>https://github.com/reema-dass26/REPO/commit/ac1670d33efd1522e7eb68bb44b935d9574f8bf0</prov:tags_git__current_commit_url>
+    <prov:tags_justification_bootstrap>test</prov:tags_justification_bootstrap>
+    <prov:tags_justification_class_weight>test</prov:tags_justification_class_weight>
+    <prov:tags_justification_criterion>test</prov:tags_justification_criterion>
+    <prov:tags_justification_dataset_version>test</prov:tags_justification_dataset_version>
+    <prov:tags_justification_drop_column_X>test</prov:tags_justification_drop_column_X>
+    <prov:tags_justification_experiment_name>test</prov:tags_justification_experiment_name>
+    <prov:tags_justification_max_depth>test</prov:tags_justification_max_depth>
+    <prov:tags_justification_max_features>test</prov:tags_justification_max_features>
+    <prov:tags_justification_metric_choice>test</prov:tags_justification_metric_choice>
+    <prov:tags_justification_min_samples_leaf>test</prov:tags_justification_min_samples_leaf>
+    <prov:tags_justification_min_samples_split>test</prov:tags_justification_min_samples_split>
+    <prov:tags_justification_model_choice>test</prov:tags_justification_model_choice>
+    <prov:tags_justification_n_estimators>test</prov:tags_justification_n_estimators>
+    <prov:tags_justification_n_jobs>test</prov:tags_justification_n_jobs>
+    <prov:tags_justification_oob_score>test</prov:tags_justification_oob_score>
+    <prov:tags_justification_random_state>test</prov:tags_justification_random_state>
+    <prov:tags_justification_target_variable>test</prov:tags_justification_target_variable>
+    <prov:tags_justification_test_split>test</prov:tags_justification_test_split>
+    <prov:tags_justification_threshold_accuracy>test</prov:tags_justification_threshold_accuracy>
+    <prov:tags_justification_verbose>test</prov:tags_justification_verbose>
+    <prov:tags_mlflow_log-model_history>[{"run_id": "8f7521eaa562415d9a450f4167a127ab", "artifact_path": "model", "utc_time_created": "2025-04-25 11:14:30.293566", "model_uuid": "24744c62104b4234b9e779827115b18e", "flavors": {"python_function": {"model_path": "model.pkl", "predict_fn": "predict", "loader_module": "mlflow.sklearn", "python_version": "3.11.5", "env": {"conda": "conda.yaml", "virtualenv": "python_env.yaml"}}, "sklearn": {"pickled_model": "model.pkl", "sklearn_version": "1.3.0", "serialization_format": "cloudpickle", "code": null}}}]</prov:tags_mlflow_log-model_history>
+    <prov:tags_mlflow_runName>defiant-bat-29</prov:tags_mlflow_runName>
+    <prov:tags_mlflow_source_name>C:\Users\reema\AppData\Roaming\Python\Python311\site-packages\ipykernel_launcher.py</prov:tags_mlflow_source_name>
+    <prov:tags_mlflow_source_type>LOCAL</prov:tags_mlflow_source_type>
+    <prov:tags_mlflow_user>reema</prov:tags_mlflow_user>
+    <prov:tags_model_name>RandomForest_Iris_v20250425_131407</prov:tags_model_name>
+    <prov:tags_notebook_name>RQ1.ipynb</prov:tags_notebook_name>
+    <prov:tags_target_name>[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]</prov:tags_target_name>
+    <prov:tags_training_end_time>2025-04-25T13:14:37.806516</prov:tags_training_end_time>
+    <prov:tags_training_start_time>2025-04-25T13:14:07.465803</prov:tags_training_start_time>
+  </rdf:Description>
+</rdf:RDF>

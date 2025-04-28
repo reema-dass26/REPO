@@ -1,46 +1,454 @@
 {
   "@context": {
-    "run_id": {
-      "@id": "run_id"
+    "params.criterion": {
+      "@id": "params.criterion"
+    },
+    "tags.justification_dataset_version": {
+      "@id": "tags.justification_dataset_version"
+    },
+    "params.database.id": {
+      "@id": "params.database.id"
+    },
+    "metrics.precision_score_X_test": {
+      "@id": "metrics.precision_score_X_test"
+    },
+    "params.oob_score": {
+      "@id": "params.oob_score"
     },
     "run_name": {
       "@id": "run_name"
     },
-    "experiment_id": {
-      "@id": "experiment_id"
+    "invenio_metadata.files.url": {
+      "@id": "invenio_metadata.files.url"
     },
-    "params": {
-      "@id": "params"
+    "tags.notebook_name": {
+      "@id": "tags.notebook_name"
     },
-    "metrics": {
-      "@id": "metrics"
+    "params.ccp_alpha": {
+      "@id": "params.ccp_alpha"
+    },
+    "metrics.training_precision_score": {
+      "@id": "metrics.training_precision_score"
+    },
+    "tags.dbrepo.repository_name": {
+      "@id": "tags.dbrepo.repository_name"
+    },
+    "artifacts.content": {
+      "@id": "artifacts.content"
+    },
+    "params.max_depth": {
+      "@id": "params.max_depth"
+    },
+    "invenio_metadata.publication_date": {
+      "@id": "invenio_metadata.publication_date"
+    },
+    "params.n_train_samples": {
+      "@id": "params.n_train_samples"
+    },
+    "invenio_metadata.version_info.is_latest_draft": {
+      "@id": "invenio_metadata.version_info.is_latest_draft"
+    },
+    "metrics.training_log_loss": {
+      "@id": "metrics.training_log_loss"
+    },
+    "tags.justification_max_depth": {
+      "@id": "tags.justification_max_depth"
     },
     "artifacts": {
       "@id": "artifacts"
     },
+    "params.class_weight": {
+      "@id": "params.class_weight"
+    },
+    "params.columns_raw": {
+      "@id": "params.columns_raw"
+    },
+    "invenio_metadata": {
+      "@id": "invenio_metadata"
+    },
+    "params.min_impurity_decrease": {
+      "@id": "params.min_impurity_decrease"
+    },
+    "metrics.dbrepo.row_count_start": {
+      "@id": "metrics.dbrepo.row_count_start"
+    },
+    "params.retrieval_time": {
+      "@id": "params.retrieval_time"
+    },
+    "params.warm_start": {
+      "@id": "params.warm_start"
+    },
+    "params.python_version": {
+      "@id": "params.python_version"
+    },
     "tags": {
       "@id": "tags"
     },
-    "prov": "http://www.w3.org/ns/prov#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "params.dataset.doi": {
+      "@id": "params.dataset.doi"
+    },
+    "tags.justification_test_split": {
+      "@id": "tags.justification_test_split"
+    },
+    "invenio_metadata.pids.oai.provider": {
+      "@id": "invenio_metadata.pids.oai.provider"
+    },
+    "tags.mlflow.runName": {
+      "@id": "tags.mlflow.runName"
+    },
+    "metrics.f1_score_X_test": {
+      "@id": "metrics.f1_score_X_test"
+    },
+    "params.max_features": {
+      "@id": "params.max_features"
+    },
+    "tags.estimator_name": {
+      "@id": "tags.estimator_name"
+    },
+    "params.shap_version": {
+      "@id": "params.shap_version"
+    },
+    "tags.justification_metric_choice": {
+      "@id": "tags.justification_metric_choice"
+    },
+    "tags.dataset_id": {
+      "@id": "tags.dataset_id"
+    },
+    "tags.mlflow.user": {
+      "@id": "tags.mlflow.user"
+    },
+    "tags.mlflow.source.name": {
+      "@id": "tags.mlflow.source.name"
+    },
+    "metrics.accuracy": {
+      "@id": "metrics.accuracy"
+    },
+    "invenio_metadata.version_info": {
+      "@id": "invenio_metadata.version_info"
+    },
+    "tags.justification_experiment_name": {
+      "@id": "tags.justification_experiment_name"
+    },
+    "params.numpy_version": {
+      "@id": "params.numpy_version"
+    },
+    "metrics.roc_auc": {
+      "@id": "metrics.roc_auc"
+    },
+    "tags.dbrepo.table_last_modified": {
+      "@id": "tags.dbrepo.table_last_modified"
+    },
+    "tags.training_start_time": {
+      "@id": "tags.training_start_time"
+    },
+    "metrics.roc_auc_score_X_test": {
+      "@id": "metrics.roc_auc_score_X_test"
+    },
+    "params.max_leaf_nodes": {
+      "@id": "params.max_leaf_nodes"
+    },
+    "tags.justification_criterion": {
+      "@id": "tags.justification_criterion"
+    },
+    "invenio_metadata.status": {
+      "@id": "invenio_metadata.status"
+    },
+    "tags.data_source": {
+      "@id": "tags.data_source"
+    },
+    "invenio_metadata.files.mimetype": {
+      "@id": "invenio_metadata.files.mimetype"
+    },
+    "params.feature_names": {
+      "@id": "params.feature_names"
+    },
+    "invenio_metadata.files.size": {
+      "@id": "invenio_metadata.files.size"
+    },
+    "invenio_metadata.creator": {
+      "@id": "invenio_metadata.creator"
+    },
+    "params.dataset.publisher": {
+      "@id": "params.dataset.publisher"
+    },
+    "params.verbose": {
+      "@id": "params.verbose"
+    },
     "start_time": {
       "@id": "prov:startedAtTime",
       "@type": "xsd:dateTime"
+    },
+    "invenio_metadata.files.checksum": {
+      "@id": "invenio_metadata.files.checksum"
+    },
+    "tags.git_previous_commit_hash": {
+      "@id": "tags.git_previous_commit_hash"
+    },
+    "tags.model_name": {
+      "@id": "tags.model_name"
+    },
+    "tags.justification_random_state": {
+      "@id": "tags.justification_random_state"
+    },
+    "tags.mlflow.source.type": {
+      "@id": "tags.mlflow.source.type"
+    },
+    "invenio_metadata.files.key": {
+      "@id": "invenio_metadata.files.key"
+    },
+    "metrics.dbrepo.row_count_end": {
+      "@id": "metrics.dbrepo.row_count_end"
+    },
+    "invenio_metadata.files.metadata.height": {
+      "@id": "invenio_metadata.files.metadata.height"
+    },
+    "params": {
+      "@id": "params"
+    },
+    "invenio_metadata.pids.oai": {
+      "@id": "invenio_metadata.pids.oai"
+    },
+    "tags.target_name": {
+      "@id": "tags.target_name"
+    },
+    "tags.dataset_name": {
+      "@id": "tags.dataset_name"
+    },
+    "params.matplotlib_version": {
+      "@id": "params.matplotlib_version"
+    },
+    "params.os_platform": {
+      "@id": "params.os_platform"
     },
     "end_time": {
       "@id": "prov:endedAtTime",
       "@type": "xsd:dateTime"
     },
-    "used": {
-      "@id": "prov:used",
-      "@type": "@id"
+    "tags.justification_verbose": {
+      "@id": "tags.justification_verbose"
     },
-    "generated": {
-      "@id": "prov:generated",
-      "@type": "@id"
+    "params.random_state": {
+      "@id": "params.random_state"
     },
-    "@id": "@id",
-    "@type": "@type"
+    "params.n_records": {
+      "@id": "params.n_records"
+    },
+    "tags.dataset_version": {
+      "@id": "tags.dataset_version"
+    },
+    "metrics.recall_score_X_test": {
+      "@id": "metrics.recall_score_X_test"
+    },
+    "metrics.training_score": {
+      "@id": "metrics.training_score"
+    },
+    "invenio_metadata.views": {
+      "@id": "invenio_metadata.views"
+    },
+    "tags.dbrepo.granularity": {
+      "@id": "tags.dbrepo.granularity"
+    },
+    "params.seaborn_version": {
+      "@id": "params.seaborn_version"
+    },
+    "artifacts.uri": {
+      "@id": "artifacts.uri"
+    },
+    "tags.justification_threshold_accuracy": {
+      "@id": "tags.justification_threshold_accuracy"
+    },
+    "tags.training_end_time": {
+      "@id": "tags.training_end_time"
+    },
+    "tags.justification_drop_column_X": {
+      "@id": "tags.justification_drop_column_X"
+    },
+    "metrics.dbrepo.num_deletes": {
+      "@id": "metrics.dbrepo.num_deletes"
+    },
+    "tags.dbrepo.protocol_version": {
+      "@id": "tags.dbrepo.protocol_version"
+    },
+    "tags.justification_min_samples_leaf": {
+      "@id": "tags.justification_min_samples_leaf"
+    },
+    "tags.estimator_class": {
+      "@id": "tags.estimator_class"
+    },
+    "metrics.dbrepo.num_inserts": {
+      "@id": "metrics.dbrepo.num_inserts"
+    },
+    "invenio_metadata.version_info.index": {
+      "@id": "invenio_metadata.version_info.index"
+    },
+    "run_id": {
+      "@id": "run_id"
+    },
+    "params.dropped_columns": {
+      "@id": "params.dropped_columns"
+    },
+    "tags.justification_class_weight": {
+      "@id": "tags.justification_class_weight"
+    },
+    "params.n_test_samples": {
+      "@id": "params.n_test_samples"
+    },
+    "params.test_size": {
+      "@id": "params.test_size"
+    },
+    "invenio_metadata.pids": {
+      "@id": "invenio_metadata.pids"
+    },
+    "tags.git_current_commit_hash": {
+      "@id": "tags.git_current_commit_hash"
+    },
+    "params.database.owner": {
+      "@id": "params.database.owner"
+    },
+    "params.bootstrap": {
+      "@id": "params.bootstrap"
+    },
+    "metrics.precision_macro": {
+      "@id": "metrics.precision_macro"
+    },
+    "tags.git__current_commit_url": {
+      "@id": "tags.git__current_commit_url"
+    },
+    "artifacts.type": {
+      "@id": "artifacts.type"
+    },
+    "invenio_metadata.files": {
+      "@id": "invenio_metadata.files"
+    },
+    "tags.dbrepo.admin_email": {
+      "@id": "tags.dbrepo.admin_email"
+    },
+    "invenio_metadata.title": {
+      "@id": "invenio_metadata.title"
+    },
+    "tags.dbrepo.base_url": {
+      "@id": "tags.dbrepo.base_url"
+    },
+    "tags.justification_model_choice": {
+      "@id": "tags.justification_model_choice"
+    },
+    "params.n_features": {
+      "@id": "params.n_features"
+    },
+    "invenio_metadata.id": {
+      "@id": "invenio_metadata.id"
+    },
+    "metrics.training_roc_auc": {
+      "@id": "metrics.training_roc_auc"
+    },
+    "tags.justification_min_samples_split": {
+      "@id": "tags.justification_min_samples_split"
+    },
+    "params.min_samples_leaf": {
+      "@id": "params.min_samples_leaf"
+    },
+    "invenio_metadata.files.metadata.width": {
+      "@id": "invenio_metadata.files.metadata.width"
+    },
+    "params.n_estimators": {
+      "@id": "params.n_estimators"
+    },
+    "params.database.name": {
+      "@id": "params.database.name"
+    },
+    "params.dataset.authors": {
+      "@id": "params.dataset.authors"
+    },
+    "tags.justification_target_variable": {
+      "@id": "tags.justification_target_variable"
+    },
+    "params.sklearn_version": {
+      "@id": "params.sklearn_version"
+    },
+    "metrics.f1_macro": {
+      "@id": "metrics.f1_macro"
+    },
+    "experiment_id": {
+      "@id": "experiment_id"
+    },
+    "params.dataset.published": {
+      "@id": "params.dataset.published"
+    },
+    "metrics.training_accuracy_score": {
+      "@id": "metrics.training_accuracy_score"
+    },
+    "tags.justification_max_features": {
+      "@id": "tags.justification_max_features"
+    },
+    "tags.justification_bootstrap": {
+      "@id": "tags.justification_bootstrap"
+    },
+    "tags.justification_oob_score": {
+      "@id": "tags.justification_oob_score"
+    },
+    "metrics.accuracy_score_X_test": {
+      "@id": "metrics.accuracy_score_X_test"
+    },
+    "params.min_weight_fraction_leaf": {
+      "@id": "params.min_weight_fraction_leaf"
+    },
+    "params.n_jobs": {
+      "@id": "params.n_jobs"
+    },
+    "invenio_metadata.pids.oai.identifier": {
+      "@id": "invenio_metadata.pids.oai.identifier"
+    },
+    "params.dataset.title": {
+      "@id": "params.dataset.title"
+    },
+    "params.database.description": {
+      "@id": "params.database.description"
+    },
+    "metrics": {
+      "@id": "metrics"
+    },
+    "params.min_samples_split": {
+      "@id": "params.min_samples_split"
+    },
+    "metrics.recall_macro": {
+      "@id": "metrics.recall_macro"
+    },
+    "tags.justification_n_jobs": {
+      "@id": "tags.justification_n_jobs"
+    },
+    "artifacts.path": {
+      "@id": "artifacts.path"
+    },
+    "metrics.training_recall_score": {
+      "@id": "metrics.training_recall_score"
+    },
+    "params.max_samples": {
+      "@id": "params.max_samples"
+    },
+    "tags.mlflow.log-model.history": {
+      "@id": "tags.mlflow.log-model.history"
+    },
+    "invenio_metadata.files.metadata": {
+      "@id": "invenio_metadata.files.metadata"
+    },
+    "metrics.training_f1_score": {
+      "@id": "metrics.training_f1_score"
+    },
+    "params.pandas_version": {
+      "@id": "params.pandas_version"
+    },
+    "params.n_features_final": {
+      "@id": "params.n_features_final"
+    },
+    "invenio_metadata.version_info.is_latest": {
+      "@id": "invenio_metadata.version_info.is_latest"
+    },
+    "invenio_metadata.downloads": {
+      "@id": "invenio_metadata.downloads"
+    },
+    "tags.justification_n_estimators": {
+      "@id": "tags.justification_n_estimators"
+    }
   },
   "run_id": "28f01e38b7f04d2f948fe21f57f41d0c",
   "run_name": "amazing-sponge-952",
