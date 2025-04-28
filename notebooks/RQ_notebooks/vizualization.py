@@ -336,11 +336,12 @@ with st.sidebar:
             "🧭 Model-Dataset Mapping",
             "📣 Notify Outdated Forks",
             "📘 Researcher Justifications",
-            "📚 Invenio Metadata"
+            "📚 Invenio Metadata",
+            "📤 Export Provenance"
 
         ],
         icons=[
-            "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" , "book"
+            "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" , "book","cloud-download"
         ],
         menu_icon="cast",
         default_index=0,
@@ -1053,3 +1054,63 @@ elif selected == "📚 Invenio Metadata":
     
         except Exception as e:
             st.error(f"❌ Error loading Invenio metadata: {e}")
+
+elif selected == "📤 Export Provenance":
+    st.title("📤 Export Provenance")
+
+    # 1. List available runs
+    provenance_folders = glob.glob(os.path.join("MODEL_PROVENANCE", "RandomForest_Iris_v*"))
+    provenance_folders = [os.path.basename(folder) for folder in provenance_folders]
+
+    if not provenance_folders:
+        st.warning("⚠️ No provenance data available.")
+    else:
+        # 2. Run selection
+        selected_run = st.selectbox("Select a Run ID", provenance_folders)
+
+        # 3. Format selection
+        export_format = st.radio(
+            "Choose Export Format",
+            options=["JSON", "JSON-LD", "RDF/XML"]
+        )
+
+        # 4. Base folder
+        base_path = os.path.join("MODEL_PROVENANCE", selected_run)
+
+        # 5. File discovery
+        file_path = None
+        viz_path = None
+
+        if export_format == "JSON":
+            file_path = os.path.join(base_path, f"{selected_run}_run_summary.json")
+        elif export_format == "JSON-LD":
+            jsonld_files = glob.glob(os.path.join(base_path, "*.jsonld"))
+            file_path = jsonld_files[0] if jsonld_files else None
+            viz_candidates = glob.glob(os.path.join(base_path, "*JSONLD_viz.png"))
+            viz_path = viz_candidates[0] if viz_candidates else None
+        elif export_format == "RDF/XML":
+            xml_files = glob.glob(os.path.join(base_path, "*.xml"))
+            file_path = xml_files[0] if xml_files else None
+            viz_candidates = glob.glob(os.path.join(base_path, "*RDFXML_viz.png"))
+            viz_path = viz_candidates[0] if viz_candidates else None
+
+        # 6. Download and Preview
+        if file_path and os.path.exists(file_path):
+            with open(file_path, "rb") as file:
+                file_content = file.read()
+
+            st.download_button(
+                label=f"📥 Download {export_format}",
+                data=file_content,
+                file_name=os.path.basename(file_path),
+                mime="application/json" if "json" in file_path.lower() else "application/xml"
+            )
+
+            # 7. If Visualization exists
+            if viz_path and os.path.exists(viz_path):
+                st.image(viz_path, caption=f"Visualization for {export_format}", use_column_width=True)
+            else:
+                st.info("🔍 No visualization available for this format.")
+
+        else:
+            st.error(f"❌ {export_format} file not found for this run.")

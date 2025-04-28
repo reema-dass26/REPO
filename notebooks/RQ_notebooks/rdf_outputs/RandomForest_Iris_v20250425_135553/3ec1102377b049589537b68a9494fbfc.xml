@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:prov="http://www.w3.org/ns/prov#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_samples">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>None</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_serving_input_example.json">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+    <prov:startedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-04-25T11:55:47.903000+00:00</prov:startedAtTime>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/bootstrap"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/ccp_alpha"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/class_weight"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/columns_raw"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/criterion"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.description"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.id"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.name"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.owner"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.authors"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.doi"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.published"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.publisher"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.title"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dropped_columns"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/feature_names"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/matplotlib_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_depth"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_features"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_leaf_nodes"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_samples"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_impurity_decrease"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_samples_leaf"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_samples_split"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_weight_fraction_leaf"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/numpy_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_estimators"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_features"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_features_final"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_jobs"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_records"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_test_samples"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_train_samples"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/oob_score"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/os_platform"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/pandas_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/python_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/random_state"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/retrieval_time"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/seaborn_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/shap_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/sklearn_version"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/test_size"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/verbose"/>
+    <prov:hadParameter rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/warm_start"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/accuracy"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/accuracy_score_X_test"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.num_deletes"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.num_inserts"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.row_count_end"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.row_count_start"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/f1_macro"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/f1_score_X_test"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/precision_macro"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/precision_score_X_test"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/recall_macro"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/recall_score_X_test"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/roc_auc"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/roc_auc_score_X_test"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_accuracy_score"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_f1_score"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_log_loss"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_precision_score"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_recall_score"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_roc_auc"/>
+    <prov:hadQuality rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_score"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dataset_id"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dataset_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dataset_version"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/data_source"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.admin_email"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.base_url"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.granularity"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.protocol_version"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.repository_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.table_last_modified"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/estimator_class"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/estimator_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/git_current_commit_hash"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/git_previous_commit_hash"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/git__current_commit_url"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_bootstrap"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_class_weight"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_criterion"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_dataset_version"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_drop_column_X"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_experiment_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_max_depth"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_max_features"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_metric_choice"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_min_samples_leaf"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_min_samples_split"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_model_choice"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_n_estimators"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_n_jobs"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_oob_score"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_random_state"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_target_variable"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_test_split"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_threshold_accuracy"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_verbose"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.log-model.history"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.runName"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.source.name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.source.type"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.user"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/model_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/notebook_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/target_name"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/training_end_time"/>
+    <prov:used rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/training_start_time"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/RandomForest_Iris_v20250425_135553_RandomForest_Iris_v20250425_135553.pkl"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/commit_diff.json"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/confusion_matrix.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/estimator.html"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/feature_importances.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/label_mapping.json"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/metric_info.json"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_MLmodel"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_conda.yaml"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_input_example.json"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_model.pkl"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_python_env.yaml"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_requirements.txt"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_serving_input_example.json"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/pr_curve_cls_0.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/pr_curve_cls_1.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/pr_curve_cls_2.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/public_datasetRepository_metadata.json"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/roc_curve_cls_0.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/roc_curve_cls_1.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/roc_curve_cls_2.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/shap_summary.png"/>
+    <prov:generated rdf:resource="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/training_confusion_matrix.png"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_depth">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>12</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/accuracy">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/criterion">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>entropy</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/shap_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>0.47.1</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/numpy_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>1.24.4</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/f1_score_X_test">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_recall_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9666666666666667</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_log_loss">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0653522301195834</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_MLmodel">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/model/MLmodel</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/label_mapping.json">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/estimator.html">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/estimator.html</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_test_samples">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>30</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_train_samples">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>120</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/target_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_max_depth">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_n_jobs">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.publisher">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>Zenodo</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.runName">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>indecisive-duck-252</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_verbose">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.base_url">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>http://localhost</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_f1_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9666666666666667</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_oob_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dropped_columns">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>['id']</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/data_source">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>http://localhost/api/database/c3a42d17-42b7-43c9-a504-2363fb4c9c8d/table/5315e7da-64fb-4fdb-b493-95b4138c765f/data?size=100000&amp;page=0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/roc_curve_cls_2.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/roc_curve_cls_2.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/sklearn_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>1.3.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_features_final">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>4</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/metric_info.json">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/model_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>RandomForest_Iris_v20250425_135553</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/commit_diff.json">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_weight_fraction_leaf">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>0.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/estimator_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>RandomForestClassifier</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_accuracy_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9666666666666667</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.num_deletes">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_samples_split">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>5</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.admin_email">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>noreply@localhost</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/pr_curve_cls_1.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/pr_curve_cls_1.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_bootstrap">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/pandas_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2.2.3</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_conda.yaml">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/model/conda.yaml</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_jobs">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>-1</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_roc_auc">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9987492182614135</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.authors">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>["Marshall Michael"]</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.user">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>reema</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/matplotlib_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>3.7.2</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_test_split">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dataset_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>Iris</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/training_start_time">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2025-04-25T13:55:53.215972</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_leaf_nodes">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>None</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/python_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>3.11.5</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/precision_macro">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/test_size">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>0.2</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_random_state">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/recall_macro">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/confusion_matrix.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/confusion_matrix.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_criterion">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/class_weight">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>None</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/seaborn_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>0.12.2</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.title">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>Scikit-Learn Iris</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_metric_choice">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/pr_curve_cls_2.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/pr_curve_cls_2.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.log-model.history">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>[{"run_id": "3ec1102377b049589537b68a9494fbfc", "artifact_path": "model", "utc_time_created": "2025-04-25 11:56:25.656713", "model_uuid": "06af3bed7a5b4144b39f555e3fb4ad4b", "flavors": {"python_function": {"model_path": "model.pkl", "predict_fn": "predict", "loader_module": "mlflow.sklearn", "python_version": "3.11.5", "env": {"conda": "conda.yaml", "virtualenv": "python_env.yaml"}}, "sklearn": {"pickled_model": "model.pkl", "sklearn_version": "1.3.0", "serialization_format": "cloudpickle", "code": null}}}]</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/precision_score_X_test">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_class_weight">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.published">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2018-8-27</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_model_choice">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/oob_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>False</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/verbose">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>1</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.owner">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value></prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.protocol_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.table_last_modified">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2025-04-23T20:42:29.501Z</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.repository_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>Database Repository</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/roc_curve_cls_1.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/roc_curve_cls_1.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.source.name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>C:\Users\reema\AppData\Roaming\Python\Python311\site-packages\ipykernel_launcher.py</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/pr_curve_cls_0.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/pr_curve_cls_0.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_n_estimators">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/git_previous_commit_hash">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>8c5c1cb1d6a5e4a1d63b6ffdef1f78328209301a</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/ccp_alpha">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>0.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/retrieval_time">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2025-04-25T11:55:53.172659</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/RandomForest_Iris_v20250425_135553_RandomForest_Iris_v20250425_135553.pkl">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/RandomForest_Iris_v20250425_135553/RandomForest_Iris_v20250425_135553.pkl</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dataset_id">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>iris_local</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_experiment_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.id">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value></prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/training_end_time">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2025-04-25T13:56:32.733515</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/recall_score_X_test">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/columns_raw">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>['run_id', 'param_bootstrap', 'param_ccp_alpha', 'param_class_weight', 'param_columns_raw', 'param_criterion', 'param_database.description', 'param_database.id', 'param_database.name', 'param_database.owner', 'param_dataset.authors', 'param_dataset.doi', 'param_dataset.published', 'param_dataset.publisher', 'param_dataset.title', 'param_dropped_columns', 'param_feature_names', 'param_matplotlib_version', 'param_max_depth', 'param_max_features', 'param_max_leaf_nodes', 'param_max_samples', 'param_min_impurity_decrease', 'param_min_samples_leaf', 'param_min_samples_split', 'param_min_weight_fraction_leaf', 'param_numpy_version', 'param_n_estimators', 'param_n_features', 'param_n_features_final', 'param_n_jobs', 'param_n_records', 'param_n_test_samples', 'param_n_train_samples', 'param_oob_score', 'param_os_platform', 'param_pandas_version', 'param_python_version', 'param_random_state', 'param_retrieval_time', 'param_seaborn_version', 'param_shap_version', 'param_sklearn_version', 'param_test_size', 'param_verbose', 'param_warm_start', 'metric_accuracy', 'metric_accuracy_score_X_test', 'metric_dbrepo.num_deletes', 'metric_dbrepo.num_inserts', 'metric_dbrepo.row_count_end', 'metric_dbrepo.row_count_start', 'metric_f1_macro', 'metric_f1_score_X_test', 'metric_precision_macro', 'metric_precision_score_X_test', 'metric_recall_macro', 'metric_recall_score_X_test', 'metric_roc_auc', 'metric_roc_auc_score_X_test', 'metric_training_accuracy_score', 'metric_training_f1_score', 'metric_training_log_loss', 'metric_training_precision_score', 'metric_training_recall_score', 'metric_training_roc_auc', 'metric_training_score', 'tag_dataset_id', 'tag_dataset_name', 'tag_dataset_version', 'tag_data_source', 'tag_dbrepo.admin_email', 'tag_dbrepo.base_url', 'tag_dbrepo.granularity', 'tag_dbrepo.protocol_version', 'tag_dbrepo.repository_name', 'tag_dbrepo.table_last_modified', 'tag_estimator_class', 'tag_estimator_name', 'tag_git_current_commit_hash', 'tag_git_previous_commit_hash', 'tag_git__current_commit_url', 'tag_mlflow.log-model.history', 'tag_mlflow.runName', 'tag_mlflow.source.name', 'tag_mlflow.source.type', 'tag_mlflow.user', 'tag_model_name', 'tag_notebook_name', 'tag_target_name', 'tag_training_end_time', 'tag_training_start_time']</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_input_example.json">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/training_confusion_matrix.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/training_confusion_matrix.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/git__current_commit_url">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>https://github.com/reema-dass26/REPO/commit/4b8fba2dcf4ab75088838668b5abc6d94c92f502</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_target_variable">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/public_datasetRepository_metadata.json">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/feature_names">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.description">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value></prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/random_state">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>42</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/feature_importances.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/feature_importances.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/f1_macro">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_impurity_decrease">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>0.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_dataset_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_model.pkl">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/model/model.pkl</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/max_features">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>sqrt</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_min_samples_leaf">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_python_env.yaml">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/model/python_env.yaml</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/git_current_commit_hash">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>4b8fba2dcf4ab75088838668b5abc6d94c92f502</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_records">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>1</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/shap_summary.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/shap_summary.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dbrepo.granularity">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>YYYY-MM-DDThh:mm:ssZ</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/model_requirements.txt">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location></prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/roc_auc_score_X_test">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/bootstrap">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>True</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_min_samples_split">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/dataset.doi">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>10.5281/ZENODO.1404173</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_estimators">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>200</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.num_inserts">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/mlflow.source.type">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>LOCAL</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_precision_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9674588284344383</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/estimator_class">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>sklearn.ensemble._forest.RandomForestClassifier</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/roc_auc">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/training_score">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9666666666666667</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/n_features">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>4</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/os_platform">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>Windows 10</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/notebook_name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>RQ1.ipynb</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/database.name">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value></prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_drop_column_X">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/dataset_version">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>1.0.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.row_count_start">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">150.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/accuracy_score_X_test">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_max_features">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/metric/dbrepo.row_count_end">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">150.0</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/warm_start">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>False</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/param/min_samples_leaf">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>2</prov:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/artifact/roc_curve_cls_0.png">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:location>file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3ec1102377b049589537b68a9494fbfc/artifacts/roc_curve_cls_0.png</prov:location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/mlprovenance#run_3ec1102377b049589537b68a9494fbfc/tag/justification_threshold_accuracy">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:value>test</prov:value>
+  </rdf:Description>
+</rdf:RDF>
