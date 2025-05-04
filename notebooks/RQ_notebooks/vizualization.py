@@ -337,7 +337,8 @@ with st.sidebar:
             "📣 Notify Outdated Forks",
             "📘 Researcher Justifications",
             "📚 Invenio Metadata",
-            "📤 Export Provenance"
+            "📤 Export Provenance",
+            "🧨 Error & Version Impact"
 
         ],
         icons=[
@@ -543,6 +544,117 @@ This dashboard is designed to assist researchers and practitioners in managing a
           {svg}
         </div>
         """, height=580)
+elif selected == "🧨 Error & Version Impact":
+    st.title("🧨 Error & Version Impact Analysis")
+    st.markdown("""
+    Detect which ML experiments were affected by **outdated code versions** or **deprecated dataset versions**.
+
+    🔍 **Why it matters**:
+    - Identifies affected researchers or notebooks
+    - Flags experiments that may need retraining
+    - Supports version hygiene and reproducibility
+    """)
+
+    st.markdown("### 🧾 Existing Commits & Versions in Dataset:")
+    if 'tag_git_current_commit_hash' in df.columns:
+        st.code("\n".join(df['tag_git_current_commit_hash'].dropna().unique().tolist()), language='text')
+    if 'tag_dataset_version' in df.columns:
+        st.code("\n".join(df['tag_dataset_version'].dropna().unique().tolist()), language='text')
+
+    # Input areas for deprecated resources
+    deprecated_commits_input = st.text_area("Enter deprecated commit hashes (one per line):", height=100)
+    deprecated_versions_input = st.text_area("Enter deprecated dataset versions (one per line):", height=100)
+
+    # Process input
+    deprecated_commits = [c.strip() for c in deprecated_commits_input.splitlines() if c.strip()]
+    deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
+
+    def detect_deprecated_resources(
+        df: pd.DataFrame,
+        deprecated_commits: List[str],
+        deprecated_dataset_versions: List[str]
+    ) -> pd.DataFrame:
+        commit_col = 'tag_git_current_commit_hash'
+        version_col = 'tag_dataset_version'
+        candidate_authors = ['tag_executed_by', 'tag_user', 'tag_notebook_name', 'param_author']
+        author_col = next((col for col in candidate_authors if col in df.columns), None)
+
+        mask_commit = df[commit_col].isin(deprecated_commits) if commit_col in df.columns else False
+        mask_version = df[version_col].isin(deprecated_dataset_versions) if version_col in df.columns else False
+        impacted = df[mask_commit | mask_version]
+
+        cols = ['run_id', commit_col, version_col, 'tag_mlflow.runName']
+        if author_col:
+            cols.append(author_col)
+
+        return impacted[cols]
+
+    if st.button("🚨 Detect Impacted Runs"):
+        if not deprecated_commits and not deprecated_versions:
+            st.warning("Please enter at least one deprecated commit or dataset version.")
+        else:
+            results_df = detect_deprecated_resources(df, deprecated_commits, deprecated_versions)
+            if results_df.empty:
+                st.success("✅ No impacted runs found.")
+            else:
+                st.warning("⚠️ Impacted Experiments Detected:")
+                st.dataframe(results_df, use_container_width=True)
+
+                # Group by user if available
+                candidate_authors = ['tag_executed_by', 'tag_user', 'tag_notebook_name', 'param_author']
+                found_author_col = next((col for col in candidate_authors if col in results_df.columns), None)
+
+                if found_author_col:
+                    summary = results_df[found_author_col].value_counts().reset_index()
+                    summary.columns = ['User', 'Impacted Runs']
+                    st.markdown("### 👥 Affected Users:")
+                    st.dataframe(summary, use_container_width=True)
+                    # GitHub notification section
+                st.markdown("---")
+                st.markdown("### 📣 Notify via GitHub Issue")
+
+                with st.expander("🔐 GitHub Authentication"):
+                    github_owner = st.text_input("GitHub Owner (username or org)", key="gh_owner")
+                    github_repo = st.text_input("Repository Name", key="gh_repo")
+                    github_token = st.text_input("GitHub Personal Access Token", type="password", key="gh_token")
+
+                if st.button("📬 Notify via GitHub"):
+                    if not all([github_owner, github_repo, github_token]):
+                        st.warning("❗ Please provide GitHub credentials above.")
+                    else:
+                        try:
+                            impacted_users = results_df[found_author_col].dropna().unique().tolist()
+                            user_tags = " ".join(f"@{u}" for u in impacted_users if re.match(r"^[a-zA-Z0-9\-_]+$", u))
+
+                            issue_title = "🚨 Deprecated Resources Used in ML Experiments"
+                            issue_body = (
+                                f"Dear team,\n\n"
+                                f"The following experiments were found using **deprecated code or dataset versions**:\n\n"
+                                f"- **Commits**: {', '.join(deprecated_commits) if deprecated_commits else 'N/A'}\n"
+                                f"- **Dataset Versions**: {', '.join(deprecated_versions) if deprecated_versions else 'N/A'}\n\n"
+                                f"{user_tags}\n\n"
+                                f"Please consider retraining or validating your runs.\n\n"
+                                f"— Automated notifier from the Provenance Dashboard"
+                            )
+
+                            headers = {
+                                "Authorization": f"token {github_token}",
+                                "Accept": "application/vnd.github+json"
+                            }
+                            issue_api_url = f"https://api.github.com/repos/{github_owner}/{github_repo}/issues"
+                            payload = {"title": issue_title, "body": issue_body}
+
+                            resp = requests.post(issue_api_url, headers=headers, json=payload)
+
+                            if resp.status_code == 201:
+                                issue_url = resp.json().get("html_url", "")
+                                st.success(f"✅ GitHub Issue Created: [View Issue]({issue_url})")
+                            else:
+                                st.error(f"❌ Failed to create issue. Status: {resp.status_code}")
+                                st.code(resp.text)
+
+                        except Exception as ex:
+                            st.error(f"An error occurred while notifying GitHub: {ex}")
 
 elif selected == "📁 Dataset Metadata":
     st.title("📁 Dataset Metadata")
