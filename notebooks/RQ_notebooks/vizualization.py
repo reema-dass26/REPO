@@ -555,40 +555,62 @@ elif selected == "🧨 Error & Version Impact":
     - Supports version hygiene and reproducibility
     """)
 
-    st.markdown("### 🧾 Existing Commits & Versions in Dataset:")
+    import subprocess
+
+    def get_current_git_commit():
+        try:
+            return subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip()
+        except Exception:
+            return None
+
+    current_hash = get_current_git_commit()
+    if current_hash:
+        st.markdown(f"### 📌 Current Git Commit: `{current_hash}`")
+    else:
+        st.warning("⚠️ Git commit hash could not be determined from local repo.")
+
+    st.markdown("### 🧾 Existing Commits & Dataset Versions in Metadata:")
     if 'tag_git_current_commit_hash' in df.columns:
-        st.code("\n".join(df['tag_git_current_commit_hash'].dropna().unique().tolist()), language='text')
+        hashes = df['tag_git_current_commit_hash'].dropna().unique()
+        st.code("\n".join(hashes), language='text')
+        if len(hashes) == 1:
+            st.warning("⚠️ All experiments appear to use the same commit hash.")
+        else:
+            st.success(f"✅ Found {len(hashes)} unique Git hashes in metadata.")
     if 'tag_dataset_version' in df.columns:
-        st.code("\n".join(df['tag_dataset_version'].dropna().unique().tolist()), language='text')
+        versions = df['tag_dataset_version'].dropna().unique()
+        st.code("\n".join(versions), language='text')
 
-    # Input areas for deprecated resources
-    deprecated_commits_input = st.text_area("Enter deprecated commit hashes (one per line):", height=100)
+    # Inputs
+    deprecated_commits_input = st.text_area("Enter deprecated Git commit hashes (one per line):", height=100)
     deprecated_versions_input = st.text_area("Enter deprecated dataset versions (one per line):", height=100)
+    simulate_current = st.checkbox("☢️ Also mark current local Git commit as deprecated")
 
-    # Process input
     deprecated_commits = [c.strip() for c in deprecated_commits_input.splitlines() if c.strip()]
     deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
 
-    def detect_deprecated_resources(
-        df: pd.DataFrame,
-        deprecated_commits: List[str],
-        deprecated_dataset_versions: List[str]
-    ) -> pd.DataFrame:
+    if simulate_current and current_hash:
+        deprecated_commits.append(current_hash)
+        st.info(f"✅ Simulating impact of current commit `{current_hash}`")
+
+    def detect_deprecated_resources(df, deprecated_commits, deprecated_versions):
         commit_col = 'tag_git_current_commit_hash'
         version_col = 'tag_dataset_version'
         candidate_authors = ['tag_executed_by', 'tag_user', 'tag_notebook_name', 'param_author']
         author_col = next((col for col in candidate_authors if col in df.columns), None)
 
         mask_commit = df[commit_col].isin(deprecated_commits) if commit_col in df.columns else False
-        mask_version = df[version_col].isin(deprecated_dataset_versions) if version_col in df.columns else False
-        impacted = df[mask_commit | mask_version]
+        mask_version = df[version_col].isin(deprecated_versions) if version_col in df.columns else False
+        impacted = df[mask_commit | mask_version].copy()
 
         cols = ['run_id', commit_col, version_col, 'tag_mlflow.runName']
         if author_col:
-            cols.append(author_col)
+            impacted['user'] = df[author_col]
+            cols.append('user')
 
         return impacted[cols]
 
+    results_df = pd.DataFrame()
     if st.button("🚨 Detect Impacted Runs"):
         if not deprecated_commits and not deprecated_versions:
             st.warning("Please enter at least one deprecated commit or dataset version.")
@@ -600,61 +622,67 @@ elif selected == "🧨 Error & Version Impact":
                 st.warning("⚠️ Impacted Experiments Detected:")
                 st.dataframe(results_df, use_container_width=True)
 
-                # Group by user if available
-                candidate_authors = ['tag_executed_by', 'tag_user', 'tag_notebook_name', 'param_author']
-                found_author_col = next((col for col in candidate_authors if col in results_df.columns), None)
-
-                if found_author_col:
-                    summary = results_df[found_author_col].value_counts().reset_index()
+                if 'user' in results_df.columns:
+                    summary = results_df['user'].value_counts().reset_index()
                     summary.columns = ['User', 'Impacted Runs']
                     st.markdown("### 👥 Affected Users:")
                     st.dataframe(summary, use_container_width=True)
-                    # GitHub notification section
-                st.markdown("---")
-                st.markdown("### 📣 Notify via GitHub Issue")
 
-                with st.expander("🔐 GitHub Authentication"):
-                    github_owner = st.text_input("GitHub Owner (username or org)", key="gh_owner")
-                    github_repo = st.text_input("Repository Name", key="gh_repo")
-                    github_token = st.text_input("GitHub Personal Access Token", type="password", key="gh_token")
+    if not results_df.empty:
+        st.markdown("---")
+        st.markdown("### 🔍 Search Impacted Runs")
+        search_query = st.text_input("Search by User or Run ID")
+        if search_query:
+            filtered_df = results_df[
+                results_df.apply(lambda row: search_query.lower() in str(row.values).lower(), axis=1)
+            ]
+            if not filtered_df.empty:
+                st.dataframe(filtered_df, use_container_width=True)
+            else:
+                st.info("No matching results.")
 
-                if st.button("📬 Notify via GitHub"):
-                    if not all([github_owner, github_repo, github_token]):
-                        st.warning("❗ Please provide GitHub credentials above.")
+        st.markdown("### 📣 Notify via GitHub Issue")
+        with st.expander("🔐 GitHub Authentication"):
+            github_owner = st.text_input("GitHub Owner", key="gh_owner")
+            github_repo = st.text_input("Repository Name", key="gh_repo")
+            github_token = st.text_input("GitHub Token", type="password", key="gh_token")
+
+        if st.button("📬 Notify via GitHub"):
+            if not all([github_owner, github_repo, github_token]):
+                st.warning("❗ Provide GitHub credentials above.")
+            else:
+                try:
+                    impacted_users = results_df['user'].dropna().unique().tolist() if 'user' in results_df.columns 	else []
+                    user_tags = " ".join(f"@{u}" for u in impacted_users if re.match(r"^[a-zA-Z0-9\-_]+$", u))
+
+                    issue_title = "🚨 Deprecated Resources Used in ML Experiments"
+                    issue_body = (
+                        f"The following experiments used **deprecated code or dataset versions**:\n\n"
+                        f"- **Commits**: {', '.join(set(deprecated_commits)) or 'N/A'}\n"
+                        f"- **Dataset Versions**: {', '.join(set(deprecated_versions)) or 'N/A'}\n\n"
+                        f"{user_tags or ''}\n\n"
+                        f"Please consider retraining or validating your experiments.\n\n"
+                        f"— Provenance Dashboard"
+                    )
+
+                    headers = {
+                        "Authorization": f"token {github_token}",
+                        "Accept": "application/vnd.github+json"
+                    }
+                    issue_api_url = f"https://api.github.com/repos/{github_owner}/{github_repo}/issues"
+                    payload = {"title": issue_title, "body": issue_body}
+
+                    resp = requests.post(issue_api_url, headers=headers, json=payload)
+
+                    if resp.status_code == 201:
+                        issue_url = resp.json().get("html_url", "")
+                        st.success(f"✅ GitHub Issue Created: [View Issue]({issue_url})")
                     else:
-                        try:
-                            impacted_users = results_df[found_author_col].dropna().unique().tolist()
-                            user_tags = " ".join(f"@{u}" for u in impacted_users if re.match(r"^[a-zA-Z0-9\-_]+$", u))
+                        st.error(f"❌ Failed to create issue. Status: {resp.status_code}")
+                        st.code(resp.text)
+                except Exception as ex:
+                    st.error(f"An error occurred while notifying GitHub: {ex}")
 
-                            issue_title = "🚨 Deprecated Resources Used in ML Experiments"
-                            issue_body = (
-                                f"Dear team,\n\n"
-                                f"The following experiments were found using **deprecated code or dataset versions**:\n\n"
-                                f"- **Commits**: {', '.join(deprecated_commits) if deprecated_commits else 'N/A'}\n"
-                                f"- **Dataset Versions**: {', '.join(deprecated_versions) if deprecated_versions else 'N/A'}\n\n"
-                                f"{user_tags}\n\n"
-                                f"Please consider retraining or validating your runs.\n\n"
-                                f"— Automated notifier from the Provenance Dashboard"
-                            )
-
-                            headers = {
-                                "Authorization": f"token {github_token}",
-                                "Accept": "application/vnd.github+json"
-                            }
-                            issue_api_url = f"https://api.github.com/repos/{github_owner}/{github_repo}/issues"
-                            payload = {"title": issue_title, "body": issue_body}
-
-                            resp = requests.post(issue_api_url, headers=headers, json=payload)
-
-                            if resp.status_code == 201:
-                                issue_url = resp.json().get("html_url", "")
-                                st.success(f"✅ GitHub Issue Created: [View Issue]({issue_url})")
-                            else:
-                                st.error(f"❌ Failed to create issue. Status: {resp.status_code}")
-                                st.code(resp.text)
-
-                        except Exception as ex:
-                            st.error(f"An error occurred while notifying GitHub: {ex}")
 
 elif selected == "📁 Dataset Metadata":
     st.title("📁 Dataset Metadata")
@@ -662,76 +690,108 @@ elif selected == "📁 Dataset Metadata":
 Review comprehensive metadata for the datasets used in your machine learning experiments.
 
 📁 **What you’ll find**:
-- Dataset titles, versions, and identifiers
-- Authorship, publication dates, and publisher information
-- Source platforms and linked repositories (e.g., DBRepo, Invenio)
+- Dataset titles, schema info, and repository identifiers
+- Source platforms, publication metadata, and DBRepo tags
+- Transformation steps: dropped columns, selected features
 
 🔍 **Why it matters**:
-- Track the origin and integrity of training data  
-- Ensure FAIR (Findable, Accessible, Interoperable, Reusable) data principles  
-- Provide proper attribution in research outputs
+- Trace dataset origin and preprocessing stages
+- Evaluate FAIR compliance and metadata completeness
 """)
-# 📁 Dataset Metadata (updated based on selected run)
 
-    st.title("📁 Dataset Metadata")
-    st.markdown("""
-    Review comprehensive metadata for the datasets used in your machine learning experiments.
-    """)
-    
-    # 1. Detect available runs
     run_ids = df['run_id'].dropna().unique()
-    
+
     if not run_ids.any():
         st.warning("⚠️ No runs found. Please train a model first.")
     else:
-        # 2. User selects a run
         selected_run = st.selectbox("Select a Run ID", run_ids)
-    
-        # 3. Filter the DataFrame for the selected run
         run_df = df[df["run_id"] == selected_run]
-    
-        # 4. Define relevant dataset metadata columns
+
         dataset_cols = [
-            "param_dataset.title", "param_dataset.doi", "param_dataset.authors",
-            "param_dataset.publisher", "param_dataset.published",
-            "tag_dataset_id", "tag_dataset_name", "tag_dataset_version",
-            "tag_data_source", "param_database.name", "param_database.owner",
-            "tag_dbrepo.repository_name"
+            "dataset.title", "dataset.authors", "dataset.publisher", "dataset.published",
+            "dataset.doi", "Internal_DBRepo_database_identifier", "Internal_DBRepo_data_source",
+            "Internal_DBRepo_columns_raw", "Internal_DBRepo_dropped_columns",
+            "Internal_DBRepo_feature_names",
+            "PROV-O_prov_Entity", "PROV-O_prov_used", "PROV-O_prov_startedAtTime"
         ]
-    
-        # 5. Only keep existing columns
+
         dataset_cols = [c for c in dataset_cols if c in run_df.columns]
         dataset_info = run_df[dataset_cols]
-    
+
         if not dataset_info.empty:
             st.write("### Selected Run - Dataset Metadata")
             st.dataframe(dataset_info.T, use_container_width=True)
         else:
             st.warning("No dataset metadata available for this run.")
-    # # Filter relevant columns
-    # dataset_cols = [
-    #     "param_dataset.title", "param_dataset.doi", "param_dataset.authors",
-    #     "param_dataset.publisher", "param_dataset.published",
-    #     "tag_dataset_id", "tag_dataset_name", "tag_dataset_version",
-    #     "tag_data_source", "param_database.name", "param_database.owner",
-    #     "tag_dbrepo.repository_name"
-    # ]
 
-    # dataset_info = df[dataset_cols].copy()
 
-    # # Dropdown to select dataset (optional, if more than one)
-    # dataset_names = dataset_info["tag_dataset_name"].dropna().unique()
 
-    # selected_dataset = st.selectbox("Choose dataset", dataset_names)
+# elif selected == "🧠 ML Model Metadata":
+#     st.title("🧠 ML Model Metadata")
+#     st.markdown("""
+# Explore detailed metadata about each machine learning model used in your experiments.
 
-    # filtered_df = dataset_info[dataset_info["tag_dataset_name"] == selected_dataset]
+# 🧠 **What’s included**:
+# - Model hyperparameters (e.g., tree depth, split criteria)
+# - Training and test dataset configuration
+# - Python and ML library versions (e.g., scikit-learn, NumPy)
+# - Evaluation metrics such as accuracy, F1 score, ROC AUC
 
-    # if not filtered_df.empty:
-    #     st.write("### Selected Dataset Metadata")
-    #     st.dataframe(filtered_df.T)
-    # else:
-    #     st.warning("No matching dataset found.")
+# 🔍 **Why it matters**:
+# - Validate model training conditions  
+# - Ensure consistent environments across experiments  
+# - Support reproducibility and audit readiness
+# """)
+#     run_ids = df['run_id'].dropna().unique()
+#     selected_run = st.selectbox("Select a Run ID", run_ids)
+#     run_df = df[df["run_id"] == selected_run]
 
+#     if run_df.empty:
+#         st.warning("No matching run found.")
+#     else:
+#         tab1, tab2, tab3, tab4 = st.tabs([
+#             "🛠️ Hyperparameters", "💻 Environment", "📊 Dataset Sampling", "📈 Metrics"
+#         ])
+
+#         with tab1:
+#             st.write("### Training Hyperparameters")
+#             st.dataframe(run_df.filter(
+#                 regex=r'^param_(criterion|max_depth|max_features|min_samples_split|min_samples_leaf|n_estimators|bootstrap|warm_start|oob_score|random_state)'
+#             ).T)
+
+#         with tab2:
+#             st.write("### Environment Info")
+#             st.dataframe(run_df.filter(
+#                 regex=r'^param_(numpy_version|pandas_version|python_version|sklearn_version|matplotlib_version|seaborn_version|os_platform)'
+#             ).T)
+
+#         with tab3:
+#             st.write("### Dataset Size & Sampling")
+#             st.dataframe(run_df.filter(
+#                 regex=r'^param_(n_records|n_features|n_train_samples|n_test_samples|test_size|max_samples)'
+#             ).T)
+
+#         with tab4:
+#             st.write("### Model Performance Metrics")
+
+#             col1, col2 = st.columns(2)
+
+#             with col1:
+#                 st.markdown("#### ✅ Evaluation (Test Set)")
+#                 st.dataframe(run_df.filter(
+#                     regex=r'^metric_(accuracy$|f1_score_X_test|precision_score_X_test|recall_score_X_test|roc_auc_score_X_test)'
+#                 ).T)
+
+#             with col2:
+#                 st.markdown("#### 🏋️ Training Set")
+#                 st.dataframe(run_df.filter(
+#                     regex=r'^metric_training_'
+#                 ).T)
+
+#             st.markdown("#### 🛢️ DBRepo Lineage ")
+#             st.dataframe(run_df.filter(
+#                 regex=r'^metric_dbrepo\..*'
+#             ).T)
 
 elif selected == "🧠 ML Model Metadata":
     st.title("🧠 ML Model Metadata")
@@ -739,16 +799,15 @@ elif selected == "🧠 ML Model Metadata":
 Explore detailed metadata about each machine learning model used in your experiments.
 
 🧠 **What’s included**:
-- Model hyperparameters (e.g., tree depth, split criteria)
-- Training and test dataset configuration
-- Python and ML library versions (e.g., scikit-learn, NumPy)
-- Evaluation metrics such as accuracy, F1 score, ROC AUC
+- Hyperparameters and training procedure
+- Model performance metrics (Test & Train)
+- Compute environment and justifications
 
 🔍 **Why it matters**:
-- Validate model training conditions  
-- Ensure consistent environments across experiments  
-- Support reproducibility and audit readiness
+- Supports reproducibility and standardization (FAIR4ML, MLSea)
+- Enables traceability from config to output
 """)
+
     run_ids = df['run_id'].dropna().unique()
     selected_run = st.selectbox("Select a Run ID", run_ids)
     run_df = df[df["run_id"] == selected_run]
@@ -756,50 +815,39 @@ Explore detailed metadata about each machine learning model used in your experim
     if run_df.empty:
         st.warning("No matching run found.")
     else:
-        tab1, tab2, tab3, tab4 = st.tabs([
-            "🛠️ Hyperparameters", "💻 Environment", "📊 Dataset Sampling", "📈 Metrics"
+        tab1, tab2, tab3, tab4, tab5 = st.tabs([
+            "🛠️ Hyperparameters", "📈 Metrics", "💻 Environment", "📋 Justifications", "🧪 Training Info"
         ])
 
         with tab1:
             st.write("### Training Hyperparameters")
-            st.dataframe(run_df.filter(
-                regex=r'^param_(criterion|max_depth|max_features|min_samples_split|min_samples_leaf|n_estimators|bootstrap|warm_start|oob_score|random_state)'
-            ).T)
+            st.json(json.loads(run_df["MLSEA_hyperparameters"].values[0]))
 
         with tab2:
-            st.write("### Environment Info")
-            st.dataframe(run_df.filter(
-                regex=r'^param_(numpy_version|pandas_version|python_version|sklearn_version|matplotlib_version|seaborn_version|os_platform)'
-            ).T)
+            st.write("### Performance Metrics")
+            st.dataframe(run_df.filter(regex=r'^ML_EXP_(accuracy|f1_macro|precision_macro|recall_macro|roc_auc)').T)
 
         with tab3:
-            st.write("### Dataset Size & Sampling")
-            st.dataframe(run_df.filter(
-                regex=r'^param_(n_records|n_features|n_train_samples|n_test_samples|test_size|max_samples)'
-            ).T)
+            st.write("### Compute Environment")
+            st.json(json.loads(run_df["MLSEA_computeEnvironment"].values[0]))
 
         with tab4:
-            st.write("### Model Performance Metrics")
+            st.write("### Configuration Justifications")
+            justifications = {k: v for k, v in run_df.items() if k.startswith("MLSEA_justification_")}
+            if justifications:
+                st.dataframe(pd.DataFrame(justifications.items(), columns=["Parameter", "Justification"]))
+            else:
+                st.warning("No justifications found for this run.")
 
-            col1, col2 = st.columns(2)
-
-            with col1:
-                st.markdown("#### ✅ Evaluation (Test Set)")
-                st.dataframe(run_df.filter(
-                    regex=r'^metric_(accuracy$|f1_score_X_test|precision_score_X_test|recall_score_X_test|roc_auc_score_X_test)'
-                ).T)
-
-            with col2:
-                st.markdown("#### 🏋️ Training Set")
-                st.dataframe(run_df.filter(
-                    regex=r'^metric_training_'
-                ).T)
-
-            st.markdown("#### 🛢️ DBRepo Lineage ")
-            st.dataframe(run_df.filter(
-                regex=r'^metric_dbrepo\..*'
-            ).T)
-
+        with tab5:
+            st.write("### Training Metadata")
+            training_info_fields = [
+                "ML_EXP_training_start_time",
+                "ML_EXP_training_end_time",
+                "MLSEA_trainingProcedure"
+            ]
+            filtered = run_df[[c for c in training_info_fields if c in run_df.columns]]
+            st.dataframe(filtered.T)
 
 
 elif selected == "📊 Model Plots":
