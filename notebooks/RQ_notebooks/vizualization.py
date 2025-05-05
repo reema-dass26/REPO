@@ -112,6 +112,8 @@ def load_data():
     st.success(f"✅ Loaded {len(df)} runs with {len(df.columns)} columns.")
     return df
 
+import pandas as pd
+
 
 def _get_all_features(df):
     """
@@ -280,17 +282,37 @@ def get_latest_justification_summary(base_dir="MODEL_PROVENANCE"):
 # —— Load justifications and return as DataFrame ——
 
 def load_justification_table(path):
-    with open(path, "r") as f:
-        js = json.load(f)
+    import json
+    import pandas as pd
 
+    try:
+        with open(path, "r") as f:
+            js = json.load(f)
+    except Exception as e:
+        return pd.DataFrame([{"Decision": "Error", "Justification": f"Failed to load file: {e}"}])
+
+    # Safely extract justifications from nested tags
+    tags = js.get("ML_EXP_tags", {})
     justifications = {
-        k: v for k, v in js.get("tags", {}).items()
-        if k.startswith("justification_")
+        k: v for k, v in tags.items()
+        if k.startswith("justification_") and isinstance(v, str)
     }
+
+    # Fallback if none found
+    if not justifications:
+        return pd.DataFrame([{
+            "Decision": "No justifications recorded",
+            "Justification": "—"
+        }])
+
     rows = [
-        {"Decision": k.replace("justification_", ""), "Justification": v}
+        {
+            "Decision": k.replace("justification_", "").replace("_", " ").capitalize(),
+            "Justification": v.strip() if isinstance(v, str) else str(v)
+        }
         for k, v in justifications.items()
     ]
+
     return pd.DataFrame(rows)
 
 
@@ -342,13 +364,15 @@ with st.sidebar:
             "🧠 ML Model Metadata",
             "📊 Model Plots",
             "🛰️ Provenance Trace",
-            "⚠️ Deprecated Code Check",
+            "🧨 Error & Version Impact"
             "🧭 Model-Dataset Mapping",
             "📣 Notify Outdated Forks",
+            # "📤 Export Provenance",
             "📘 Researcher Justifications",
             "📚 Invenio Metadata",
-            "📤 Export Provenance",
-            "🧨 Error & Version Impact"
+            # "⚠️ Deprecated Code Check",
+
+            
 
         ],
         icons=[
@@ -588,7 +612,7 @@ Review comprehensive metadata for the datasets used in your machine learning exp
                 "Entity": flat_row.get("PROV-O_prov_Entity", "—"),
                 "Activity": flat_row.get("PROV-O_prov_Activity", "—"),
                 "Agent (Database Creator)": flat_row.get("PROV-O_prov_Agent_database_creator", "—"),
-                "Agent (Dataset Creator)": flat_row.get("PROV-O_prov_Agent_dataset_creator", "—"),
+                "Agent (Dataset Creator)": flat_row.get("FAIR_dataset_creator", "—"),
                 "Used Source": flat_row.get("PROV-O_prov_used", "—"),
                 "Started At": flat_row.get("PROV_startedAtTime", "—"),
                 "Ended At": flat_row.get("PROV-O_prov_endedAtTime", "—"),
@@ -638,83 +662,15 @@ Review comprehensive metadata for the datasets used in your machine learning exp
             else:
                 st.warning("No preprocessing trace captured.")
 
-
-# elif selected == "🧠 ML Model Metadata":
-#     st.title("🧠 ML Model Metadata")
-#     st.markdown("""
-# Explore detailed metadata about each machine learning model used in your experiments.
-
-# 🧠 **What’s included**:
-# - Model hyperparameters (e.g., tree depth, split criteria)
-# - Training and test dataset configuration
-# - Python and ML library versions (e.g., scikit-learn, NumPy)
-# - Evaluation metrics such as accuracy, F1 score, ROC AUC
-
-# 🔍 **Why it matters**:
-# - Validate model training conditions  
-# - Ensure consistent environments across experiments  
-# - Support reproducibility and audit readiness
-# """)
-#     run_ids = df['run_id'].dropna().unique()
-#     selected_run = st.selectbox("Select a Run ID", run_ids)
-#     run_df = df[df["run_id"] == selected_run]
-
-#     if run_df.empty:
-#         st.warning("No matching run found.")
-#     else:
-#         tab1, tab2, tab3, tab4 = st.tabs([
-#             "🛠️ Hyperparameters", "💻 Environment", "📊 Dataset Sampling", "📈 Metrics"
-#         ])
-
-#         with tab1:
-#             st.write("### Training Hyperparameters")
-#             st.dataframe(run_df.filter(
-#                 regex=r'^param_(criterion|max_depth|max_features|min_samples_split|min_samples_leaf|n_estimators|bootstrap|warm_start|oob_score|random_state)'
-#             ).T)
-
-#         with tab2:
-#             st.write("### Environment Info")
-#             st.dataframe(run_df.filter(
-#                 regex=r'^param_(numpy_version|pandas_version|python_version|sklearn_version|matplotlib_version|seaborn_version|os_platform)'
-#             ).T)
-
-#         with tab3:
-#             st.write("### Dataset Size & Sampling")
-#             st.dataframe(run_df.filter(
-#                 regex=r'^param_(n_records|n_features|n_train_samples|n_test_samples|test_size|max_samples)'
-#             ).T)
-
-#         with tab4:
-#             st.write("### Model Performance Metrics")
-
-#             col1, col2 = st.columns(2)
-
-#             with col1:
-#                 st.markdown("#### ✅ Evaluation (Test Set)")
-#                 st.dataframe(run_df.filter(
-#                     regex=r'^metric_(accuracy$|f1_score_X_test|precision_score_X_test|recall_score_X_test|roc_auc_score_X_test)'
-#                 ).T)
-
-#             with col2:
-#                 st.markdown("#### 🏋️ Training Set")
-#                 st.dataframe(run_df.filter(
-#                     regex=r'^metric_training_'
-#                 ).T)
-
-#             st.markdown("#### 🛢️ DBRepo Lineage ")
-#             st.dataframe(run_df.filter(
-#                 regex=r'^metric_dbrepo\..*'
-#             ).T)
-
 elif selected == "🧠 ML Model Metadata":
     st.title("🧠 ML Model Metadata")
     st.markdown("""
 Explore structured ML model metadata from each experiment.
 
 🔍 What’s covered:
-- Hyperparameters, metrics, and justifications
-- Compute environment and training timeline
-- FAIR4ML and MLSEA metadata structures
+- Hyperparameters, metrics, and justifications  
+- Compute environment and training timeline  
+- FAIR4ML and MLSEA metadata structures  
 """)
 
     run_ids = df['run_id'].dropna().unique()
@@ -722,20 +678,28 @@ Explore structured ML model metadata from each experiment.
         st.warning("⚠️ No runs found. Please train a model first.")
     else:
         selected_run = st.selectbox("Select a Run ID", run_ids)
-        row = df[df["run_id"] == selected_run].iloc[0]  # single row as dict
+        row = df[df["run_id"] == selected_run].iloc[0].to_dict()
+
+        def clean_val(v):
+            if isinstance(v, (dict, list)):
+                return json.dumps(v, indent=2)
+            elif v is None:
+                return "—"
+            return str(v)
 
         def section(title, fields: dict):
             st.subheader(title)
-            display_df = pd.DataFrame(list(fields.items()), columns=["Field", "Value"])
+            cleaned = {k: clean_val(v) for k, v in fields.items()}
+            display_df = pd.DataFrame(list(cleaned.items()), columns=["Field", "Value"])
             st.dataframe(display_df, use_container_width=True)
 
         # 🚀 Overview
         section("🚀 Model Overview", {
-            "Model Name": row.get("ML_EXP_model_name", "—"),
-            "Model Architecture": row.get("MLSEA_modelArchitecture", "—"),
-            "Notebook": row.get("ML_EXP_notebook_name", "—"),
-            "Run Name": row.get("mlflow.runName", "—"),
-            "Experiment ID": row.get("MLSEA_experimentId", "—")
+            "Model Name": row.get("ML_EXP_model_name"),
+            "Model Architecture": row.get("MLSEA_modelArchitecture"),
+            "Notebook": row.get("ML_EXP_notebook_name"),
+            "Run Name": row.get("mlflow.runName"),
+            "Experiment ID": row.get("MLSEA_experimentId")
         })
 
         # 🧠 Hyperparameters
@@ -761,11 +725,11 @@ Explore structured ML model metadata from each experiment.
 
         # 🧪 Training Metadata
         section("🧪 Training Timeline", {
-            "Training Start Time": row.get("ML_EXP_training_start_time", "—"),
-            "Training End Time": row.get("ML_EXP_training_end_time", "—"),
-            "Training Procedure": row.get("MLSEA_trainingProcedure", "—"),
-            "Previous Model": row.get("MLSEA_previousModelRunId", "—"),
-            "Model Path": row.get("MLSEA_modelPath", "—")
+            "Training Start Time": row.get("ML_EXP_training_start_time"),
+            "Training End Time": row.get("ML_EXP_training_end_time"),
+            "Training Procedure": row.get("MLSEA_trainingProcedure"),
+            "Previous Model": row.get("MLSEA_previousModelRunId"),
+            "Model Path": row.get("MLSEA_modelPath")
         })
 
         # 📋 Justifications
@@ -777,16 +741,98 @@ Explore structured ML model metadata from each experiment.
         if justifications:
             section("📋 Configuration Justifications", justifications)
         else:
-            st.info("No justifications recorded for this run.")
-                # 📌 Additional Insights
-        st.subheader("📌 Additional Insights")
-        insights = {
-            "Performance Notes": row.get("MLSEA_performanceInterpretation", "—"),
-            "Preprocessing Hash": row.get("MLSEA_preprocessing_hash", "—"),
-            "Training Code Snapshot": row.get("MLSEA_trainingCodeSnapshot", "—"),
-        }
-        insights_df = pd.DataFrame(list(insights.items()), columns=["Field", "Value"])
-        st.dataframe(insights_df, use_container_width=True)
+            st.info("ℹ️ No justifications recorded for this run.")
+
+        # 📌 Additional Insights
+        section("📌 Additional Insights", {
+            "Performance Notes": row.get("MLSEA_performanceInterpretation"),
+            "Preprocessing Hash": row.get("MLSEA_preprocessing_hash"),
+            "Training Code Snapshot": row.get("MLSEA_trainingCodeSnapshot")
+        })
+
+
+
+# elif selected == "🧠 ML Model Metadata":
+#     st.title("🧠 ML Model Metadata")
+#     st.markdown("""
+# Explore structured ML model metadata from each experiment.
+
+# 🔍 What’s covered:
+# - Hyperparameters, metrics, and justifications
+# - Compute environment and training timeline
+# - FAIR4ML and MLSEA metadata structures
+# """)
+
+#     run_ids = df['run_id'].dropna().unique()
+#     if not run_ids.any():
+#         st.warning("⚠️ No runs found. Please train a model first.")
+#     else:
+#         selected_run = st.selectbox("Select a Run ID", run_ids)
+#         row = df[df["run_id"] == selected_run].iloc[0]  # single row as dict
+
+#         def section(title, fields: dict):
+#             st.subheader(title)
+#             display_df = pd.DataFrame(list(fields.items()), columns=["Field", "Value"])
+#             st.dataframe(display_df, use_container_width=True)
+
+#         # 🚀 Overview
+#         section("🚀 Model Overview", {
+#             "Model Name": row.get("ML_EXP_model_name", "—"),
+#             "Model Architecture": row.get("MLSEA_modelArchitecture", "—"),
+#             "Notebook": row.get("ML_EXP_notebook_name", "—"),
+#             "Run Name": row.get("mlflow.runName", "—"),
+#             "Experiment ID": row.get("MLSEA_experimentId", "—")
+#         })
+
+#         # 🧠 Hyperparameters
+#         try:
+#             hyper = json.loads(row.get("MLSEA_hyperparameters", "{}"))
+#         except Exception:
+#             hyper = {}
+#         section("🧠 Model Hyperparameters", hyper)
+
+#         # 📊 Evaluation Metrics
+#         try:
+#             metrics = json.loads(row.get("MLSEA_evaluationMetrics", "{}"))
+#         except Exception:
+#             metrics = {}
+#         section("📊 Evaluation Metrics", metrics)
+
+#         # 🧰 Compute Environment
+#         try:
+#             env = json.loads(row.get("MLSEA_computeEnvironment", "{}"))
+#         except Exception:
+#             env = {}
+#         section("🧰 Compute Environment", env)
+
+#         # 🧪 Training Metadata
+#         section("🧪 Training Timeline", {
+#             "Training Start Time": row.get("ML_EXP_training_start_time", "—"),
+#             "Training End Time": row.get("ML_EXP_training_end_time", "—"),
+#             "Training Procedure": row.get("MLSEA_trainingProcedure", "—"),
+#             "Previous Model": row.get("MLSEA_previousModelRunId", "—"),
+#             "Model Path": row.get("MLSEA_modelPath", "—")
+#         })
+
+#         # 📋 Justifications
+#         justifications = {
+#             k.replace("MLSEA_justification_", ""): v
+#             for k, v in row.items()
+#             if k.startswith("MLSEA_justification_")
+#         }
+#         if justifications:
+#             section("📋 Configuration Justifications", justifications)
+#         else:
+#             st.info("No justifications recorded for this run.")
+#                 # 📌 Additional Insights
+#         st.subheader("📌 Additional Insights")
+#         insights = {
+#             "Performance Notes": row.get("MLSEA_performanceInterpretation", "—"),
+#             "Preprocessing Hash": row.get("MLSEA_preprocessing_hash", "—"),
+#             "Training Code Snapshot": row.get("MLSEA_trainingCodeSnapshot", "—"),
+#         }
+#         insights_df = pd.DataFrame(list(insights.items()), columns=["Field", "Value"])
+#         st.dataframe(insights_df, use_container_width=True)
 
 elif selected == "📊 Model Plots":
     st.title("📊 Model Explainability & Evaluation Plots")
@@ -796,7 +842,7 @@ Visualize how your machine learning model is performing — and understand **why
 🔗 This section links each plot back to the run ID, dataset, and model used to generate it.
 """)
 
-    plot_folders = glob.glob(os.path.join("plots", "RandomForest_Iris_v*"))
+    plot_folders = glob.glob(os.path.join("ML_EXP_plots", "RandomForest_Iris_v*"))
     plot_folders = [os.path.basename(folder) for folder in plot_folders]
 
     if not plot_folders:
@@ -817,14 +863,32 @@ Visualize how your machine learning model is performing — and understand **why
             st.success(f"✅ Matched Run ID: `{run_data.get('run_id', '—')}`")
 
             with st.expander("📋 Extended Metadata"):
+
+                def safe_str(val):
+                    if isinstance(val, (dict, list)):
+                        return json.dumps(val)
+                    elif val is None:
+                        return "—"
+                    return str(val)
+
                 meta_preview = {
+                    "Run ID": run_data.get("run_id", "—"),
                     "Model Name": run_data.get("ML_EXP_model_name", "—"),
                     "Dataset Title": run_data.get("FAIR_dataset_title", "—"),
                     "Training Start": run_data.get("ML_EXP_training_start_time", "—"),
                     "Training End": run_data.get("ML_EXP_training_end_time", "—"),
-                    "Accuracy": run_data.get("ML_EXP_metric_ML_EXP_accuracy", "—"),
+                    "Accuracy (Test)": run_data.get("metric_ML_EXP_accuracy", "—"),
+                    "F1 Macro (Test)": run_data.get("metric_ML_EXP_f1_macro", "—"),
+                    "Precision (Test)": run_data.get("metric_ML_EXP_precision_macro", "—"),
+                    "Recall (Test)": run_data.get("metric_ML_EXP_recall_macro", "—"),
+                    "ROC AUC (Test)": run_data.get("metric_ML_EXP_roc_auc", "—"),
+                    "Training Accuracy": run_data.get("metric_training_accuracy_score", "—"),
                     "Target Variable": run_data.get("FAIR4ML_target_variable", "—"),
-                    "Model Path": run_data.get("MLSEA_modelPath", "—")
+                    "Serialization Format": run_data.get("FAIR4ML_serializationFormat", "—"),
+                    "Model Path": run_data.get("MLSEA_modelPath", "—"),
+                    "Improved From": run_data.get("MLSEA_improvedFrom", "—"),
+                    "Training Code Snapshot": run_data.get("MLSEA_trainingCodeSnapshot", "—"),
+                    "Training Procedure": run_data.get("MLSEA_trainingProcedure", "—"),
                 }
 
                 # Add selected hyperparameters
@@ -844,7 +908,9 @@ Visualize how your machine learning model is performing — and understand **why
                     if key in prep:
                         meta_preview[f"Preprocessing → {key}"] = prep[key]
 
-                meta_df = pd.DataFrame(list(meta_preview.items()), columns=["Field", "Value"])
+                # Clean all values before rendering
+                cleaned_meta_preview = {k: safe_str(v) for k, v in meta_preview.items()}
+                meta_df = pd.DataFrame(list(cleaned_meta_preview.items()), columns=["Field", "Value"])
                 st.dataframe(meta_df, use_container_width=True)
 
         else:
@@ -859,7 +925,7 @@ Visualize how your machine learning model is performing — and understand **why
         }
 
         selected_plot = st.selectbox("Choose Plot", list(plot_options.keys()))
-        plot_path = os.path.join("plots", selected_folder, plot_options[selected_plot])
+        plot_path = os.path.join("ML_EXP_plots", selected_folder, plot_options[selected_plot])
 
         if os.path.exists(plot_path):
             plot_width = st.slider("Adjust Plot Width", 400, 1000, 600)
@@ -879,148 +945,172 @@ Visualize how your machine learning model is performing — and understand **why
         else:
             st.error("❌ Selected plot file not found.")
 
-# elif selected == "📊 Model Plots":
-#     st.title("📊 Model Explainability & Evaluation Plots")
-#     st.markdown("""
-# Visualize how your machine learning model is performing — and understand **why** it's making the predictions it does.
-# """)
-
-#     # 1. Detect available plot folders
-#     plot_folders = glob.glob(os.path.join("plots", "RandomForest_Iris_v*"))
-#     plot_folders = [os.path.basename(folder) for folder in plot_folders]
-
-#     if not plot_folders:
-#         st.warning("⚠️ No plot folders found. Please run a training job first.")
-#     else:
-#         # 2. Let user pick which run
-#         selected_folder = st.selectbox("Select a Run (for plots)", plot_folders)
-
-#         # 3. Define plot options dynamically
-#         plot_options = {
-#             "Feature Importances": "feature_importances.png",
-#             "Confusion Matrix": "confusion_matrix.png",
-#             "SHAP Summary": "shap_summary.png",
-#             "ROC Curve (Class 0)": "roc_curve_cls_0.png",
-#             "Precision-Recall (Class 0)": "pr_curve_cls_0.png"
-#         }
-
-#         selected_plot = st.selectbox("Choose a Plot Type", list(plot_options.keys()))
-
-#         plot_path = os.path.join("plots", selected_folder, plot_options[selected_plot])
-
-#         if os.path.exists(plot_path):
-#             plot_width = st.slider("Adjust Plot Width", 400, 1000, 600)
-#             st.image(plot_path, caption=f"{selected_plot} — {selected_folder}", width=plot_width)
-
-#             if "Feature Importances" in selected_plot:
-#                 st.markdown("**Interpretation:** Shows which features contribute most to predictions.")
-#             elif "SHAP" in selected_plot:
-#                 st.markdown("**Interpretation:** SHAP summary plots show feature impact and distribution.")
-#             elif "ROC" in selected_plot:
-#                 st.markdown("**Interpretation:** ROC curves visualize classifier trade-off between sensitivity and specificity.")
-#             elif "Precision-Recall" in selected_plot:
-#                 st.markdown("**Interpretation:** Precision-Recall curves help understand classifier performance on imbalanced data.")
-#             elif "Confusion" in selected_plot:
-#                 st.markdown("**Interpretation:** The confusion matrix shows how many predictions were correct or misclassified.")
-#         else:
-#             st.error("❌ Selected plot file not found!")
-
-
 
 elif selected == "🛰️ Provenance Trace":
     st.title("🛰️ Provenance Trace")
+    st.markdown("""
+Use this view to inspect detailed provenance metadata for a specific training run — and optionally compare it with another.
 
+📌 **Use Case Highlights**:
+- **Provenance & Reproducibility**: Trace how a model result was produced — including versions, parameters, and preprocessing.
+- **Training Configuration & Evaluation**: Compare hyperparameters, strategies, and performance outcomes across runs.
+    """)
 
-    use_case_descriptions = {
-    "trace_preprocessing": "🔍 Trace preprocessing steps for a run (e.g., dropped columns, features used).",
-    "drop_impact": "📉 Measure accuracy impact of dropping a single feature.",
-    "drop_impact_all": "🧪 Test each feature’s drop impact to assess global importance.",
-    "best_feature_subset": "🎯 Evaluate model accuracy on a custom subset of features.",
-    "common_high_accuracy": "🏆 Find preprocessing patterns in high-accuracy runs (above a threshold)."
-}
-    st.markdown("### 📘 Use Case Selector")
-    for key, desc in use_case_descriptions.items():
-        st.markdown(f"**`{key}`** – {desc}")
+    run_ids = df['run_id'].dropna().unique()
+    selected_run = st.selectbox("Select Run 1", run_ids)
+    run_data_1 = df[df['run_id'] == selected_run].iloc[0].to_dict()
+
+    compare_mode = st.checkbox("🔁 Compare with another run")
+    run_data_2 = None
+    second_run = None
+
+    if compare_mode:
+        second_run = st.selectbox("Select Run 2", [r for r in run_ids if r != selected_run])
+        run_data_2_df = df[df['run_id'] == second_run]
+        if not run_data_2_df.empty:
+            run_data_2 = run_data_2_df.iloc[0].to_dict()
+
+    def get_provenance_fields(run_data):
+        return {
+            "Run ID": run_data.get("run_id", "—"),
+            "Dataset Title": run_data.get("FAIR_dataset_title", "—"),
+            "Dataset Version": run_data.get("ML_EXP_dataset_version", "—"),
+            "Dataset Source URL": run_data.get("FAIR_dataset_access_url", "—"),
+            "Notebook Name": run_data.get("ML_EXP_notebook_name", "—"),
+            "Model Path": run_data.get("MLSEA_modelPath", "—"),
+            "Model Architecture": run_data.get("MLSEA_modelArchitecture", "—"),
+            "Training Code Snapshot": run_data.get("MLSEA_trainingCodeSnapshot", "—"),
+            "GIT Commit Hash": run_data.get("GIT_current_commit_hash", "—"),
+            "GIT Commit URL": run_data.get("GIT_current_commit_url", "—"),
+            "Preprocessing Hash": run_data.get("MLSEA_preprocessing_hash", "—"),
+            "Preprocessing Timestamp": json.loads(run_data.get("MLSEA_dataPreprocessing", "{}")).get("preprocessing_timestamp", "—"),
+            "Training Start Time": run_data.get("ML_EXP_training_start_time", "—"),
+            "Training End Time": run_data.get("ML_EXP_training_end_time", "—"),
+            "Database Title": run_data.get("Internal_DBRepo_database_title", "—"),
+            "Database Creator": run_data.get("Internal_DBRepo_database_creator", "—"),
+            "Database Last Modified": run_data.get("Internal_DBRepo_table_last_modified", "—"),
+            "Generated By": run_data.get("PROV-O_prov_wasGeneratedBy", "—"),
+            "Used Source": run_data.get("PROV-O_prov_used", "—"),
+            "Activity": run_data.get("PROV-O_prov_Activity", "—")
+        }
+
+    def get_config_and_eval_fields(run_data):
+        return {
+            "Target Variable": run_data.get("FAIR4ML_target_variable", "—"),
+            "Split Strategy": run_data.get("MLSEA_trainingProcedure", "—"),
+            "Model Architecture": run_data.get("MLSEA_modelArchitecture", "—"),
+            "Accuracy (Test)": run_data.get("metric_ML_EXP_accuracy", "—"),
+            "F1 Score (Test)": run_data.get("metric_ML_EXP_f1_macro", "—"),
+            "Precision (Test)": run_data.get("metric_ML_EXP_precision_macro", "—"),
+            "Recall (Test)": run_data.get("metric_ML_EXP_recall_macro", "—"),
+            "ROC AUC (Test)": run_data.get("metric_ML_EXP_roc_auc", "—"),
+            "Accuracy (Train)": run_data.get("metric_training_accuracy_score", "—"),
+            "F1 Score (Train)": run_data.get("metric_training_f1_score", "—"),
+            "Precision (Train)": run_data.get("metric_training_precision_score", "—"),
+            "Recall (Train)": run_data.get("metric_training_recall_score", "—"),
+            "Loss (Train)": run_data.get("metric_training_log_loss", "—"),
+            "Hyperparam → n_estimators": run_data.get("param_n_estimators", "—"),
+            "Hyperparam → max_depth": run_data.get("param_max_depth", "—"),
+            "Hyperparam → min_samples_split": run_data.get("param_min_samples_split", "—"),
+            "Hyperparam → min_samples_leaf": run_data.get("param_min_samples_leaf", "—"),
+            "Hyperparam → criterion": run_data.get("param_criterion", "—"),
+            "Hyperparam → max_features": run_data.get("param_max_features", "—"),
+            "Hyperparam → bootstrap": run_data.get("param_bootstrap", "—"),
+            "Hyperparam → oob_score": run_data.get("param_oob_score", "—"),
+            "Hyperparam → class_weight": run_data.get("param_class_weight", "—"),
+            "Hyperparam → random_state": run_data.get("param_random_state", "—")
+        }
+
+    def display_comparison(title, data_fn):
+        st.subheader(title)
+        data1 = data_fn(run_data_1)
     
-    # Use case selection
-    use_case_name = st.selectbox(
-        "Select a Use Case",
-        options=list(USE_CASES.keys()),
-        help="Choose an analysis utility to run on your ML provenance data."
-    )
-    	
-    use_case = USE_CASES[use_case_name]
+        if compare_mode and run_data_2:
+            data2 = data_fn(run_data_2)
     
-    # Collect required parameters
-    params = {}
-    for param in use_case['required_params']:
-        if param == 'feature':
-            all_features = _get_all_features(df)
-            selected_feature = st.selectbox("Select a Feature", all_features)
-            params['feature'] = selected_feature
-        elif param == 'features':
-            all_features = _get_all_features(df)
-            selected_features = st.multiselect("Select Features", all_features)
-            params['features'] = selected_features
-        elif param == 'threshold':
-            threshold = st.slider("Set Accuracy Threshold", min_value=0.0, max_value=1.0, value=0.95)
-            params['threshold'] = threshold
+            # Force all content to string to prevent Arrow type errors
+            df_display = pd.DataFrame({
+                "Field": [str(k) for k in data1.keys()],
+                f"Run 1 ({selected_run})": [str(data1.get(k, "—")) for k in data1.keys()],
+                f"Run 2 ({second_run})": [str(data2.get(k, "—")) for k in data1.keys()]
+            })
+    
+            def highlight_diff(row):
+                styles = []
+                for i, cell in enumerate(row):
+                    if i == 0:
+                        styles.append("")  # Field column
+                    elif row[1] != row[2] and i in [1, 2]:
+                        styles.append("background-color: #fbe8e8; color: black")
+                    else:
+                        styles.append("")
+                return styles
+    
+            st.dataframe(df_display.style.apply(highlight_diff, axis=1), use_container_width=True)
+    
         else:
-            param_value = st.text_input(f"Enter value for {param}")
-            params[param] = param_value
-
-    # Collect optional parameters
-    for param in use_case['optional_params']:
-        if param == 'run_id':
-            run_ids = df['run_id'].dropna().unique()
-            selected_run_id = st.selectbox("Select a Run ID (Optional)", run_ids)
-            params['run_id'] = selected_run_id
-        else:
-            param_value = st.text_input(f"Enter value for {param} (Optional)")
-            params[param] = param_value
-
-    # Execute the selected use case
-    if st.button("Run Use Case"):
-        try:
-            result = use_case['func'](df, **params)
-            if isinstance(result, pd.DataFrame):
-                st.dataframe(result)
-            elif isinstance(result, list):
-                st.json(result)
-            elif isinstance(result, dict):
-                st.json(result)
-            else:
-                st.write(result)
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
+            df_display = pd.DataFrame({
+                "Field": [str(k) for k in data1.keys()],
+                "Value": [str(v) for v in data1.values()]
+            })
+            st.dataframe(df_display, use_container_width=True)
 
 
+    # Render both comparison tables
+    display_comparison("🔍 Provenance & Reproducibility Details", get_provenance_fields)
+    display_comparison("🧪 Configuration & Evaluation Strategy", get_config_and_eval_fields)
 
 elif selected == "🧭 Model-Dataset Mapping":
     st.title("🧭 Model-Dataset Mapping")
     st.markdown("""
-Gain insights into which machine learning models were trained on which datasets — and view the associated metadata.
+Gain insights into which machine learning models were trained on which datasets — and how they performed.
 
-🔗 **What you’ll see**:
-- Model names used in experiments
-- Dataset titles, DOIs, publishers, and version info
-- Attribution-ready links for research transparency
+🔗 **This view helps answer:**
+- Which ML models were trained on which datasets?
+- What dataset versions were used?
+- What were the training outcomes?
 
-🧪 **Why it's useful**:
-- Ensure proper dataset-model pairing  
-- Validate that models were trained on published or approved datasets  
-- Maintain clear provenance and reproducibility
-
-""")   
+📌 **Details shown:**
+- Model name & architecture
+- Dataset title, version, and access URL
+- Accuracy, F1 score, ROC AUC (test set)
+""")
 
     try:
-        results = map_model_dataset(df)
-        if results:
-            st.dataframe(pd.DataFrame(results))
+        # Build a structured table from the main df
+        mapping_records = []
+        for _, row in df.iterrows():
+            model_name = row.get("ML_EXP_model_name", "—")
+            model_arch = row.get("MLSEA_modelArchitecture", "—")
+            dataset_title = row.get("FAIR_dataset_title", "—")
+            dataset_version = row.get("ML_EXP_dataset_version", "—")
+            dataset_url = row.get("FAIR_dataset_access_url", "—")
+            accuracy = row.get("metric_ML_EXP_accuracy", "—")
+            f1_score = row.get("metric_ML_EXP_f1_macro", "—")
+            roc_auc = row.get("metric_ML_EXP_roc_auc", "—")
+            run_id = row.get("run_id", "—")
+
+            mapping_records.append({
+                "Run ID": run_id,
+                "Model Name": model_name,
+                "Architecture": model_arch,
+                "Dataset Title": dataset_title,
+                "Dataset Version": dataset_version,
+                "Dataset Access URL": dataset_url,
+                "Accuracy (Test)": accuracy,
+                "F1 Score (Test)": f1_score,
+                "ROC AUC (Test)": roc_auc
+            })
+
+        if mapping_records:
+            df_mapping = pd.DataFrame(mapping_records)
+            st.dataframe(df_mapping, use_container_width=True)
         else:
-            st.warning("No model-dataset mappings found.")
+            st.warning("⚠️ No valid model-dataset mappings found.")
+
     except Exception as e:
-        st.error(f"An error occurred: {e}")
+        st.error(f"❌ An error occurred: {e}")
+
 
 elif selected == "⚠️ Deprecated Code Check":
     st.title("⚠️ Deprecated Code Check")
@@ -1155,37 +1245,58 @@ Detect whether collaborators' forks of your GitHub repository are out-of-date wi
 
                 except Exception as e:
                     st.error(f"An error occurred: {e}")
+
 elif selected == "📘 Researcher Justifications":
     st.title("📘 Researcher Justifications")
     st.markdown("""
-    This section displays all recorded **justifications** provided by the researcher 
-    for specific modeling decisions, such as hyperparameter choices, dataset version, and evaluation criteria.
-    
-    🧠 These justifications help ensure **transparency**, **explainability**, and support for reproducibility.
-    """)
+This section displays all recorded **justifications** provided by the researcher 
+for specific modeling decisions, such as hyperparameter choices, dataset version, and evaluation criteria.
 
-   # 1. Detect available MODEL_PROVENANCE folders
+🧠 These justifications help ensure:
+- **Transparency** in decision-making  
+- **Explainability** of configuration  
+- **Reproducibility** of results  
+""")
+
+    # 1. Detect provenance folders
     provenance_folders = glob.glob(os.path.join("MODEL_PROVENANCE", "RandomForest_Iris_v*"))
     provenance_folders = [os.path.basename(folder) for folder in provenance_folders]
-    
+
     if not provenance_folders:
         st.warning("⚠️ No provenance folders found.")
     else:
-        # 2. Let user pick the run
-        selected_provenance_folder = st.selectbox("Select a Run (for Justifications)", provenance_folders)
-    
-        # 3. Build path to justification file
-        justification_file = os.path.join(
+        # 2. Select a folder
+        selected_folder = st.selectbox("Select a Run (for Justifications)", provenance_folders)
+
+        # 3. Construct path to summary JSON
+        summary_path = os.path.join(
             "MODEL_PROVENANCE",
-            selected_provenance_folder,
-            f"{selected_provenance_folder}_run_summary.json"
+            selected_folder,
+            f"{selected_folder}_run_summary.json"
         )
-    
+
+        # 4. Load and display justifications
         try:
-            df_just = load_justification_table(justification_file)
-            st.success(f"Loaded: `{justification_file}`")
-            st.write("### Justification Table")
-            st.dataframe(df_just, use_container_width=True)
+            with open(summary_path, "r", encoding="utf-8") as f:
+                summary = json.load(f)
+
+            justifications = {
+                k.replace("justification_", "").replace("_", " ").capitalize(): v
+                for k, v in summary.get("ML_EXP_tags", {}).items()
+                if k.startswith("justification_") and isinstance(v, str) and v.strip()
+            }
+
+            if justifications:
+                df_just = pd.DataFrame(
+                    list(justifications.items()),
+                    columns=["Modeling Decision", "Justification"]
+                )
+                st.success(f"✅ Loaded justifications for `{selected_folder}`")
+                st.write("### 📋 Researcher Justification Table")
+                st.dataframe(df_just, use_container_width=True)
+            else:
+                st.info("ℹ️ No justifications were provided in this run.")
+
         except Exception as e:
             st.error(f"❌ Failed to load justification data: {e}")
 
