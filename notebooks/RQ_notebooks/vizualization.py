@@ -32,7 +32,7 @@ st.set_page_config(
 ############################################################################
 
 def detect_deprecated_code(df: pd.DataFrame, deprecated_commits: List[str], **_) -> List[Dict[str, Any]]:
-    commit_col = 'tag_git_current_commit_hash'
+    commit_col = 'GIT_current_commit_hash'
     if commit_col not in df.columns:
         raise KeyError(f"Missing {commit_col} in DataFrame")
     out = df[df[commit_col].isin(deprecated_commits)]
@@ -364,7 +364,7 @@ with st.sidebar:
             "🧠 ML Model Metadata",
             "📊 Model Plots",
             "🛰️ Provenance Trace",
-            "🧨 Error & Version Impact"
+            "🧨 Error & Version Impact",
             "🧭 Model-Dataset Mapping",
             "📣 Notify Outdated Forks",
             # "📤 Export Provenance",
@@ -1414,18 +1414,161 @@ elif selected == "📤 Export Provenance":
 
         else:
             st.error(f"❌ {export_format} file not found for this run.")
+# elif selected == "🧨 Error & Version Impact":
+#     st.title("🧨 Error & Version Impact Analysis")
+#     st.markdown("""
+# Detect which ML experiments were affected by **outdated code versions** or **deprecated dataset versions**.
+
+# 🔍 **Why it matters**:
+# - Identifies affected researchers or notebooks  
+# - Flags experiments that may need retraining  
+# - Supports version hygiene and reproducibility  
+#     """)
+
+#     import subprocess
+
+#     def get_current_git_commit():
+#         try:
+#             return subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip()
+#         except Exception:
+#             return None
+
+#     current_hash = get_current_git_commit()
+#     version_map = {}
+
+#     # 🏷️ Tag Git Commits with Versions
+#     if 'GIT_current_commit_hash' in df.columns:
+#         unique_commits = df['GIT_current_commit_hash'].dropna().unique()
+#         existing_tags = df.get('GIT_code_version', pd.Series(["untagged"] * len(df)))
+
+#         st.markdown("### 🏷️ Tag Git Commits with Version Labels")
+#         for commit in unique_commits:
+#             default_tag = df[df['GIT_current_commit_hash'] == commit]['GIT_code_version'].dropna().unique()
+#             default_tag = default_tag[0] if len(default_tag) > 0 else "untagged"
+#             tag = st.text_input(f"Version tag for `{commit[:8]}...`", value=default_tag)
+#             version_map[commit] = tag or "untagged"
+#     else:
+#         st.warning("⚠️ Column `GIT_current_commit_hash` not found in your metadata.")
+
+#     # ✅ Display current commit
+#     if current_hash:
+#         st.markdown(f"### 📌 Current Git Commit: `{current_hash}`")
+#     else:
+#         st.warning("⚠️ Git commit hash could not be determined from local repo.")
+
+#     # 🧾 Assign version tags into DataFrame safely
+#     if 'GIT_current_commit_hash' in df.columns:
+#         df['GIT_code_version'] = df['GIT_current_commit_hash'].map(version_map).fillna("untagged")
+#         st.markdown("### 🧾 Existing Commit Tags:")
+#         st.dataframe(df[['run_id', 'GIT_current_commit_hash', 'GIT_code_version']], use_container_width=True)
+#     else:
+#         df['GIT_code_version'] = "untagged"  # fallback if column missing
+
+#     # 📝 User Inputs
+#     deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
+#     simulate_current = st.checkbox("☢️ Also mark current local commit as deprecated")
+
+#     current_version_tag = version_map.get(current_hash, "untagged")
+#     if simulate_current:
+#         st.info(f"☢️ Simulating impact of current version `{current_version_tag}`")
+
+#     deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
+#     if simulate_current and current_version_tag:
+#         deprecated_versions.append(current_version_tag)
+
+#     def detect_deprecated_versions(df, deprecated_versions):
+#         if 'GIT_code_version' not in df.columns:
+#             return pd.DataFrame()
+#         affected = df[df['GIT_code_version'].isin(deprecated_versions)].copy()
+#         user_col = next((col for col in ['tag_executed_by', 'tag_user', 'param_author']), None)
+#         if user_col and user_col in df.columns:
+#             affected['user'] = df[user_col]
+#         return affected
+
+#     # 🚨 Detection
+#     results_df = pd.DataFrame()
+#     if st.button("🚨 Detect Impacted Runs"):
+#         if not deprecated_versions:
+#             st.warning("Please enter at least one deprecated version.")
+#         else:
+#             results_df = detect_deprecated_versions(df, deprecated_versions)
+#             if results_df.empty:
+#                 st.success("✅ No impacted runs found.")
+#             else:
+#                 st.warning("⚠️ Impacted Experiments Detected:")
+#                 st.dataframe(results_df, use_container_width=True)
+
+#                 if 'user' in results_df.columns:
+#                     summary = results_df['user'].value_counts().reset_index()
+#                     summary.columns = ['User', 'Impacted Runs']
+#                     st.markdown("### 👥 Affected Users:")
+#                     st.dataframe(summary, use_container_width=True)
+
+#     # 📣 Notification Support
+#     if not results_df.empty:
+#         st.markdown("---")
+#         st.markdown("### 📣 Notify via GitHub Issue")
+#         with st.expander("🔐 GitHub Authentication"):
+#             github_owner = st.text_input("GitHub Owner", value="reema-dass26", key="gh_owner")
+#             github_repo = st.text_input("Repository Name", value="REPO", key="gh_repo")
+#             github_token = st.text_input("GitHub Token", type="password", value="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", key="gh_token")
+
+
+#         if st.button("📬 Notify via GitHub"):
+#             st.info("📤 Attempting to notify via GitHub...")
+    
+#             if not all([github_owner, github_repo, github_token]):
+#                 st.warning("❗ Please provide all GitHub credentials (owner, repo, and token).")
+#             elif not deprecated_versions:
+#                 st.warning("⚠️ No deprecated versions entered.")
+#             else:
+#                 try:
+#                     impacted_users = (
+#                         results_df['user'].dropna().unique().tolist()
+#                         if 'user' in results_df.columns else []
+#                     )
+#                     user_tags = " ".join(f"@{u}" for u in impacted_users if re.match(r"^[a-zA-Z0-9\-_]+$", u))
+    
+#                     issue_title = "🚨 Deprecated Version Detected in Experiments"
+#                     issue_body = (
+#                         f"The following experiments were run on **deprecated code versions**:\n\n"
+#                         f"- **Versions**: {', '.join(set(deprecated_versions)) or 'N/A'}\n"
+#                         f"{user_tags or ''}\n\n"
+#                         f"Please consider retraining or validating your experiments.\n\n"
+#                         f"— Provenance Dashboard"
+#                     )
+    
+#                     headers = {
+#                         "Authorization": f"token {github_token}",
+#                         "Accept": "application/vnd.github+json"
+#                     }
+#                     issue_api_url = f"https://api.github.com/repos/{github_owner}/{github_repo}/issues"
+#                     payload = {"title": issue_title, "body": issue_body}
+    
+#                     resp = requests.post(issue_api_url, headers=headers, json=payload)
+    
+#                     if resp.status_code == 201:
+#                         issue_url = resp.json().get("html_url", "")
+#                         st.success(f"✅ GitHub Issue Created: [View Issue]({issue_url})")
+#                     else:
+#                         st.error(f"❌ Failed to create issue. Status Code: {resp.status_code}")
+#                         st.code(resp.json())
+#                 except Exception as ex:
+#                     st.exception(f"Unexpected error occurred: {ex}")
 elif selected == "🧨 Error & Version Impact":
     st.title("🧨 Error & Version Impact Analysis")
     st.markdown("""
-    Detect which ML experiments were affected by **outdated code versions** or **deprecated dataset versions**.
+Detect which ML experiments were affected by **outdated code versions** or **deprecated dataset versions**.
 
-    🔍 **Why it matters**:
-    - Identifies affected researchers or notebooks
-    - Flags experiments that may need retraining
-    - Supports version hygiene and reproducibility
+🔍 **Why it matters**:
+- Identifies affected researchers or notebooks  
+- Flags experiments that may need retraining  
+- Supports version hygiene and reproducibility  
     """)
 
     import subprocess
+    import requests
+    import re
 
     def get_current_git_commit():
         try:
@@ -1434,58 +1577,66 @@ elif selected == "🧨 Error & Version Impact":
             return None
 
     current_hash = get_current_git_commit()
+    version_map = {}
+
+    # 🏷️ Tag Git Commits with Versions
+    if 'GIT_current_commit_hash' in df.columns:
+        unique_commits = df['GIT_current_commit_hash'].dropna().unique()
+
+        st.markdown("### 🏷️ Tag Git Commits with Version Labels")
+        for commit in unique_commits:
+            default_tag = "untagged"
+            if 'GIT_code_version' in df.columns:
+                tags = df[df['GIT_current_commit_hash'] == commit]['GIT_code_version'].dropna().unique()
+                if len(tags) > 0:
+                    default_tag = tags[0]
+            tag = st.text_input(f"Version tag for `{commit[:8]}...`", value=default_tag)
+            version_map[commit] = tag or "untagged"
+    else:
+        st.warning("⚠️ Column `GIT_current_commit_hash` not found in your metadata.")
+
+    # ✅ Display current commit
     if current_hash:
         st.markdown(f"### 📌 Current Git Commit: `{current_hash}`")
     else:
         st.warning("⚠️ Git commit hash could not be determined from local repo.")
 
-    st.markdown("### 🧾 Existing Commits & Dataset Versions in Metadata:")
-    if 'tag_git_current_commit_hash' in df.columns:
-        hashes = df['tag_git_current_commit_hash'].dropna().unique()
-        st.code("\n".join(hashes), language='text')
-        if len(hashes) == 1:
-            st.warning("⚠️ All experiments appear to use the same commit hash.")
-        else:
-            st.success(f"✅ Found {len(hashes)} unique Git hashes in metadata.")
-    if 'tag_dataset_version' in df.columns:
-        versions = df['tag_dataset_version'].dropna().unique()
-        st.code("\n".join(versions), language='text')
+    # 🧾 Assign version tags into DataFrame safely
+    if 'GIT_current_commit_hash' in df.columns:
+        df['GIT_code_version'] = df['GIT_current_commit_hash'].map(version_map).fillna("untagged")
+        st.markdown("### 🧾 Existing Commit Tags:")
+        st.dataframe(df[['run_id', 'GIT_current_commit_hash', 'GIT_code_version']], use_container_width=True)
+    else:
+        df['GIT_code_version'] = "untagged"  # fallback if column missing
 
-    # Inputs
-    deprecated_commits_input = st.text_area("Enter deprecated Git commit hashes (one per line):", height=100)
-    deprecated_versions_input = st.text_area("Enter deprecated dataset versions (one per line):", height=100)
-    simulate_current = st.checkbox("☢️ Also mark current local Git commit as deprecated")
+    # 📝 User Inputs
+    deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
+    simulate_current = st.checkbox("☢️ Also mark current local commit as deprecated")
 
-    deprecated_commits = [c.strip() for c in deprecated_commits_input.splitlines() if c.strip()]
+    current_version_tag = version_map.get(current_hash, "untagged")
+    if simulate_current:
+        st.info(f"☢️ Simulating impact of current version `{current_version_tag}`")
+
     deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
+    if simulate_current and current_version_tag:
+        deprecated_versions.append(current_version_tag)
 
-    if simulate_current and current_hash:
-        deprecated_commits.append(current_hash)
-        st.info(f"✅ Simulating impact of current commit `{current_hash}`")
+    def detect_deprecated_versions(df, deprecated_versions):
+        if 'GIT_code_version' not in df.columns:
+            return pd.DataFrame()
+        affected = df[df['GIT_code_version'].isin(deprecated_versions)].copy()
+        user_col = next((col for col in ['tag_executed_by', 'tag_user', 'param_author'] if col in df.columns), None)
+        if user_col:
+            affected['user'] = df[user_col]
+        return affected
 
-    def detect_deprecated_resources(df, deprecated_commits, deprecated_versions):
-        commit_col = 'tag_git_current_commit_hash'
-        version_col = 'tag_dataset_version'
-        candidate_authors = ['tag_executed_by', 'tag_user', 'tag_notebook_name', 'param_author']
-        author_col = next((col for col in candidate_authors if col in df.columns), None)
-
-        mask_commit = df[commit_col].isin(deprecated_commits) if commit_col in df.columns else False
-        mask_version = df[version_col].isin(deprecated_versions) if version_col in df.columns else False
-        impacted = df[mask_commit | mask_version].copy()
-
-        cols = ['run_id', commit_col, version_col, 'tag_mlflow.runName']
-        if author_col:
-            impacted['user'] = df[author_col]
-            cols.append('user')
-
-        return impacted[cols]
-
+    # 🚨 Detection
     results_df = pd.DataFrame()
     if st.button("🚨 Detect Impacted Runs"):
-        if not deprecated_commits and not deprecated_versions:
-            st.warning("Please enter at least one deprecated commit or dataset version.")
+        if not deprecated_versions:
+            st.warning("Please enter at least one deprecated version.")
         else:
-            results_df = detect_deprecated_resources(df, deprecated_commits, deprecated_versions)
+            results_df = detect_deprecated_versions(df, deprecated_versions)
             if results_df.empty:
                 st.success("✅ No impacted runs found.")
             else:
@@ -1498,58 +1649,87 @@ elif selected == "🧨 Error & Version Impact":
                     st.markdown("### 👥 Affected Users:")
                     st.dataframe(summary, use_container_width=True)
 
+    # 📣 Notification Support
     if not results_df.empty:
         st.markdown("---")
-        st.markdown("### 🔍 Search Impacted Runs")
-        search_query = st.text_input("Search by User or Run ID")
-        if search_query:
-            filtered_df = results_df[
-                results_df.apply(lambda row: search_query.lower() in str(row.values).lower(), axis=1)
-            ]
-            if not filtered_df.empty:
-                st.dataframe(filtered_df, use_container_width=True)
-            else:
-                st.info("No matching results.")
-
-        st.markdown("### 📣 Notify via GitHub Issue")
+        st.markdown("### 📣 Notify Fork Owners via GitHub Issue")
+    
         with st.expander("🔐 GitHub Authentication"):
-            github_owner = st.text_input("GitHub Owner", key="gh_owner")
-            github_repo = st.text_input("Repository Name", key="gh_repo")
-            github_token = st.text_input("GitHub Token", type="password", key="gh_token")
-
-        if st.button("📬 Notify via GitHub"):
-            if not all([github_owner, github_repo, github_token]):
-                st.warning("❗ Provide GitHub credentials above.")
-            else:
-                try:
-                    impacted_users = results_df['user'].dropna().unique().tolist() if 'user' in results_df.columns 	else []
-                    user_tags = " ".join(f"@{u}" for u in impacted_users if re.match(r"^[a-zA-Z0-9\-_]+$", u))
-
-                    issue_title = "🚨 Deprecated Resources Used in ML Experiments"
-                    issue_body = (
-                        f"The following experiments used **deprecated code or dataset versions**:\n\n"
-                        f"- **Commits**: {', '.join(set(deprecated_commits)) or 'N/A'}\n"
-                        f"- **Dataset Versions**: {', '.join(set(deprecated_versions)) or 'N/A'}\n\n"
-                        f"{user_tags or ''}\n\n"
-                        f"Please consider retraining or validating your experiments.\n\n"
-                        f"— Provenance Dashboard"
-                    )
-
-                    headers = {
-                        "Authorization": f"token {github_token}",
-                        "Accept": "application/vnd.github+json"
-                    }
-                    issue_api_url = f"https://api.github.com/repos/{github_owner}/{github_repo}/issues"
-                    payload = {"title": issue_title, "body": issue_body}
-
-                    resp = requests.post(issue_api_url, headers=headers, json=payload)
-
-                    if resp.status_code == 201:
-                        issue_url = resp.json().get("html_url", "")
-                        st.success(f"✅ GitHub Issue Created: [View Issue]({issue_url})")
-                    else:
-                        st.error(f"❌ Failed to create issue. Status: {resp.status_code}")
-                        st.code(resp.text)
-                except Exception as ex:
-                    st.error(f"An error occurred while notifying GitHub: {ex}")
-
+            owner = st.text_input("GitHub Owner", value="reema-dass26", key="gh_owner_notify_v2")
+            repo = st.text_input("Repository Name", value="REPO", key="gh_repo_notify_v2")
+            token = st.text_input("GitHub Token", type="password", key="gh_token_notify_v2")
+    
+            if st.button("📬 Notify Fork Owners", key="notify_forks_btn"):
+                if not all([owner, repo, token]):
+                    st.warning("❗ Please fill in all fields before proceeding.")
+                else:
+                    with st.spinner("🔍 Checking forks and notifying..."):
+                        try:
+                            headers = {
+                                "Authorization": f"token {token}",
+                                "Accept": "application/vnd.github.v3+json"
+                            }
+    
+                            # Get latest commit from main repo
+                            main_commits = requests.get(
+                                f"https://api.github.com/repos/{owner}/{repo}/commits",
+                                headers=headers,
+                                params={"per_page": 1}
+                            )
+                            main_commits.raise_for_status()
+                            new_commit_hash = main_commits.json()[0]["sha"]
+                            st.success(f"✅ Latest commit: `{new_commit_hash}`")
+    
+                            # Get forks
+                            forks_resp = requests.get(
+                                f"https://api.github.com/repos/{owner}/{repo}/forks",
+                                headers=headers
+                            )
+                            forks_resp.raise_for_status()
+                            forks = forks_resp.json()
+    
+                            outdated = []
+                            for fork in forks:
+                                fork_owner = fork["owner"]["login"]
+                                fork_commits = requests.get(
+                                    fork["url"] + "/commits",
+                                    headers=headers,
+                                    params={"per_page": 1}
+                                )
+                                if fork_commits.status_code != 200:
+                                    st.warning(f"⚠️ Could not check @{fork_owner}")
+                                    continue
+    
+                                fork_sha = fork_commits.json()[0]["sha"]
+                                if fork_sha != new_commit_hash:
+                                    outdated.append(fork_owner)
+    
+                            if outdated:
+                                st.warning(f"These forks are outdated: {', '.join(outdated)}")
+    
+                                issue_title = "🔔 Notification: Your fork is behind the latest commit"
+                                issue_body = (
+                                    f"Hi {' '.join(f'@{u}' for u in outdated)},\n\n"
+                                    f"The main repository has been updated to commit `{new_commit_hash}`.\n"
+                                    "Please consider pulling the latest changes to stay in sync.\n\n"
+                                    "Thanks! — Provenance Dashboard"
+                                )
+    
+                                issue_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+                                issue_resp = requests.post(
+                                    issue_url,
+                                    headers=headers,
+                                    json={"title": issue_title, "body": issue_body}
+                                )
+    
+                                if issue_resp.status_code == 201:
+                                    issue_link = issue_resp.json().get("html_url")
+                                    st.success(f"✅ Issue created: [View Issue]({issue_link})")
+                                else:
+                                    st.error("❌ Failed to create issue.")
+                                    st.code(issue_resp.text)
+                            else:
+                                st.success("✅ All forks are up-to-date!")
+    
+                        except Exception as e:
+                            st.exception(f"An error occurred: {e}")
