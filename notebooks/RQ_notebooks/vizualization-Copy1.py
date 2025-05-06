@@ -27,8 +27,7 @@ st.set_page_config(
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded"
-)
-############################################################################
+)############################################################################
 #Helper functions
 ############################################################################
 
@@ -112,6 +111,8 @@ def load_data():
     df = pd.DataFrame(rows)
     st.success(f"✅ Loaded {len(df)} runs with {len(df.columns)} columns.")
     return df
+
+import pandas as pd
 
 
 def _get_all_features(df):
@@ -281,6 +282,8 @@ def get_latest_justification_summary(base_dir="MODEL_PROVENANCE"):
 # —— Load justifications and return as DataFrame ——
 
 def load_justification_table(path):
+    import json
+    import pandas as pd
 
     try:
         with open(path, "r") as f:
@@ -315,6 +318,31 @@ def load_justification_table(path):
 
 df = load_data()
 USE_CASES = {
+    'trace_preprocessing': {
+        'func': trace_preprocessing,
+        'required_params': [],
+        'optional_params': ['run_id'],
+    },
+    'drop_impact': {
+        'func': drop_impact,
+        'required_params': ['feature'],
+        'optional_params': [],
+    },
+    'drop_impact_all': {
+        'func': drop_impact_all,
+        'required_params': [],
+        'optional_params': [],
+    },
+    'best_feature_subset': {
+        'func': best_feature_subset,
+        'required_params': ['features'],
+        'optional_params': [],
+    },
+    'common_high_accuracy': {
+        'func': common_high_accuracy,
+        'required_params': ['threshold'],
+        'optional_params': [],
+    },
      'detect_deprecated_code': {
         'func': detect_deprecated_code,
         'required_params': ['deprecated_commits'],
@@ -345,6 +373,7 @@ with st.sidebar:
             # "⚠️ Deprecated Code Check",
 
             
+
         ],
         icons=[
             "house", "database", "gear", "bar-chart", "globe", "link", "exclamation-triangle","map", "megaphone" , "book","cloud-download"
@@ -421,90 +450,71 @@ st.markdown("<h1 style='text-align: center;'>Building Bridges in Research: Integ
 
 
 if selected == "🏠 Dashboard":
-
-    st.markdown("""<style>
-    body, .main {
-        background-color: #121212;
-        color: #e0e0e0;
-    }
-
-    .block-container {
-        padding: 2rem;
-        max-width: 1400px;
-    }
-
-    div[data-testid="column"] > div {
-        background-color: #1f1f1f;
-        padding: 1.2rem 1rem;
-        margin: 0.8rem;
-        border-radius: 0.6rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        min-height: 180px;
-    }
-
-    div[data-testid="column"] > div:hover {
-        background-color: #2c2c2c;
-        transform: translateY(-4px);
-    }
-
-    h1, h2, h3 {
-        color: #ffffff;
-        font-family: 'Segoe UI', sans-serif;
-        margin-top: 0;
-    }
-
-    p {
-        color: #cccccc;
-        font-size: 0.95rem;
-        line-height: 1.5rem;
-    }
-
-    .dashboard-title {
-        margin-bottom: 2rem;
-        margin-top: 1rem;
-    }
-
-    footer {
-        visibility: hidden;
-    }
-</style>""", unsafe_allow_html=True)
-
-
-    # Title
-    st.markdown("## 👋 Welcome to the End-to-End Provenance Dashboard")
+    st.title("🏠 Dashboard")
     
-    # Section metadata
-    sections = [
-        {"emoji": "🧬", "title": "Dataset Metadata", "desc": "Authorship, DOIs, transformations, and links to DBRepo."},
-        {"emoji": "🧠", "title": "ML Model Metadata", "desc": "Architecture, hyperparameters, training setup, and compute logs."},
-        {"emoji": "📊", "title": "Model Plots", "desc": "SHAP, ROC, PR curves, confusion matrices with metadata links."},
-        {"emoji": "🛰️", "title": "Provenance Trace", "desc": "Reconstruct training paths using data, code, parameters, and preprocessing."},
-        {"emoji": "🧨", "title": "Error & Version Impact", "desc": "Detect deprecated runs and notify researchers of faulty configurations."},
-        {"emoji": "🧭", "title": "Model–Dataset Mapping", "desc": "Cross-link models and datasets to validate provenance and consistency."},
-        {"emoji": "📘", "title": "Researcher Justifications", "desc": "Log rationale behind modeling decisions for transparency."},
-        {"emoji": "📣", "title": "Notify Fork Owners", "desc": "Alert GitHub users with outdated forks using auto-generated issues."},
-        {"emoji": "📤", "title": "Export Metadata", "desc": "Export structured metadata (YAML, JSON, PROV-O) for archival or publication."},
-        {"emoji": "📚", "title": "Invenio Metadata", "desc": "Render Invenio-style metadata records for datasets and publications."}
-    ]
-    
-    # Dynamically create rows of 3 columns each
-    for i in range(0, len(sections), 3):
-        cols = st.columns(3)
-        for col, section in zip(cols, sections[i:i+3]):
-            with col:
-                st.markdown(f"""
-                    <div style="background-color: #1e1e1e; padding: 1rem; margin: 0.5rem 0; border-radius: 0.5rem;
-                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); transition: 0.3s ease-in-out;">
-                        <h4 style="margin-bottom: 0.5rem;">{section['emoji']} {section['title']}</h4>
-                        <p style="font-size: 0.9rem; color: #d0d0d0;">{section['desc']}</p>
-                    </div>
-                """, unsafe_allow_html=True)
+    # Center content using columns
+    left_col, center_col, right_col = st.columns([1, 5, 1])  # Adjust ratios as needed
+
+    with center_col:
+        st.markdown("## 👋 Welcome to the End-to-End Provenance Dashboard")
+
+        st.markdown("""
+Welcome to your one-stop hub for managing and understanding the **provenance** of machine learning experiments within Virtual Research Environments (VREs).  
+This dashboard empowers **traceability**, **reproducibility**, and **transparency** across your ML lifecycle.
+
+---
+
+### 🧩 Key Features
+
+#### 🧬 Dataset Metadata
+- View dataset authorship, publication, versioning  
+- Integrated with source platforms, DOIs, and database records
+
+#### 🧠 ML Model Metadata
+- Inspect training configurations, sampling techniques, hyperparameters  
+- Runtime environment details (Python, libraries, hardware)
+
+#### 📊 Model Plots
+- Feature importance, confusion matrix, ROC & PR curves  
+- SHAP explanations, linked with model/dataset metadata
+
+#### 🛰️ Provenance Trace
+- Track how specific outputs were produced  
+- Compare configurations, parameters, and preprocessing steps
+
+#### ⚠️ Error & Version Impact
+- Flag outdated experiments using old Git commits or deprecated data/code versions
+
+#### 🧭 Model–Dataset Mapping
+- Visualize relationships between trained models and datasets  
+- DOI, publisher, and attribution metadata included
+
+#### 📣 Notify Outdated Forks
+- Automatically notify contributors using outdated forks via GitHub Issues
+
+#### 📤 Export Provenance
+- Export training and provenance metadata in standardized formats (YAML, JSON, etc.)
+
+#### 📘 Researcher Justifications
+- Capture rationales for decisions taken during the ML pipeline
+
+#### 📚 Invenio Metadata
+- Integrate with Invenio-style metadata records for publications and datasets
+
+---
 
 
-    st.markdown("---")
-    st.info("🔍 Use the **sidebar** to navigate to each section. This dashboard supports RQ1–RQ4 through deep metadata inspection and provenance visualization.")
 
+---
+
+🔍 Use the **sidebar navigation** to explore each section. This tool is particularly useful for:
+- Reproducibility validation
+- Research auditing
+- FAIR data practices
+- Collaborative ML workflows
+
+""")
+        
     st.markdown("---")
     st.markdown("---")
     st.markdown("## 🔄 ML Infrastructure Flow: Visual + Narrative")
@@ -1366,30 +1376,26 @@ Detect which ML experiments were affected by **outdated code versions**.
 
     current_hash = get_current_git_commit()
     version_map = {}
+
     if 'GIT_current_commit_hash' in df.columns:
-        st.markdown("### 🏷️ Git Commit – Version Mapping")
-    
-        # Ensure version column exists
-        if 'GIT_code_version' not in df.columns:
-            df['GIT_code_version'] = "untagged"
-    
-        # Build version map
-        version_map = df.set_index("GIT_current_commit_hash")["GIT_code_version"].to_dict()
-    
+        unique_commits = df['GIT_current_commit_hash'].dropna().unique()
+        st.markdown("### 🏷️ Tag Git Commits with Version Labels")
+        for commit in unique_commits:
+            default_tag = "untagged"
+            if 'GIT_code_version' in df.columns:
+                tags = df[df['GIT_current_commit_hash'] == commit]['GIT_code_version'].dropna().unique()
+                if len(tags) > 0:
+                    default_tag = tags[0]
+            tag = st.text_input(f"Version tag for `{commit[:8]}...`", value=default_tag)
+            version_map[commit] = tag or "untagged"
 
-    
-        # Show current commit (if available)
-        if current_hash:
-            st.markdown(f"### 📌 Current Git Commit: `{current_hash}`")
-    
-        # Optional: Show all experiments and what version they used
-        st.markdown("### 🧾 Version Tag per Run:")
-        st.dataframe(df[["run_id", "GIT_current_commit_hash", "GIT_code_version"]], use_container_width=True)
-    
-    else:
-        st.warning("⚠️ Column `GIT_current_commit_hash` not found in your metadata.")
+    if current_hash:
+        st.markdown(f"### 📌 Current Git Commit: `{current_hash}`")
 
-
+    if 'GIT_current_commit_hash' in df.columns:
+        df['GIT_code_version'] = df['GIT_current_commit_hash'].map(version_map).fillna("untagged")
+        st.markdown("### 🧾 Existing Commit Tags:")
+        st.dataframe(df[['run_id', 'GIT_current_commit_hash', 'GIT_code_version']], use_container_width=True)
 
     deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
     simulate_current = st.checkbox("☢️ Also mark current local commit as deprecated")
@@ -1458,3 +1464,4 @@ Detect which ML experiments were affected by **outdated code versions**.
                             st.code(resp.text)
                     except Exception as e:
                         st.error(f"Exception occurred: {str(e)}")
+
