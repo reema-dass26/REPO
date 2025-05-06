@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score
 import requests
 from dotenv import load_dotenv
 from typing import List, Dict, Any
-from pprint import pprint
+from pprint import pprintd
 from streamlit_option_menu import option_menu
 from pyvis.network import Network
 import streamlit.components.v1 as components
