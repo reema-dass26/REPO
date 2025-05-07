@@ -1,0 +1,34 @@
+📌 Model Details:
+  Model Name: RandomForest_Iris_v20250507_224415
+  Dataset Name: Iris_v1
+  Dataset Version: v1
+  Run ID: ee7cd05401134f728705440ac3d0a496
+  Timestamp: 2025-05-07 20:44 UTC
+🛠️ Hyperparameters:
+  n_estimators: 100
+  criterion: entropy
+  max_depth: 10
+  min_samples_split: 3
+  min_samples_leaf: 1
+  max_features: sqrt
+  bootstrap: true
+  oob_score: true
+  class_weight: null
+  verbose: 1
+  n_jobs: -1
+📈 Metrics:
+  accuracy: 1.0
+  f1_macro: 1.0
+  precision_macro: 1.0
+  recall_macro: 1.0
+  roc_auc: 1.0
+🔗 Git Info:
+  Commit Hash: e38f3dc5f5f22a09724d3efdaacad36bd46d5b8f
+  Reproduce With: git checkout e38f3dc5f5f22a09724d3efdaacad36bd46d5b8f
+🚀 Reproduction Guide:
+- '1. Clone the repo and checkout the commit:'
+- '   git checkout e38f3dc5f5f22a09724d3efdaacad36bd46d5b8f'
+- 2. Load and preprocess the dataset exactly as during training.
+- '3. Load the model using MLflow:'
+- '   mlflow.sklearn.load_model(''runs:/ee7cd05401134f728705440ac3d0a496/model'')'
+- 4. Run inference or evaluation using the same pipeline/script.
