@@ -12,7 +12,6 @@ from sklearn.metrics import accuracy_score
 import requests
 from dotenv import load_dotenv
 from typing import List, Dict, Any
-from pprint import pprintd
 from streamlit_option_menu import option_menu
 from pyvis.network import Network
 import streamlit.components.v1 as components
@@ -41,30 +40,30 @@ def detect_deprecated_code(df: pd.DataFrame, deprecated_commits: List[str], **_)
     cols = [c for c in cols if c in df.columns]
     return out[cols].to_dict(orient='records')
 
-def map_model_dataset(df: pd.DataFrame, **_) -> List[Dict[str, Any]]:
-    model_col = 'tag_model_name' if 'tag_model_name' in df.columns else 'param_model_name'
+# def map_model_dataset(df: pd.DataFrame, **_) -> List[Dict[str, Any]]:
+#     model_col = 'tag_model_name' if 'tag_model_name' in df.columns else 'param_model_name'
     
-    cols = [
-        'run_id',
-        model_col,
-        'param_dataset.title',
-        'param_dataset.doi',
-        'param_dataset.published',
-        'param_dataset.publisher'
-    ]
-    cols = [c for c in cols if c in df.columns]
+#     cols = [
+#         'run_id',
+#         model_col,
+#         'param_dataset.title',
+#         'param_dataset.doi',
+#         'param_dataset.published',
+#         'param_dataset.publisher'
+#     ]
+#     cols = [c for c in cols if c in df.columns]
     
-    data = df[cols].to_dict(orient='records')
+#     data = df[cols].to_dict(orient='records')
     
-    # 🔥 Post-process: make DOI into clickable links
-    for record in data:
-        doi = record.get('param_dataset.doi')
-        if doi:
-            # If the DOI is already a URL, fine; else, prepend https://doi.org/
-            doi_link = f"https://doi.org/{doi}" if not doi.startswith("http") else doi
-            record['param_dataset.doi'] = f"[{doi}]({doi_link})"
+#     # 🔥 Post-process: make DOI into clickable links
+#     for record in data:
+#         doi = record.get('param_dataset.doi')
+#         if doi:
+#             # If the DOI is already a URL, fine; else, prepend https://doi.org/
+#             doi_link = f"https://doi.org/{doi}" if not doi.startswith("http") else doi
+#             record['param_dataset.doi'] = f"[{doi}]({doi_link})"
     
-    return data
+#     return data
 
 @st.cache_data
 def load_data():
@@ -320,11 +319,7 @@ USE_CASES = {
         'required_params': ['deprecated_commits'],
         'optional_params': []
     },
-    'map_model_dataset': {
-        'func': map_model_dataset,
-        'required_params': [],
-        'optional_params': []
-    },
+    
 }
 
 with st.sidebar:
