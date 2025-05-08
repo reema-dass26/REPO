@@ -161,102 +161,102 @@ def evaluate_subset(features, test_size=0.2, random_state=42, n_estimators=200):
     return accuracy_score(yte, m.predict(Xte))
 
 
-def trace_preprocessing(df, run_id=None):
-    """
-    Extract preprocessing trace information for a given run_id or all runs.
-    """
-    cols = ['run_id',
-            'param_dataset.title',
-            'param_columns_raw',
-            'param_dropped_columns',
-            'param_feature_names',
-            'param_dataset.authors', 'param_dataset.doi', 'param_dataset.published',
-            'param_test_size',
-            'param_criterion',
-            'param_max_depth','param_max_leaf_nodes', 'param_max_samples',
-           'metric_accuracy','metric_f1_macro','metric_roc_auc']
-    if run_id is None:
-        subset = df.loc[:, cols]
-    else:
-        subset = df.loc[df['run_id'] == run_id, cols]
-    return subset.to_dict(orient='records')
+# def trace_preprocessing(df, run_id=None):
+#     """
+#     Extract preprocessing trace information for a given run_id or all runs.
+#     """
+#     cols = ['run_id',
+#             'param_dataset.title',
+#             'param_columns_raw',
+#             'param_dropped_columns',
+#             'param_feature_names',
+#             'param_dataset.authors', 'param_dataset.doi', 'param_dataset.published',
+#             'param_test_size',
+#             'param_criterion',
+#             'param_max_depth','param_max_leaf_nodes', 'param_max_samples',
+#            'metric_accuracy','metric_f1_macro','metric_roc_auc']
+#     if run_id is None:
+#         subset = df.loc[:, cols]
+#     else:
+#         subset = df.loc[df['run_id'] == run_id, cols]
+#     return subset.to_dict(orient='records')
 
-def drop_impact(df, feature, **_):
-    """
-    Evaluate the impact of dropping a single feature on model accuracy.
-    """
-    all_feats = _get_all_features(df)
-    baseline = evaluate_subset(all_feats)
-    without = [f for f in all_feats if f != feature]
-    dropped = evaluate_subset(without)
-    return {
-      'dropped_feature': feature,
-      'baseline_acc': baseline,
-      'dropped_acc': dropped,
-      'impact': baseline - dropped
-    }
+# def drop_impact(df, feature, **_):
+#     """
+#     Evaluate the impact of dropping a single feature on model accuracy.
+#     """
+#     all_feats = _get_all_features(df)
+#     baseline = evaluate_subset(all_feats)
+#     without = [f for f in all_feats if f != feature]
+#     dropped = evaluate_subset(without)
+#     return {
+#       'dropped_feature': feature,
+#       'baseline_acc': baseline,
+#       'dropped_acc': dropped,
+#       'impact': baseline - dropped
+#     }
 
-def drop_impact_all(df):
-    """
-    Compute drop-impact for every feature in the dataset.
-    Returns list of dicts with dropped_feature, baseline_acc, dropped_acc, impact.
-    """
-    feats = _get_all_features(df)
-    baseline = evaluate_subset(feats)
-    summary = []
-    for feat in feats:
-        without = [f for f in feats if f != feat]
-        acc = evaluate_subset(without)
-        summary.append({
-            'dropped_feature': feat,
-            'baseline_acc': baseline,
-            'dropped_acc': acc,
-            'impact': round(baseline - acc, 4)
-        })
-    return summary
+# def drop_impact_all(df):
+#     """
+#     Compute drop-impact for every feature in the dataset.
+#     Returns list of dicts with dropped_feature, baseline_acc, dropped_acc, impact.
+#     """
+#     feats = _get_all_features(df)
+#     baseline = evaluate_subset(feats)
+#     summary = []
+#     for feat in feats:
+#         without = [f for f in feats if f != feat]
+#         acc = evaluate_subset(without)
+#         summary.append({
+#             'dropped_feature': feat,
+#             'baseline_acc': baseline,
+#             'dropped_acc': acc,
+#             'impact': round(baseline - acc, 4)
+#         })
+#     return summary
 
-def best_feature_subset(df, features, **_):
-    """
-    Evaluate model accuracy using a specified subset of features.
-    """
-    acc = evaluate_subset(features)
-    return {'features': features, 'accuracy': acc}
+# def best_feature_subset(df, features, **_):
+#     """
+#     Evaluate model accuracy using a specified subset of features.
+#     """
+#     acc = evaluate_subset(features)
+#     return {'features': features, 'accuracy': acc}
 
-def common_high_accuracy(df, threshold=0.95):
-    """
-    Filter runs with test accuracy >= threshold and list unique shared preprocessing settings.
-    """
-    high = df[df['metric_accuracy_score_X_test'] >= threshold]
-    cols = ['param_dropped_columns', 'param_test_size', 'param_feature_names']
-    return high[cols].drop_duplicates().to_dict(orient='records')
+# def common_high_accuracy(df, threshold=0.95):
+#     """
+#     Filter runs with test accuracy >= threshold and list unique shared preprocessing settings.
+#     """
+#     high = df[df['metric_accuracy_score_X_test'] >= threshold]
+#     cols = ['param_dropped_columns', 'param_test_size', 'param_feature_names']
+#     return high[cols].drop_duplicates().to_dict(orient='records')
 
-USE_CASES = {
-    'trace_preprocessing': {
-        'func': trace_preprocessing,
-        'required_params': [],
-        'optional_params': ['run_id'],
-    },
-    'drop_impact': {
-        'func': drop_impact,
-        'required_params': ['feature'],
-        'optional_params': [],
-    },
-    'drop_impact_all': {
-        'func': drop_impact_all,
-        'required_params': [],
-        'optional_params': [],
-    },
-    'best_feature_subset': {
-        'func': best_feature_subset,
-        'required_params': ['features'],
-        'optional_params': [],
-    },
-    'common_high_accuracy': {
-        'func': common_high_accuracy,
-        'required_params': ['threshold'],
-        'optional_params': [],
-    },
-}
+# USE_CASES = {
+#     'trace_preprocessing': {
+#         'func': trace_preprocessing,
+#         'required_params': [],
+#         'optional_params': ['run_id'],
+#     },
+#     'drop_impact': {
+#         'func': drop_impact,
+#         'required_params': ['feature'],
+#         'optional_params': [],
+#     },
+#     'drop_impact_all': {
+#         'func': drop_impact_all,
+#         'required_params': [],
+#         'optional_params': [],
+#     },
+#     'best_feature_subset': {
+#         'func': best_feature_subset,
+#         'required_params': ['features'],
+#         'optional_params': [],
+#     },
+#     'common_high_accuracy': {
+#         'func': common_high_accuracy,
+#         'required_params': ['threshold'],
+#         'optional_params': [],
+#     },
+# }
 # —— Find latest run summary with justification data ——
 
 def get_latest_justification_summary(base_dir="MODEL_PROVENANCE"):
@@ -314,14 +314,7 @@ def load_justification_table(path):
 
 
 df = load_data()
-USE_CASES = {
-     'detect_deprecated_code': {
-        'func': detect_deprecated_code,
-        'required_params': ['deprecated_commits'],
-        'optional_params': []
-    },
-    
-}
+
 
 with st.sidebar:
     selected = option_menu(
@@ -339,8 +332,6 @@ with st.sidebar:
             "📘 Researcher Justifications",
             "📚 Invenio Metadata",
             "📦 Environment Requirements"
-
-            # "⚠️ Deprecated Code Check",
 
             
         ],
@@ -1065,44 +1056,6 @@ Gain insights into which machine learning models were trained on which datasets 
 
     except Exception as e:
         st.error(f"❌ An error occurred: {e}")
-
-
-elif selected == "⚠️ Deprecated Code Check":
-    st.title("⚠️ Deprecated Code Check")
-    st.markdown("""
-    Identify ML experiment runs that were executed using outdated or deprecated code versions.
-
-    🔍 **How it works**:  
-    Provide one or more Git commit hashes below (e.g., from GitHub history). The system will compare these against the commit hashes recorded in your experiment metadata and flag any matching runs.
-
-    🧪 **Use cases**:
-    - Track experiments run on stale forks or branches  
-    - Maintain codebase hygiene across collaborators  
-    - Ensure reproducibility by auditing legacy runs
-
-    💡 You can enter multiple commit hashes (one per line).
-    """)
-    
-        # Input for deprecated commits
-    deprecated_commits_input = st.text_area(
-            "Enter deprecated commit hashes (one per line):",
-            height=100
-        )
-    
-    if deprecated_commits_input:
-            deprecated_commits = [line.strip() for line in deprecated_commits_input.strip().split('\n') if line.strip()]
-            if st.button("Run Check"):
-                try:
-                    results = detect_deprecated_code(df, deprecated_commits=deprecated_commits)
-                    if results:
-                        st.write("### Runs using deprecated commits:")
-                        st.dataframe(pd.DataFrame(results))
-                    else:
-                        st.success("No runs found with deprecated commits.")
-                except Exception as e:
-                    st.error(f"An error occurred: {e}")
-    else:
-            st.info("Please enter at least one deprecated commit hash.")
 
 
 elif selected == "📣 Notify Outdated Forks":
