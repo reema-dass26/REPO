@@ -417,6 +417,7 @@ st.markdown("<h1 style='text-align: center;'>Building Bridges in Research: Integ
 
 
 if selected == "🏠 Dashboard":
+   
 
     st.markdown("""<style>
     body, .main {
@@ -587,6 +588,8 @@ if selected == "🏠 Dashboard":
         </div>
         """, height=580)
 
+    
+
 elif selected == "📁 Dataset Metadata":
     st.title("📁 Dataset Metadata")
     st.markdown("""
@@ -686,6 +689,32 @@ Explore structured ML model metadata from each experiment.
         st.warning("⚠️ No runs found. Please train a model first.")
     else:
         selected_run = st.selectbox("Select a Run ID", run_ids)
+                # Locate the run folder
+        run_folder = None
+        for folder in glob.glob(os.path.join("MODEL_PROVENANCE", "*")):
+            summary_path = os.path.join(folder, f"{os.path.basename(folder)}_run_summary.json")
+            if os.path.exists(summary_path):
+                with open(summary_path, "r", encoding="utf-8") as f:
+                    content = json.load(f)
+                    if content.get("ML_EXP_run_id") == selected_run:
+                        run_folder = folder
+                        break
+        
+        # Attempt to find reproducibility .txt file
+        if run_folder:
+            txt_candidates = glob.glob(os.path.join(run_folder, "*reproducibility.txt"))
+            if txt_candidates:
+                with open(txt_candidates[0], "rb") as f:
+                    st.download_button(
+                        label="📄 Download Reproducibility Log",
+                        data=f,
+                        file_name=os.path.basename(txt_candidates[0]),
+                        mime="text/plain"
+                    )
+            else:
+                st.warning("⚠️ No reproducibility log found for this run.")
+        else:
+            st.warning("⚠️ Could not locate run folder for the selected Run ID.")
         row = df[df["run_id"] == selected_run].iloc[0].to_dict()
 
         def clean_val(v):
