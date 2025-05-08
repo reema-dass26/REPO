@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/342590679759320784/0dd2af2e7dfc4c50a8855cc4ddc04723/artifacts
+end_time: 1746709527639
+entry_point_name: ''
+experiment_id: '342590679759320784'
+lifecycle_stage: active
+run_id: 0dd2af2e7dfc4c50a8855cc4ddc04723
+run_name: luxuriant-mule-782
+run_uuid: 0dd2af2e7dfc4c50a8855cc4ddc04723
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746709523561
+status: 4
+tags: []
+user_id: reema
