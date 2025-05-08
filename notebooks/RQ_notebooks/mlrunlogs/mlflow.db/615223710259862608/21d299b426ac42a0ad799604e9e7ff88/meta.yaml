@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/21d299b426ac42a0ad799604e9e7ff88/artifacts
+end_time: 1745576650397
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 21d299b426ac42a0ad799604e9e7ff88
+run_name: invincible-steed-42
+run_uuid: 21d299b426ac42a0ad799604e9e7ff88
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745576644626
+status: 3
+tags: []
+user_id: reema

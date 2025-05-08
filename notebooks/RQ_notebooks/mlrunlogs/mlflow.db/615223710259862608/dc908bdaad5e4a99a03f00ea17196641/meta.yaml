@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/dc908bdaad5e4a99a03f00ea17196641/artifacts
+end_time: 1746450620098
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: dc908bdaad5e4a99a03f00ea17196641
+run_name: chill-trout-671
+run_uuid: dc908bdaad5e4a99a03f00ea17196641
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746450600268
+status: 4
+tags: []
+user_id: reema

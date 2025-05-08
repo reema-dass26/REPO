@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/9c8bf3180a65411bb92510ec79ac8121/artifacts
+end_time: 1745440693724
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 9c8bf3180a65411bb92510ec79ac8121
+run_name: gentle-foal-892
+run_uuid: 9c8bf3180a65411bb92510ec79ac8121
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745440692587
+status: 4
+tags: []
+user_id: reema

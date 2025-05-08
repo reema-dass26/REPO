@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/709612924041764231/cf020a016d9d46829afbad4dbef5a8f9/artifacts
+end_time: 1746650214615
+entry_point_name: ''
+experiment_id: '709612924041764231'
+lifecycle_stage: active
+run_id: cf020a016d9d46829afbad4dbef5a8f9
+run_name: nervous-hawk-759
+run_uuid: cf020a016d9d46829afbad4dbef5a8f9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746650093265
+status: 3
+tags: []
+user_id: reema

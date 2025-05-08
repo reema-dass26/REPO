@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/a1861e44b3584d2e94526e69f3aad2d5/artifacts
+end_time: 1746449550732
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: a1861e44b3584d2e94526e69f3aad2d5
+run_name: rare-toad-732
+run_uuid: a1861e44b3584d2e94526e69f3aad2d5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746449550181
+status: 4
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/709612924041764231/a4a31d984da948749adce904fdf9194b/artifacts
+end_time: 1746649900281
+entry_point_name: ''
+experiment_id: '709612924041764231'
+lifecycle_stage: active
+run_id: a4a31d984da948749adce904fdf9194b
+run_name: dazzling-pug-381
+run_uuid: a4a31d984da948749adce904fdf9194b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746649856353
+status: 3
+tags: []
+user_id: reema

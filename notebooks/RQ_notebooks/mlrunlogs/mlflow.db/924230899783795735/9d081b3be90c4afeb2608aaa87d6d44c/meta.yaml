@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/924230899783795735/9d081b3be90c4afeb2608aaa87d6d44c/artifacts
+end_time: 1746643332869
+entry_point_name: ''
+experiment_id: '924230899783795735'
+lifecycle_stage: active
+run_id: 9d081b3be90c4afeb2608aaa87d6d44c
+run_name: nervous-foal-885
+run_uuid: 9d081b3be90c4afeb2608aaa87d6d44c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746643303528
+status: 3
+tags: []
+user_id: reema

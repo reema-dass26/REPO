@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/28f01e38b7f04d2f948fe21f57f41d0c/artifacts
+end_time: 1745576019372
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 28f01e38b7f04d2f948fe21f57f41d0c
+run_name: amazing-sponge-952
+run_uuid: 28f01e38b7f04d2f948fe21f57f41d0c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745576007206
+status: 3
+tags: []
+user_id: reema

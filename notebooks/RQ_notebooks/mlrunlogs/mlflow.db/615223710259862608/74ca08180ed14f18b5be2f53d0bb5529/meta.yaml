@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/74ca08180ed14f18b5be2f53d0bb5529/artifacts
+end_time: 1746483093162
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 74ca08180ed14f18b5be2f53d0bb5529
+run_name: nervous-lynx-372
+run_uuid: 74ca08180ed14f18b5be2f53d0bb5529
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746483047567
+status: 3
+tags: []
+user_id: reema

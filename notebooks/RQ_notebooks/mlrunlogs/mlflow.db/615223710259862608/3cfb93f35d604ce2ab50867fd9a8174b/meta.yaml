@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3cfb93f35d604ce2ab50867fd9a8174b/artifacts
+end_time: 1745488794035
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 3cfb93f35d604ce2ab50867fd9a8174b
+run_name: bouncy-fawn-342
+run_uuid: 3cfb93f35d604ce2ab50867fd9a8174b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745488786940
+status: 3
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/a972f5507b254b5db168a868b847ba47/artifacts
+end_time: 1745442132278
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: a972f5507b254b5db168a868b847ba47
+run_name: crawling-ram-202
+run_uuid: a972f5507b254b5db168a868b847ba47
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745442131111
+status: 4
+tags: []
+user_id: reema

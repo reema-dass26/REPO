@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/8e984ea06b8d4af08e9d01a6a588ba88/artifacts
+end_time: 1746449244955
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 8e984ea06b8d4af08e9d01a6a588ba88
+run_name: abrasive-carp-521
+run_uuid: 8e984ea06b8d4af08e9d01a6a588ba88
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746449244204
+status: 4
+tags: []
+user_id: reema

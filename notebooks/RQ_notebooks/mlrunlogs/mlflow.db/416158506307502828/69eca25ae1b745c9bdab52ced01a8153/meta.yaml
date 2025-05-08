@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/416158506307502828/69eca25ae1b745c9bdab52ced01a8153/artifacts
+end_time: 1746652208310
+entry_point_name: ''
+experiment_id: '416158506307502828'
+lifecycle_stage: active
+run_id: 69eca25ae1b745c9bdab52ced01a8153
+run_name: auspicious-pig-254
+run_uuid: 69eca25ae1b745c9bdab52ced01a8153
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746652184120
+status: 4
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/d3106e6eebf34af29abe9b46d53e1b27/artifacts
+end_time: 1745440724977
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: d3106e6eebf34af29abe9b46d53e1b27
+run_name: amazing-grouse-221
+run_uuid: d3106e6eebf34af29abe9b46d53e1b27
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745440723886
+status: 4
+tags: []
+user_id: reema

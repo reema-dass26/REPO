@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/33f16cd1461e4fba8785f84300c89c94/artifacts
+end_time: 1746357502135
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 33f16cd1461e4fba8785f84300c89c94
+run_name: bold-hog-292
+run_uuid: 33f16cd1461e4fba8785f84300c89c94
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746357485710
+status: 4
+tags: []
+user_id: reema

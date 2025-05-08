@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/617758433328380555/4fbb6c86a99449fc99a0c308be33a0b7/artifacts
+end_time: 1746647941884
+entry_point_name: ''
+experiment_id: '617758433328380555'
+lifecycle_stage: active
+run_id: 4fbb6c86a99449fc99a0c308be33a0b7
+run_name: casual-yak-268
+run_uuid: 4fbb6c86a99449fc99a0c308be33a0b7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746647860395
+status: 4
+tags: []
+user_id: reema

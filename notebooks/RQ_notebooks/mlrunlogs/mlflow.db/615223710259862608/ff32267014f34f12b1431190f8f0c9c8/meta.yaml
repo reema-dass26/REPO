@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/ff32267014f34f12b1431190f8f0c9c8/artifacts
+end_time: 1745488833497
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: ff32267014f34f12b1431190f8f0c9c8
+run_name: dapper-newt-174
+run_uuid: ff32267014f34f12b1431190f8f0c9c8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745488827725
+status: 3
+tags: []
+user_id: reema

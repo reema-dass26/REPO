@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/7855a26edd1d4dd3b878f8b1fd03c45a/artifacts
+end_time: 1745442043338
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 7855a26edd1d4dd3b878f8b1fd03c45a
+run_name: legendary-deer-877
+run_uuid: 7855a26edd1d4dd3b878f8b1fd03c45a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745442042325
+status: 4
+tags: []
+user_id: reema

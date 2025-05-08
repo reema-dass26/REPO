@@ -1,0 +1,458 @@
+{
+  "artifacts": {
+    "@id": "artifacts"
+  },
+  "artifacts.content": {
+    "@id": "artifacts.content"
+  },
+  "artifacts.path": {
+    "@id": "artifacts.path"
+  },
+  "artifacts.type": {
+    "@id": "artifacts.type"
+  },
+  "artifacts.uri": {
+    "@id": "artifacts.uri"
+  },
+  "end_time": {
+    "@id": "prov:end_time",
+    "@type": "xsd:dateTime"
+  },
+  "experiment_id": {
+    "@id": "experiment_id",
+    "@type": "@id"
+  },
+  "invenio_metadata": {
+    "@id": "invenio_metadata"
+  },
+  "invenio_metadata.creator": {
+    "@id": "invenio_metadata.creator"
+  },
+  "invenio_metadata.downloads": {
+    "@id": "invenio_metadata.downloads"
+  },
+  "invenio_metadata.files": {
+    "@id": "invenio_metadata.files"
+  },
+  "invenio_metadata.files.checksum": {
+    "@id": "invenio_metadata.files.checksum"
+  },
+  "invenio_metadata.files.key": {
+    "@id": "invenio_metadata.files.key"
+  },
+  "invenio_metadata.files.metadata": {
+    "@id": "invenio_metadata.files.metadata"
+  },
+  "invenio_metadata.files.metadata.height": {
+    "@id": "invenio_metadata.files.metadata.height"
+  },
+  "invenio_metadata.files.metadata.width": {
+    "@id": "invenio_metadata.files.metadata.width"
+  },
+  "invenio_metadata.files.mimetype": {
+    "@id": "invenio_metadata.files.mimetype"
+  },
+  "invenio_metadata.files.size": {
+    "@id": "invenio_metadata.files.size"
+  },
+  "invenio_metadata.files.url": {
+    "@id": "invenio_metadata.files.url"
+  },
+  "invenio_metadata.id": {
+    "@id": "invenio_metadata.id"
+  },
+  "invenio_metadata.pids": {
+    "@id": "invenio_metadata.pids"
+  },
+  "invenio_metadata.pids.oai": {
+    "@id": "invenio_metadata.pids.oai"
+  },
+  "invenio_metadata.pids.oai.identifier": {
+    "@id": "invenio_metadata.pids.oai.identifier"
+  },
+  "invenio_metadata.pids.oai.provider": {
+    "@id": "invenio_metadata.pids.oai.provider"
+  },
+  "invenio_metadata.publication_date": {
+    "@id": "invenio_metadata.publication_date"
+  },
+  "invenio_metadata.status": {
+    "@id": "invenio_metadata.status"
+  },
+  "invenio_metadata.title": {
+    "@id": "invenio_metadata.title"
+  },
+  "invenio_metadata.version_info": {
+    "@id": "invenio_metadata.version_info"
+  },
+  "invenio_metadata.version_info.index": {
+    "@id": "invenio_metadata.version_info.index"
+  },
+  "invenio_metadata.version_info.is_latest": {
+    "@id": "invenio_metadata.version_info.is_latest"
+  },
+  "invenio_metadata.version_info.is_latest_draft": {
+    "@id": "invenio_metadata.version_info.is_latest_draft"
+  },
+  "invenio_metadata.views": {
+    "@id": "invenio_metadata.views"
+  },
+  "metrics": {
+    "@id": "metrics"
+  },
+  "metrics.accuracy": {
+    "@id": "metrics.accuracy"
+  },
+  "metrics.accuracy_score_X_test": {
+    "@id": "metrics.accuracy_score_X_test"
+  },
+  "metrics.dbrepo.num_deletes": {
+    "@id": "metrics.dbrepo.num_deletes"
+  },
+  "metrics.dbrepo.num_inserts": {
+    "@id": "metrics.dbrepo.num_inserts"
+  },
+  "metrics.dbrepo.row_count_end": {
+    "@id": "metrics.dbrepo.row_count_end"
+  },
+  "metrics.dbrepo.row_count_start": {
+    "@id": "metrics.dbrepo.row_count_start"
+  },
+  "metrics.f1_macro": {
+    "@id": "metrics.f1_macro"
+  },
+  "metrics.f1_score_X_test": {
+    "@id": "metrics.f1_score_X_test"
+  },
+  "metrics.precision_macro": {
+    "@id": "metrics.precision_macro"
+  },
+  "metrics.precision_score_X_test": {
+    "@id": "metrics.precision_score_X_test"
+  },
+  "metrics.recall_macro": {
+    "@id": "metrics.recall_macro"
+  },
+  "metrics.recall_score_X_test": {
+    "@id": "metrics.recall_score_X_test"
+  },
+  "metrics.roc_auc": {
+    "@id": "metrics.roc_auc"
+  },
+  "metrics.roc_auc_score_X_test": {
+    "@id": "metrics.roc_auc_score_X_test"
+  },
+  "metrics.training_accuracy_score": {
+    "@id": "metrics.training_accuracy_score"
+  },
+  "metrics.training_f1_score": {
+    "@id": "metrics.training_f1_score"
+  },
+  "metrics.training_log_loss": {
+    "@id": "metrics.training_log_loss"
+  },
+  "metrics.training_precision_score": {
+    "@id": "metrics.training_precision_score"
+  },
+  "metrics.training_recall_score": {
+    "@id": "metrics.training_recall_score"
+  },
+  "metrics.training_roc_auc": {
+    "@id": "metrics.training_roc_auc"
+  },
+  "metrics.training_score": {
+    "@id": "metrics.training_score"
+  },
+  "params": {
+    "@id": "params"
+  },
+  "params.bootstrap": {
+    "@id": "params.bootstrap"
+  },
+  "params.ccp_alpha": {
+    "@id": "params.ccp_alpha"
+  },
+  "params.class_weight": {
+    "@id": "params.class_weight"
+  },
+  "params.columns_raw": {
+    "@id": "params.columns_raw"
+  },
+  "params.criterion": {
+    "@id": "params.criterion"
+  },
+  "params.database.description": {
+    "@id": "params.database.description"
+  },
+  "params.database.id": {
+    "@id": "params.database.id"
+  },
+  "params.database.name": {
+    "@id": "params.database.name"
+  },
+  "params.database.owner": {
+    "@id": "params.database.owner"
+  },
+  "params.dataset.authors": {
+    "@id": "params.dataset.authors"
+  },
+  "params.dataset.doi": {
+    "@id": "params.dataset.doi"
+  },
+  "params.dataset.published": {
+    "@id": "params.dataset.published"
+  },
+  "params.dataset.publisher": {
+    "@id": "params.dataset.publisher"
+  },
+  "params.dataset.title": {
+    "@id": "params.dataset.title"
+  },
+  "params.dropped_columns": {
+    "@id": "params.dropped_columns"
+  },
+  "params.feature_names": {
+    "@id": "params.feature_names"
+  },
+  "params.matplotlib_version": {
+    "@id": "params.matplotlib_version"
+  },
+  "params.max_depth": {
+    "@id": "params.max_depth"
+  },
+  "params.max_features": {
+    "@id": "params.max_features"
+  },
+  "params.max_leaf_nodes": {
+    "@id": "params.max_leaf_nodes"
+  },
+  "params.max_samples": {
+    "@id": "params.max_samples"
+  },
+  "params.min_impurity_decrease": {
+    "@id": "params.min_impurity_decrease"
+  },
+  "params.min_samples_leaf": {
+    "@id": "params.min_samples_leaf"
+  },
+  "params.min_samples_split": {
+    "@id": "params.min_samples_split"
+  },
+  "params.min_weight_fraction_leaf": {
+    "@id": "params.min_weight_fraction_leaf"
+  },
+  "params.n_estimators": {
+    "@id": "params.n_estimators"
+  },
+  "params.n_features": {
+    "@id": "params.n_features"
+  },
+  "params.n_features_final": {
+    "@id": "params.n_features_final"
+  },
+  "params.n_jobs": {
+    "@id": "params.n_jobs"
+  },
+  "params.n_records": {
+    "@id": "params.n_records"
+  },
+  "params.n_test_samples": {
+    "@id": "params.n_test_samples"
+  },
+  "params.n_train_samples": {
+    "@id": "params.n_train_samples"
+  },
+  "params.numpy_version": {
+    "@id": "params.numpy_version"
+  },
+  "params.oob_score": {
+    "@id": "params.oob_score"
+  },
+  "params.os_platform": {
+    "@id": "params.os_platform"
+  },
+  "params.pandas_version": {
+    "@id": "params.pandas_version"
+  },
+  "params.python_version": {
+    "@id": "params.python_version"
+  },
+  "params.random_state": {
+    "@id": "params.random_state"
+  },
+  "params.retrieval_time": {
+    "@id": "params.retrieval_time"
+  },
+  "params.seaborn_version": {
+    "@id": "params.seaborn_version"
+  },
+  "params.shap_version": {
+    "@id": "params.shap_version"
+  },
+  "params.sklearn_version": {
+    "@id": "params.sklearn_version"
+  },
+  "params.test_size": {
+    "@id": "params.test_size"
+  },
+  "params.verbose": {
+    "@id": "params.verbose"
+  },
+  "params.warm_start": {
+    "@id": "params.warm_start"
+  },
+  "run_id": {
+    "@id": "run_id",
+    "@type": "@id"
+  },
+  "run_name": {
+    "@id": "run_name",
+    "@type": "@id"
+  },
+  "start_time": {
+    "@id": "prov:start_time",
+    "@type": "xsd:dateTime"
+  },
+  "tags": {
+    "@id": "tags"
+  },
+  "tags.data_source": {
+    "@id": "tags.data_source"
+  },
+  "tags.dataset_id": {
+    "@id": "tags.dataset_id"
+  },
+  "tags.dataset_name": {
+    "@id": "tags.dataset_name"
+  },
+  "tags.dataset_version": {
+    "@id": "tags.dataset_version"
+  },
+  "tags.dbrepo.admin_email": {
+    "@id": "tags.dbrepo.admin_email"
+  },
+  "tags.dbrepo.base_url": {
+    "@id": "tags.dbrepo.base_url"
+  },
+  "tags.dbrepo.granularity": {
+    "@id": "tags.dbrepo.granularity"
+  },
+  "tags.dbrepo.protocol_version": {
+    "@id": "tags.dbrepo.protocol_version"
+  },
+  "tags.dbrepo.repository_name": {
+    "@id": "tags.dbrepo.repository_name"
+  },
+  "tags.dbrepo.table_last_modified": {
+    "@id": "tags.dbrepo.table_last_modified"
+  },
+  "tags.estimator_class": {
+    "@id": "tags.estimator_class"
+  },
+  "tags.estimator_name": {
+    "@id": "tags.estimator_name"
+  },
+  "tags.git__current_commit_url": {
+    "@id": "tags.git__current_commit_url"
+  },
+  "tags.git_current_commit_hash": {
+    "@id": "tags.git_current_commit_hash"
+  },
+  "tags.git_previous_commit_hash": {
+    "@id": "tags.git_previous_commit_hash"
+  },
+  "tags.justification_bootstrap": {
+    "@id": "tags.justification_bootstrap"
+  },
+  "tags.justification_class_weight": {
+    "@id": "tags.justification_class_weight"
+  },
+  "tags.justification_criterion": {
+    "@id": "tags.justification_criterion"
+  },
+  "tags.justification_dataset_version": {
+    "@id": "tags.justification_dataset_version"
+  },
+  "tags.justification_drop_column_X": {
+    "@id": "tags.justification_drop_column_X"
+  },
+  "tags.justification_experiment_name": {
+    "@id": "tags.justification_experiment_name"
+  },
+  "tags.justification_max_depth": {
+    "@id": "tags.justification_max_depth"
+  },
+  "tags.justification_max_features": {
+    "@id": "tags.justification_max_features"
+  },
+  "tags.justification_metric_choice": {
+    "@id": "tags.justification_metric_choice"
+  },
+  "tags.justification_min_samples_leaf": {
+    "@id": "tags.justification_min_samples_leaf"
+  },
+  "tags.justification_min_samples_split": {
+    "@id": "tags.justification_min_samples_split"
+  },
+  "tags.justification_model_choice": {
+    "@id": "tags.justification_model_choice"
+  },
+  "tags.justification_n_estimators": {
+    "@id": "tags.justification_n_estimators"
+  },
+  "tags.justification_n_jobs": {
+    "@id": "tags.justification_n_jobs"
+  },
+  "tags.justification_oob_score": {
+    "@id": "tags.justification_oob_score"
+  },
+  "tags.justification_random_state": {
+    "@id": "tags.justification_random_state"
+  },
+  "tags.justification_target_variable": {
+    "@id": "tags.justification_target_variable"
+  },
+  "tags.justification_test_split": {
+    "@id": "tags.justification_test_split"
+  },
+  "tags.justification_threshold_accuracy": {
+    "@id": "tags.justification_threshold_accuracy"
+  },
+  "tags.justification_verbose": {
+    "@id": "tags.justification_verbose"
+  },
+  "tags.mlflow.log-model.history": {
+    "@id": "tags.mlflow.log-model.history"
+  },
+  "tags.mlflow.runName": {
+    "@id": "tags.mlflow.runName"
+  },
+  "tags.mlflow.source.name": {
+    "@id": "tags.mlflow.source.name"
+  },
+  "tags.mlflow.source.type": {
+    "@id": "tags.mlflow.source.type"
+  },
+  "tags.mlflow.user": {
+    "@id": "tags.mlflow.user"
+  },
+  "tags.model_name": {
+    "@id": "tags.model_name"
+  },
+  "tags.notebook_name": {
+    "@id": "tags.notebook_name"
+  },
+  "tags.target_name": {
+    "@id": "tags.target_name"
+  },
+  "tags.training_end_time": {
+    "@id": "tags.training_end_time"
+  },
+  "tags.training_start_time": {
+    "@id": "tags.training_start_time"
+  },
+  "@context": {
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  }
+}

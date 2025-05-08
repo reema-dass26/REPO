@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/611d09ce849a45799d0d9b7dbea26862/artifacts
+end_time: 1745438520507
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 611d09ce849a45799d0d9b7dbea26862
+run_name: inquisitive-ram-587
+run_uuid: 611d09ce849a45799d0d9b7dbea26862
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745438507824
+status: 3
+tags: []
+user_id: reema

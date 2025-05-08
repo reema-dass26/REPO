@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/14ba53a7fa8a4343ad4bbb800532a102/artifacts
+end_time: 1745578209635
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 14ba53a7fa8a4343ad4bbb800532a102
+run_name: rare-perch-483
+run_uuid: 14ba53a7fa8a4343ad4bbb800532a102
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745578187166
+status: 4
+tags: []
+user_id: reema

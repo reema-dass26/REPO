@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/709612924041764231/f2badaf6124d49dbbdaa0f693ec0e96a/artifacts
+end_time: 1746648285126
+entry_point_name: ''
+experiment_id: '709612924041764231'
+lifecycle_stage: active
+run_id: f2badaf6124d49dbbdaa0f693ec0e96a
+run_name: gaudy-wolf-564
+run_uuid: f2badaf6124d49dbbdaa0f693ec0e96a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746648227434
+status: 3
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/53994143a51e481abd23e988be2466b1/artifacts
+end_time: 1745576667857
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 53994143a51e481abd23e988be2466b1
+run_name: burly-loon-647
+run_uuid: 53994143a51e481abd23e988be2466b1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745576662221
+status: 3
+tags: []
+user_id: reema

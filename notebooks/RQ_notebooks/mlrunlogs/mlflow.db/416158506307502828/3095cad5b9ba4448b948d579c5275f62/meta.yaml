@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/416158506307502828/3095cad5b9ba4448b948d579c5275f62/artifacts
+end_time: 1746652254340
+entry_point_name: ''
+experiment_id: '416158506307502828'
+lifecycle_stage: active
+run_id: 3095cad5b9ba4448b948d579c5275f62
+run_name: popular-penguin-819
+run_uuid: 3095cad5b9ba4448b948d579c5275f62
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746652228754
+status: 3
+tags: []
+user_id: reema

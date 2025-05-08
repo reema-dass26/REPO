@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/844f7f3d8eb244e18cbc7b0cda67b62f/artifacts
+end_time: 1746450811849
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 844f7f3d8eb244e18cbc7b0cda67b62f
+run_name: awesome-quail-100
+run_uuid: 844f7f3d8eb244e18cbc7b0cda67b62f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746450779342
+status: 3
+tags: []
+user_id: reema

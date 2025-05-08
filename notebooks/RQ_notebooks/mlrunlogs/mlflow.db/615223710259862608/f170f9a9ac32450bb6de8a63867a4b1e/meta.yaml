@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/f170f9a9ac32450bb6de8a63867a4b1e/artifacts
+end_time: 1745441056852
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: f170f9a9ac32450bb6de8a63867a4b1e
+run_name: luxuriant-fish-741
+run_uuid: f170f9a9ac32450bb6de8a63867a4b1e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745441055742
+status: 4
+tags: []
+user_id: reema

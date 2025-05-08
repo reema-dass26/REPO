@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/730849843658119617/8d5c475b8a154f2a9e7831012cb671ed/artifacts
+end_time: 1746644052389
+entry_point_name: ''
+experiment_id: '730849843658119617'
+lifecycle_stage: active
+run_id: 8d5c475b8a154f2a9e7831012cb671ed
+run_name: big-chimp-606
+run_uuid: 8d5c475b8a154f2a9e7831012cb671ed
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746644049898
+status: 4
+tags: []
+user_id: reema

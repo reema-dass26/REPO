@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/60f7090dddf8468dacf388af90fcfab0/artifacts
+end_time: 1745439876918
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 60f7090dddf8468dacf388af90fcfab0
+run_name: rare-ray-390
+run_uuid: 60f7090dddf8468dacf388af90fcfab0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745439876011
+status: 4
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/966633821240159102/6732ea38b3f34f6ebae2afcd1b537fa4/artifacts
+end_time: 1746707725629
+entry_point_name: ''
+experiment_id: '966633821240159102'
+lifecycle_stage: active
+run_id: 6732ea38b3f34f6ebae2afcd1b537fa4
+run_name: bold-dolphin-271
+run_uuid: 6732ea38b3f34f6ebae2afcd1b537fa4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746707686274
+status: 3
+tags: []
+user_id: reema

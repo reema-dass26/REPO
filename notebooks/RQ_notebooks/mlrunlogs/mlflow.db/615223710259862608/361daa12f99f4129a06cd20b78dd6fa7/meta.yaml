@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/361daa12f99f4129a06cd20b78dd6fa7/artifacts
+end_time: 1745442274434
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 361daa12f99f4129a06cd20b78dd6fa7
+run_name: flawless-kit-371
+run_uuid: 361daa12f99f4129a06cd20b78dd6fa7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745442261262
+status: 3
+tags: []
+user_id: reema

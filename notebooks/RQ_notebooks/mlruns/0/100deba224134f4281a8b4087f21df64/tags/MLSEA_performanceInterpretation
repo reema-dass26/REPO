@@ -1,0 +1,1 @@
+Model performs well with F1 macro > 0.90. ROC AUC confirms balanced performance across all classes.

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/730849843658119617/bc180ecb23604622b37459d738624f4a/artifacts
+end_time: 1746646711533
+entry_point_name: ''
+experiment_id: '730849843658119617'
+lifecycle_stage: active
+run_id: bc180ecb23604622b37459d738624f4a
+run_name: righteous-hare-24
+run_uuid: bc180ecb23604622b37459d738624f4a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746646678785
+status: 3
+tags: []
+user_id: reema

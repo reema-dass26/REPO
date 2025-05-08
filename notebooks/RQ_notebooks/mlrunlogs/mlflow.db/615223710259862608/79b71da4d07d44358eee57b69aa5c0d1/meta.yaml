@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/79b71da4d07d44358eee57b69aa5c0d1/artifacts
+end_time: 1746477774091
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 79b71da4d07d44358eee57b69aa5c0d1
+run_name: entertaining-bug-110
+run_uuid: 79b71da4d07d44358eee57b69aa5c0d1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746477738490
+status: 4
+tags: []
+user_id: reema

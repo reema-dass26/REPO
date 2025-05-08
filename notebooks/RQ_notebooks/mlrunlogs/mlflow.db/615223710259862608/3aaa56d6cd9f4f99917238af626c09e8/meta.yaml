@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/3aaa56d6cd9f4f99917238af626c09e8/artifacts
+end_time: 1745489285104
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 3aaa56d6cd9f4f99917238af626c09e8
+run_name: enchanting-finch-35
+run_uuid: 3aaa56d6cd9f4f99917238af626c09e8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745489279257
+status: 3
+tags: []
+user_id: reema

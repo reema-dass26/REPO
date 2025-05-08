@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/546cf2006687408f855480438f63682d/artifacts
+end_time: 1745430761505
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 546cf2006687408f855480438f63682d
+run_name: loud-skunk-422
+run_uuid: 546cf2006687408f855480438f63682d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745430757829
+status: 3
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/10528b7abe0547c8bcdb1dce98cb8927/artifacts
+end_time: 1745575744302
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 10528b7abe0547c8bcdb1dce98cb8927
+run_name: whimsical-lark-782
+run_uuid: 10528b7abe0547c8bcdb1dce98cb8927
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745575731159
+status: 3
+tags: []
+user_id: reema

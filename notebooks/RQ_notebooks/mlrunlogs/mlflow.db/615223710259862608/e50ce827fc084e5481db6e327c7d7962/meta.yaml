@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/e50ce827fc084e5481db6e327c7d7962/artifacts
+end_time: 1745578447561
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: e50ce827fc084e5481db6e327c7d7962
+run_name: serious-hawk-381
+run_uuid: e50ce827fc084e5481db6e327c7d7962
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745578434651
+status: 4
+tags: []
+user_id: reema

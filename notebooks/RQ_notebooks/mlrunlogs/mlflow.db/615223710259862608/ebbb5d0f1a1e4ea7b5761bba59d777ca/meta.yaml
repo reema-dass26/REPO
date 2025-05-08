@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/ebbb5d0f1a1e4ea7b5761bba59d777ca/artifacts
+end_time: 1745575696607
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: ebbb5d0f1a1e4ea7b5761bba59d777ca
+run_name: welcoming-wren-455
+run_uuid: ebbb5d0f1a1e4ea7b5761bba59d777ca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745575695178
+status: 4
+tags: []
+user_id: reema

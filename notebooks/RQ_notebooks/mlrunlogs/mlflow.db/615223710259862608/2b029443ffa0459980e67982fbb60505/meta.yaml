@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/2b029443ffa0459980e67982fbb60505/artifacts
+end_time: 1745440121522
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 2b029443ffa0459980e67982fbb60505
+run_name: shivering-bat-355
+run_uuid: 2b029443ffa0459980e67982fbb60505
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745440110521
+status: 3
+tags: []
+user_id: reema

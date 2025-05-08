@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/8f7521eaa562415d9a450f4167a127ab/artifacts
+end_time: 1745579681830
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 8f7521eaa562415d9a450f4167a127ab
+run_name: defiant-bat-29
+run_uuid: 8f7521eaa562415d9a450f4167a127ab
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745579646269
+status: 3
+tags: []
+user_id: reema

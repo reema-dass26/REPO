@@ -1,0 +1,6 @@
+artifact_location: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608
+creation_time: 1745329164532
+experiment_id: '615223710259862608'
+last_update_time: 1745329164532
+lifecycle_stage: active
+name: RandomForest-Iris-CSV

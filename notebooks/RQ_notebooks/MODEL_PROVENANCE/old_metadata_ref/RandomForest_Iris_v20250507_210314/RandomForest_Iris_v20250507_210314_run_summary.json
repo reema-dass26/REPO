@@ -1,0 +1,272 @@
+{
+  "ML_EXP_run_id": "ba8e900682324cddbc1d0f98987c8da6",
+  "ML_EXP_run_name": "hilarious-squid-331",
+  "ML_EXP_experiment_id": "730849843658119617",
+  "ML_EXP_start_time": 1746644591499,
+  "ML_EXP_end_time": null,
+  "ML_EXP_params": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "None",
+    "criterion": "entropy",
+    "hostname": "Purplish",
+    "Internal_DBRepo_columns_raw": "['id', 'sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm', 'species']",
+    "Internal_DBRepo_dropped_columns": "['id']",
+    "Internal_DBRepo_feature_names": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "Internal_DBRepo_n_features_final": "4",
+    "Internal_DBRepo_n_records": "150",
+    "Internal_DBRepo_retrieval_time": "2025-05-07T19:03:14.405876",
+    "matplotlib_version": "3.7.2",
+    "max_depth": "10",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "1",
+    "min_samples_split": "3",
+    "min_weight_fraction_leaf": "0.0",
+    "ML_EXP_n_features": "4",
+    "ML_EXP_n_test_samples": "30",
+    "ML_EXP_n_train_samples": "120",
+    "ML_EXP_random_state": "42",
+    "ML_EXP_test_size": "0.2",
+    "numpy_version": "1.24.4",
+    "n_estimators": "100",
+    "n_jobs": "-1",
+    "oob_score": "True",
+    "os_platform": "Windows 10",
+    "os_version": "10.0.26100",
+    "pandas_version": "2.2.3",
+    "platform": "Windows",
+    "project_id": "default_project",
+    "python_version": "3.11.5",
+    "random_state": "26",
+    "role": "collaborator",
+    "seaborn_version": "0.12.2",
+    "session_id": "c1ba9c65-984b-4b28-9c53-0a3afe246c4a",
+    "shap_version": "0.47.1",
+    "sklearn_version": "1.3.0",
+    "timestamp_utc": "2025-05-07T19:03:11.550578",
+    "username": "reema",
+    "verbose": "1",
+    "warm_start": "False"
+  },
+  "ML_EXP_metrics": {
+    "Internal_DBRepo_num_deletes": 0.0,
+    "Internal_DBRepo_num_inserts": 0.0,
+    "Internal_DBRepo_row_count_end": 150.0,
+    "Internal_DBRepo_row_count_start": 150.0,
+    "ML_EXP_accuracy": 1.0,
+    "ML_EXP_f1_macro": 1.0,
+    "ML_EXP_precision_macro": 1.0,
+    "ML_EXP_recall_macro": 1.0,
+    "ML_EXP_roc_auc": 1.0,
+    "training_accuracy_score": 1.0,
+    "training_f1_score": 1.0,
+    "training_log_loss": 0.04179697084899918,
+    "training_precision_score": 1.0,
+    "training_recall_score": 1.0,
+    "training_roc_auc": 1.0,
+    "training_score": 1.0
+  },
+  "ML_EXP_tags": {
+    "CR_encodingFormat": "text/csv",
+    "CR_Field": "Input features used for training",
+    "CR_RecordSet": "Feature vectors for model training",
+    "estimator_class": "sklearn.ensemble._forest.RandomForestClassifier",
+    "estimator_name": "RandomForestClassifier",
+    "FAIR4ML_ethicalLegalSocial": "No ethical risks; trained on open dataset",
+    "FAIR4ML_fineTunedFrom": "None",
+    "FAIR4ML_hasCO2eEmissions": "Low; trained locally on a small dataset",
+    "FAIR4ML_intendedUse": "Multiclass classification using RandomForest",
+    "FAIR4ML_modelRisks": "May misclassify overlapping species",
+    "FAIR4ML_num_samples": "150",
+    "FAIR4ML_serializationFormat": "pickle",
+    "FAIR4ML_sharedBy": "Your Name or Organization",
+    "FAIR4ML_target_variable": "species",
+    "FAIR4ML_usageInstructions": "Call `.predict()` on a feature-aligned DataFrame",
+    "FAIR_dataset_access_url": "https://archive.ics.uci.edu/dataset/53",
+    "FAIR_dataset_creator": "R. A. Fisher",
+    "FAIR_dataset_description": "[]",
+    "FAIR_dataset_documentation": "https://archive.ics.uci.edu/dataset/53",
+    "FAIR_dataset_identifier": "10.24432/C56C76",
+    "FAIR_dataset_keywords": "info not available",
+    "FAIR_dataset_license": "[]",
+    "FAIR_dataset_publication_date": "1936",
+    "FAIR_dataset_publisher": "UCI Machine Learning Repository",
+    "FAIR_dataset_title": "Iris",
+    "FAIR_dataset_version": "None",
+    "FAIR_metadata_standard": "Dataset",
+    "FAIR_related_resources": "https://archive.ics.uci.edu/dataset/53",
+    "GIT_code_version": "v2",
+    "GIT_current_commit_hash": "9578eecea97387073e84264e7565b49c0a1a16e2",
+    "GIT_current_commit_url": "https://github.com/reema-dass26/REPO/commit/9578eecea97387073e84264e7565b49c0a1a16e2",
+    "GIT_previous_commit_hash": "d18513a2a92697e58aa3a2b0bb9b130d795018b5",
+    "GIT_user": "Reema George",
+    "GIT_user_email": "106236154+reema-dass26@users.noreply.github.com",
+    "Internal_DBRepo_data_source": "http://localhost/api/database/c3a42d17-42b7-43c9-a504-2363fb4c9c8d/table/743fe377-a4f9-4b1a-9213-af67a6a60078/data?size=100000&page=0",
+    "Internal_DBRepo_table_last_modified": "2025-05-07T18:15:21.539Z",
+    "Internal_DBRepo_target_name": "[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2\n 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2\n 2 2]",
+    "justification_bootstrap": "No justification provided",
+    "justification_class_weight": "No justification provided",
+    "justification_criterion": "No justification provided",
+    "justification_max_depth": "No justification provided",
+    "justification_max_features": "No justification provided",
+    "justification_min_samples_leaf": "No justification provided",
+    "justification_min_samples_split": "No justification provided",
+    "justification_ML_EXP_dataset_version": "No justification provided",
+    "justification_ML_EXP_drop_column_X": "No justification provided",
+    "justification_ML_EXP_experiment_name": "No justification provided",
+    "justification_ML_EXP_metric_choice": "No justification provided",
+    "justification_ML_EXP_model_choice": "No justification provided",
+    "justification_ML_EXP_target_variable": "No justification provided",
+    "justification_ML_EXP_test_split": "No justification provided",
+    "justification_ML_EXP_threshold_accuracy": "No justification provided",
+    "justification_n_estimators": "No justification provided",
+    "justification_n_jobs": "No justification provided",
+    "justification_oob_score": "No justification provided",
+    "justification_random_state": "No justification provided",
+    "justification_verbose": "No justification provided",
+    "mlflow.log-model.history": "[{\"run_id\": \"ba8e900682324cddbc1d0f98987c8da6\", \"artifact_path\": \"model\", \"utc_time_created\": \"2025-05-07 19:03:22.701856\", \"model_uuid\": \"ae855888a0f94e30b901b1c45a6eadd8\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.5\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.3.0\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+    "mlflow.runName": "hilarious-squid-331",
+    "mlflow.source.name": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.user": "reema",
+    "MLSEA_computeEnvironment": "{\"os\": \"Windows 10\", \"cpu\": \"AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD\", \"ram_gb\": 13.69, \"python_version\": \"3.11.5\", \"sklearn_version\": \"1.3.0\", \"pandas_version\": \"2.2.3\", \"numpy_version\": \"1.24.4\"}",
+    "MLSEA_dataPreprocessing": "{\"label_encoding\": {\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}, \"dropped_columns\": [\"id\"], \"numeric_coercion_attempted\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"final_feature_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"coercion_strategy\": \"Tried to cast all features to numeric\", \"missing_value_strategy\": \"None detected in dataset\", \"outlier_detection\": \"None applied\", \"categorical_encoding\": \"LabelEncoder for target, none for features\", \"feature_selection\": {\"method\": \"None\", \"selected_features\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"]}, \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 42, \"stratified\": false}, \"pipeline_used\": false, \"feature_engineering\": \"None\", \"preprocessing_version\": \"v1.0\", \"preprocessing_timestamp\": \"2025-05-07T21:03:30.629929\", \"scaling_applied\": \"None\", \"feature_normalization\": false, \"duplicate_rows_removed\": false, \"sampling_strategy\": \"None\", \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\"}",
+    "MLSEA_evaluationMetrics": "{\"accuracy\": 1.0, \"precision_macro\": 1.0, \"recall_macro\": 1.0, \"f1_macro\": 1.0, \"roc_auc\": 1.0}",
+    "MLSEA_experimentId": "ba8e900682324cddbc1d0f98987c8da6",
+    "MLSEA_hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"random_state\": 26, \"verbose\": 1, \"n_jobs\": -1}",
+    "MLSEA_improvedFrom": "baseline_randomforest_2024",
+    "MLSEA_justification_bootstrap": "No justification provided",
+    "MLSEA_justification_class_weight": "No justification provided",
+    "MLSEA_justification_criterion": "No justification provided",
+    "MLSEA_justification_max_depth": "No justification provided",
+    "MLSEA_justification_max_features": "No justification provided",
+    "MLSEA_justification_min_samples_leaf": "No justification provided",
+    "MLSEA_justification_min_samples_split": "No justification provided",
+    "MLSEA_justification_ML_EXP_dataset_version": "No justification provided",
+    "MLSEA_justification_ML_EXP_drop_column_X": "No justification provided",
+    "MLSEA_justification_ML_EXP_experiment_name": "No justification provided",
+    "MLSEA_justification_ML_EXP_metric_choice": "No justification provided",
+    "MLSEA_justification_ML_EXP_model_choice": "No justification provided",
+    "MLSEA_justification_ML_EXP_target_variable": "No justification provided",
+    "MLSEA_justification_ML_EXP_test_split": "No justification provided",
+    "MLSEA_justification_ML_EXP_threshold_accuracy": "No justification provided",
+    "MLSEA_justification_n_estimators": "No justification provided",
+    "MLSEA_justification_n_jobs": "No justification provided",
+    "MLSEA_justification_oob_score": "No justification provided",
+    "MLSEA_justification_random_state": "No justification provided",
+    "MLSEA_justification_verbose": "No justification provided",
+    "MLSEA_modelArchitecture": "RandomForestClassifier",
+    "MLSEA_modelPath": "RandomForest_Iris_v20250507_210314.pkl",
+    "MLSEA_performanceInterpretation": "Model performs well with F1 macro > 0.90. ROC AUC confirms balanced performance across all classes.",
+    "MLSEA_preprocessing_hash": "dfe19824b105a6696f282569ec75f5fa3a8869f4a61c4b847c4f2ad1bcffe4b1",
+    "MLSEA_previousModelRunId": "None",
+    "MLSEA_trainingCodeSnapshot": "d18513a2a92697e58aa3a2b0bb9b130d795018b5",
+    "MLSEA_trainingProcedure": "train_test_split with test_size=0.2, random_state=42",
+    "ML_EXP_dataset_id": "743fe377-a4f9-4b1a-9213-af67a6a60078",
+    "ML_EXP_dataset_name": "Iris_v2",
+    "ML_EXP_dataset_version": "v2",
+    "ML_EXP_model_name": "RandomForest_Iris_v20250507_210314",
+    "ML_EXP_notebook_name": "RQ1_2.ipynb",
+    "ML_EXP_training_end_time": "2025-05-07T21:03:29.116860",
+    "ML_EXP_training_start_time": "2025-05-07T21:03:14.534492",
+    "PROV-O_prov_Activity": "Ingestion and Publication",
+    "PROV-O_prov_Agent_dataset_creator": "R. A. Fisher",
+    "PROV-O_prov_Entity": "Iris",
+    "PROV-O_prov_role_database_creator_role": "Database Ingestor and Maintainer",
+    "PROV-O_prov_role_dataset_creator_role": "Original Data Author",
+    "PROV-O_prov_startedAtTime": "1936",
+    "PROV-O_prov_used": "https://archive.ics.uci.edu/dataset/53",
+    "PROV-O_prov_wasAttributedTo": "R. A. Fisher",
+    "PROV-O_prov_wasDerivedFrom": "10.24432/C56C76",
+    "PROV_startedAtTime": "2025-05-07T21:03:14.076762"
+  },
+  "ML_EXP_artifacts": [
+    {
+      "path": "GIT_commit_diff.json",
+      "type": "text"
+    },
+    {
+      "path": "RandomForest_Iris_v20250507_210314/RandomForest_Iris_v20250507_210314.pkl",
+      "type": "other"
+    },
+    {
+      "path": "confusion_matrix.png",
+      "type": "image"
+    },
+    {
+      "path": "estimator.html",
+      "type": "other"
+    },
+    {
+      "path": "feature_importances.png",
+      "type": "image"
+    },
+    {
+      "path": "label_mapping.json",
+      "type": "text"
+    },
+    {
+      "path": "model/MLmodel",
+      "type": "other"
+    },
+    {
+      "path": "model/conda.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "model/model.pkl",
+      "type": "other"
+    },
+    {
+      "path": "model/python_env.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/requirements.txt",
+      "type": "text"
+    },
+    {
+      "path": "model/serving_input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "pr_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "shap_summary.png",
+      "type": "image"
+    },
+    {
+      "path": "training_confusion_matrix.png",
+      "type": "image"
+    }
+  ]
+}

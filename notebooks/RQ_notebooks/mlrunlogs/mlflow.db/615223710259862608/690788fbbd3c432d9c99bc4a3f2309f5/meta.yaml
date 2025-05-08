@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/615223710259862608/690788fbbd3c432d9c99bc4a3f2309f5/artifacts
+end_time: 1746471268370
+entry_point_name: ''
+experiment_id: '615223710259862608'
+lifecycle_stage: active
+run_id: 690788fbbd3c432d9c99bc4a3f2309f5
+run_name: glamorous-swan-465
+run_uuid: 690788fbbd3c432d9c99bc4a3f2309f5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746471229381
+status: 3
+tags: []
+user_id: reema

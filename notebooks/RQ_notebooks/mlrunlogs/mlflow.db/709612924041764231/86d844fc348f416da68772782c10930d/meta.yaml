@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/709612924041764231/86d844fc348f416da68772782c10930d/artifacts
+end_time: 1746648016777
+entry_point_name: ''
+experiment_id: '709612924041764231'
+lifecycle_stage: active
+run_id: 86d844fc348f416da68772782c10930d
+run_name: dashing-skunk-942
+run_uuid: 86d844fc348f416da68772782c10930d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746648009640
+status: 4
+tags: []
+user_id: reema

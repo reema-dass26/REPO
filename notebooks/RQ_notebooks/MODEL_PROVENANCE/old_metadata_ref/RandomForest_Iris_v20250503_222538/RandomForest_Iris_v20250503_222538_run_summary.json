@@ -1,0 +1,273 @@
+{
+  "run_id": "667641c161fb4c90bb3eb8b3dd6ebff9",
+  "run_name": "masked-cow-936",
+  "experiment_id": "0",
+  "start_time": 1746303936100,
+  "end_time": null,
+  "params": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "None",
+    "columns_raw": "['id', 'sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm', 'species']",
+    "criterion": "entropy",
+    "dataset.authors": "[\"Marshall Michael\"]",
+    "dataset.doi": "10.5281/ZENODO.1404173",
+    "dataset.published": "2018-8-27",
+    "dataset.publisher": "Zenodo",
+    "dataset.title": "Scikit-Learn Iris",
+    "dropped_columns": "['id']",
+    "feature_names": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "hostname": "Purplish",
+    "matplotlib_version": "3.7.2",
+    "max_depth": "12",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "2",
+    "min_samples_split": "5",
+    "min_weight_fraction_leaf": "0.0",
+    "numpy_version": "1.24.4",
+    "n_estimators": "200",
+    "n_features": "4",
+    "n_features_final": "4",
+    "n_jobs": "-1",
+    "n_records": "150",
+    "n_test_samples": "30",
+    "n_train_samples": "120",
+    "oob_score": "False",
+    "os_platform": "Windows 10",
+    "os_version": "10.0.26100",
+    "pandas_version": "2.2.3",
+    "platform": "Windows",
+    "project_id": "default_project",
+    "python_version": "3.11.5",
+    "random_state": "42",
+    "retrieval_time": "2025-05-03T20:25:38.172060",
+    "role": "collaborator",
+    "seaborn_version": "0.12.2",
+    "session_id": "1b1126e7-6971-49c5-b6d2-a582207d05b0",
+    "shap_version": "0.47.1",
+    "sklearn_version": "1.3.0",
+    "test_size": "0.2",
+    "timestamp_utc": "2025-05-03T19:05:00.655283",
+    "username": "reema",
+    "verbose": "1",
+    "warm_start": "False"
+  },
+  "metrics": {
+    "accuracy": 1.0,
+    "dbrepo.num_deletes": 0.0,
+    "dbrepo.num_inserts": 1.0,
+    "dbrepo.row_count_end": 150.0,
+    "dbrepo.row_count_start": 150.0,
+    "f1_macro": 1.0,
+    "precision_macro": 1.0,
+    "recall_macro": 1.0,
+    "roc_auc": 1.0,
+    "training_accuracy_score": 0.9666666666666667,
+    "training_f1_score": 0.9666666666666667,
+    "training_log_loss": 0.0653522301195834,
+    "training_precision_score": 0.9674588284344383,
+    "training_recall_score": 0.9666666666666667,
+    "training_roc_auc": 0.9987492182614135,
+    "training_score": 0.9666666666666667
+  },
+  "tags": {
+    "cr.encodingFormat": "text/csv",
+    "cr.Field": "Input features used for training",
+    "cr.RecordSet": "Feature vectors for model training",
+    "dataset_id": "iris_local",
+    "dataset_name": "Iris",
+    "dataset_version": "1.0.0",
+    "data_source": "http://localhost/api/database/c3a42d17-42b7-43c9-a504-2363fb4c9c8d/table/5315e7da-64fb-4fdb-b493-95b4138c765f/data?size=100000&page=0",
+    "dbrepo.table_last_modified": "2025-04-23T20:42:29.501Z",
+    "estimator_class": "sklearn.ensemble._forest.RandomForestClassifier",
+    "estimator_name": "RandomForestClassifier",
+    "fair4ml.ethicalLegalSocial": "No ethical risks; trained on open dataset",
+    "fair4ml.fineTunedFrom": "None",
+    "fair4ml.hasCO2eEmissions": "Low; trained locally on a small dataset",
+    "fair4ml.intendedUse": "Multiclass classification using RandomForest",
+    "fair4ml.modelRisks": "May misclassify overlapping species",
+    "fair4ml.serializationFormat": "pickle",
+    "fair4ml.sharedBy": "Your Name or Organization",
+    "fair4ml.usageInstructions": "Call `.predict()` on a feature-aligned DataFrame",
+    "git_current_commit_hash": "b1be7c225bc4286597b1b091416c72b2a628db54",
+    "git_previous_commit_hash": "fbd10686b8bcaef7a97f77c641ad3c65a7779ee1",
+    "git__current_commit_url": "https://github.com/reema-dass26/REPO/commit/b1be7c225bc4286597b1b091416c72b2a628db54",
+    "justification_bootstrap": "No justification provided",
+    "justification_class_weight": "No justification provided",
+    "justification_criterion": "No justification provided",
+    "justification_dataset_version": "No justification provided",
+    "justification_drop_column_X": "No justification provided",
+    "justification_experiment_name": "No justification provided",
+    "justification_max_depth": "No justification provided",
+    "justification_max_features": "No justification provided",
+    "justification_metric_choice": "No justification provided",
+    "justification_min_samples_leaf": "No justification provided",
+    "justification_min_samples_split": "No justification provided",
+    "justification_model_choice": "No justification provided",
+    "justification_n_estimators": "No justification provided",
+    "justification_n_jobs": "No justification provided",
+    "justification_oob_score": "No justification provided",
+    "justification_random_state": "No justification provided",
+    "justification_target_variable": "No justification provided",
+    "justification_test_split": "No justification provided",
+    "justification_threshold_accuracy": "No justification provided",
+    "justification_verbose": "No justification provided",
+    "mlflow.log-model.history": "[{\"run_id\": \"667641c161fb4c90bb3eb8b3dd6ebff9\", \"artifact_path\": \"model\", \"utc_time_created\": \"2025-05-03 20:25:44.974717\", \"model_uuid\": \"215163dbdd844d6c9e78f9e3f4071f78\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.5\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.3.0\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+    "mlflow.runName": "masked-cow-936",
+    "mlflow.source.name": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.user": "reema",
+    "mlsea.computeEnvironment": "{\"os\": \"Windows 10\", \"cpu\": \"AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD\", \"ram_gb\": 13.69, \"python_version\": \"3.11.5\", \"sklearn_version\": \"1.3.0\", \"pandas_version\": \"2.2.3\", \"numpy_version\": \"1.24.4\"}",
+    "mlsea.dataPreprocessing": "{\"label_encoding\": {\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}}",
+    "mlsea.evaluationMetrics": "{\"accuracy\": 1.0, \"precision_macro\": 1.0, \"recall_macro\": 1.0, \"f1_macro\": 1.0, \"roc_auc\": 1.0}",
+    "mlsea.experimentId": "667641c161fb4c90bb3eb8b3dd6ebff9",
+    "mlsea.hyperparameters": "{\"n_estimators\": 200, \"criterion\": \"entropy\", \"max_depth\": 12, \"min_samples_split\": 5, \"min_samples_leaf\": 2, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": false, \"class_weight\": null, \"random_state\": 42, \"verbose\": 1, \"n_jobs\": -1}",
+    "mlsea.improvedFrom": "baseline_randomforest_2024",
+    "mlsea.justification_bootstrap": "No justification provided",
+    "mlsea.justification_class_weight": "No justification provided",
+    "mlsea.justification_criterion": "No justification provided",
+    "mlsea.justification_dataset_version": "No justification provided",
+    "mlsea.justification_drop_column_X": "No justification provided",
+    "mlsea.justification_experiment_name": "No justification provided",
+    "mlsea.justification_max_depth": "No justification provided",
+    "mlsea.justification_max_features": "No justification provided",
+    "mlsea.justification_metric_choice": "No justification provided",
+    "mlsea.justification_min_samples_leaf": "No justification provided",
+    "mlsea.justification_min_samples_split": "No justification provided",
+    "mlsea.justification_model_choice": "No justification provided",
+    "mlsea.justification_n_estimators": "No justification provided",
+    "mlsea.justification_n_jobs": "No justification provided",
+    "mlsea.justification_oob_score": "No justification provided",
+    "mlsea.justification_random_state": "No justification provided",
+    "mlsea.justification_target_variable": "No justification provided",
+    "mlsea.justification_test_split": "No justification provided",
+    "mlsea.justification_threshold_accuracy": "No justification provided",
+    "mlsea.justification_verbose": "No justification provided",
+    "mlsea.modelArchitecture": "RandomForestClassifier",
+    "mlsea.modelPath": "RandomForest_Iris_v20250503_222538.pkl",
+    "mlsea.performanceInterpretation": "Model performs well with F1 macro > 0.90. ROC AUC confirms balanced performance across all classes.",
+    "mlsea.previousModelRunId": "None",
+    "mlsea.trainingCodeSnapshot": "fbd10686b8bcaef7a97f77c641ad3c65a7779ee1",
+    "mlsea.trainingProcedure": "train_test_split with test_size=0.2, random_state=42",
+    "model_name": "RandomForest_Iris_v20250503_222538",
+    "notebook_name": "RQ1.ipynb",
+    "target_name": "[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2\n 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2\n 2 2]",
+    "training_end_time": "2025-05-03T22:26:00.263605",
+    "training_start_time": "2025-05-03T22:25:38.232924"
+  },
+  "artifacts": [
+    {
+      "path": "RandomForest_Iris_v20250503_222538/RandomForest_Iris_v20250503_222538.pkl",
+      "type": "other",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/RandomForest_Iris_v20250503_222538/RandomForest_Iris_v20250503_222538.pkl"
+    },
+    {
+      "path": "commit_diff.json",
+      "type": "text",
+      "content": "{\n  \"previous_commit\": \"fbd10686b8bcaef7a97f77c641ad3c65a7779ee1\",\n  \"previous_commit_url\": \"https://github.com/reema-dass26/REPO/commit/fbd10686b8bcaef7a97f77c641ad3c65a7779ee1\",\n  \"current_commit_url\": \"https://github.com/reema-dass26/REPO/commit/b1be7c225bc4286597b1b091416c72b2a628db54\",\n  \"current_commit\": \"b1be7c225bc4286597b1b091416c72b2a628db54\",\n  \"diff\": \"diff --git a/notebooks/RQ_notebooks/Trained_models/RandomForest_Iris_v20250503_222538.pkl b/notebooks/RQ_notebooks/Trained_models/RandomForest_Iris_v20250503_222538.pkl\\nnew file mode 100644\\nindex 0000000..6ab7536\\nBinary files /dev/null and b/notebooks/RQ_notebooks/Trained_models/RandomForest_Iris_v20250503_222538.pkl differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/confusion_matrix.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/confusion_matrix.png\\nnew file mode 100644\\nindex 0000000..5bf98dd\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/confusion_matrix.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/feature_importances.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/feature_importances.png\\nnew file mode 100644\\nindex 0000000..65481a2\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/feature_importances.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_0.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_0.png\\nnew file mode 100644\\nindex 0000000..a8d230a\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_0.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_1.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_1.png\\nnew file mode 100644\\nindex 0000000..b36796e\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_1.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_2.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_2.png\\nnew file mode 100644\\nindex 0000000..86bc90f\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/pr_curve_cls_2.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_0.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_0.png\\nnew file mode 100644\\nindex 0000000..5ae6a09\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_0.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_1.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_1.png\\nnew file mode 100644\\nindex 0000000..7d3f039\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_1.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_2.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_2.png\\nnew file mode 100644\\nindex 0000000..24b4468\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/roc_curve_cls_2.png differ\\ndiff --git a/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/shap_summary.png b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/shap_summary.png\\nnew file mode 100644\\nindex 0000000..938d6fe\\nBinary files /dev/null and b/notebooks/RQ_notebooks/plots/RandomForest_Iris_v20250503_222538/shap_summary.png differ\\n\"\n}"
+    },
+    {
+      "path": "confusion_matrix.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/confusion_matrix.png"
+    },
+    {
+      "path": "estimator.html",
+      "type": "other",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/estimator.html"
+    },
+    {
+      "path": "feature_importances.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/feature_importances.png"
+    },
+    {
+      "path": "label_mapping.json",
+      "type": "text",
+      "content": "{\n  \"0\": \"Iris-setosa\",\n  \"1\": \"Iris-versicolor\",\n  \"2\": \"Iris-virginica\"\n}"
+    },
+    {
+      "path": "model/MLmodel",
+      "type": "other",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/model/MLmodel"
+    },
+    {
+      "path": "model/conda.yaml",
+      "type": "other",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/model/conda.yaml"
+    },
+    {
+      "path": "model/input_example.json",
+      "type": "text",
+      "content": "{\"columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"data\": [[4.6, 3.6, 1.0, 0.2], [5.7, 4.4, 1.5, 0.4], [6.7, 3.1, 4.4, 1.4], [4.8, 3.4, 1.6, 0.2], [4.4, 3.2, 1.3, 0.2]]}"
+    },
+    {
+      "path": "model/model.pkl",
+      "type": "other",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/model/model.pkl"
+    },
+    {
+      "path": "model/python_env.yaml",
+      "type": "other",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/model/python_env.yaml"
+    },
+    {
+      "path": "model/requirements.txt",
+      "type": "text",
+      "content": "mlflow==2.21.2\nbackports-functools-lru-cache==1.6.4\nbackports-tempfile==1.0\ncloudpickle==2.2.1\njaraco-classes==3.2.1\njaraco-collections==5.1.0\nlz4==4.3.2\nnumpy==1.24.4\npathlib==1.0.1\npsutil==5.9.5\nscikit-learn==1.3.0\nscipy==1.11.1"
+    },
+    {
+      "path": "model/serving_input_example.json",
+      "type": "text",
+      "content": "{\n  \"dataframe_split\": {\n    \"columns\": [\n      \"sepallengthcm\",\n      \"sepalwidthcm\",\n      \"petallengthcm\",\n      \"petalwidthcm\"\n    ],\n    \"data\": [\n      [\n        4.6,\n        3.6,\n        1.0,\n        0.2\n      ],\n      [\n        5.7,\n        4.4,\n        1.5,\n        0.4\n      ],\n      [\n        6.7,\n        3.1,\n        4.4,\n        1.4\n      ],\n      [\n        4.8,\n        3.4,\n        1.6,\n        0.2\n      ],\n      [\n        4.4,\n        3.2,\n        1.3,\n        0.2\n      ]\n    ]\n  }\n}"
+    },
+    {
+      "path": "pr_curve_cls_0.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/pr_curve_cls_0.png"
+    },
+    {
+      "path": "pr_curve_cls_1.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/pr_curve_cls_1.png"
+    },
+    {
+      "path": "pr_curve_cls_2.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/pr_curve_cls_2.png"
+    },
+    {
+      "path": "public_datasetRepository_metadata.json",
+      "type": "text",
+      "content": "{\n  \"zenodo\": {\n    \"title\": \"Scikit-Learn Iris\",\n    \"doi\": \"10.5281/ZENODO.1404173\",\n    \"authors\": [\n      \"Marshall Michael\"\n    ],\n    \"published\": \"2018-8-27\",\n    \"publisher\": \"Zenodo\"\n  }\n}"
+    },
+    {
+      "path": "roc_curve_cls_0.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/roc_curve_cls_0.png"
+    },
+    {
+      "path": "roc_curve_cls_1.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/roc_curve_cls_1.png"
+    },
+    {
+      "path": "roc_curve_cls_2.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/roc_curve_cls_2.png"
+    },
+    {
+      "path": "shap_summary.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/shap_summary.png"
+    },
+    {
+      "path": "training_confusion_matrix.png",
+      "type": "image",
+      "uri": "file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlruns/0/667641c161fb4c90bb3eb8b3dd6ebff9/artifacts/training_confusion_matrix.png"
+    }
+  ]
+}
