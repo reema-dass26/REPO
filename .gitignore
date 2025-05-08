@@ -12,11 +12,8 @@ env/
 venv.bak/
 
 # MLflow tracking directories
-mlruns/
-mlartifacts/
-*.log
-*.db
-*.json
+
+
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
