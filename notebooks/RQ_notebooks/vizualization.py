@@ -41,30 +41,278 @@ def detect_deprecated_code(df: pd.DataFrame, deprecated_commits: List[str], **_)
     cols = [c for c in cols if c in df.columns]
     return out[cols].to_dict(orient='records')
 
-# def map_model_dataset(df: pd.DataFrame, **_) -> List[Dict[str, Any]]:
-#     model_col = 'tag_model_name' if 'tag_model_name' in df.columns else 'param_model_name'
-    
-#     cols = [
-#         'run_id',
-#         model_col,
-#         'param_dataset.title',
-#         'param_dataset.doi',
-#         'param_dataset.published',
-#         'param_dataset.publisher'
-#     ]
-#     cols = [c for c in cols if c in df.columns]
-    
-#     data = df[cols].to_dict(orient='records')
-    
-#     # 🔥 Post-process: make DOI into clickable links
-#     for record in data:
-#         doi = record.get('param_dataset.doi')
-#         if doi:
-#             # If the DOI is already a URL, fine; else, prepend https://doi.org/
-#             doi_link = f"https://doi.org/{doi}" if not doi.startswith("http") else doi
-#             record['param_dataset.doi'] = f"[{doi}]({doi_link})"
-    
-#     return data
+from rdflib import Graph, Namespace
+from pyvis.network import Network
+
+def visualize_interactive_provenance(rdf_file, output_html="provenance_graph.html", max_edges=150):
+    g = Graph()
+    g.parse(rdf_file)
+
+    # Namespace for type checking
+    PROV = Namespace("http://www.w3.org/ns/prov#")
+
+    # Build type map first
+    node_types = {}
+    for s, p, o in g.triples((None, RDF.type, None)):
+        node_types[str(s)] = str(o)
+
+    # Initialize PyVis
+    net = Network(height="800px", width="100%", directed=True, notebook=False)
+    net.force_atlas_2based()
+
+    seen_nodes = set()
+    edge_count = 0
+
+    for s, p, o in g:
+        if edge_count >= max_edges:
+            break
+
+        s_label = str(s)
+        o_label = str(o)
+        p_label = str(p).split("#")[-1] if "#" in str(p) else str(p).split("/")[-1]
+
+        # Skip long literals
+        if len(o_label) > 200:
+            o_label = o_label[:200] + "..."
+
+        if s_label.startswith("_:"):
+            s_label = f"BlankNode:{s_label[-5:]}"
+        if o_label.startswith("_:"):
+            o_label = f"BlankNode:{o_label[-5:]}"
+
+        def color_for(node):
+            if node_types.get(node) == str(PROV.Agent):
+                return "gold"
+            elif node_types.get(node) == str(PROV.Activity):
+                return "tomato"
+            elif node_types.get(node) == str(PROV.Entity):
+                return "dodgerblue"
+            else:
+                return "lightgray"
+
+        # Add subject node
+        if s_label not in seen_nodes:
+            net.add_node(s_label, label=s_label[:40], title=s_label, color=color_for(s_label), font={'size': 14})
+            seen_nodes.add(s_label)
+
+        # Add object node
+        if o_label not in seen_nodes:
+            net.add_node(o_label, label=o_label[:40], title=o_label, color=color_for(o_label), font={'size': 14})
+            seen_nodes.add(o_label)
+
+        # Add edge
+        net.add_edge(s_label, o_label, label=p_label)
+        edge_count += 1
+
+    net.show(output_html)
+    return output_html
+
+import os
+import json
+from rdflib import Graph, Namespace, URIRef, BNode, Literal
+from rdflib.namespace import RDF, DCTERMS, FOAF, XSD
+
+
+def generate_grouped_metadata_json(run_summary_path, output_grouped_path):
+    with open(run_summary_path, "r") as f:
+        run_data = json.load(f)
+
+    relevant_fields = {
+        "RQ1.1_Data_Provenance": [
+            "Internal_DBRepo_feature_names",
+            "Internal_DBRepo_dropped_columns",
+            "Internal_DBRepo_n_records",
+            "FAIR_dataset_title",
+            "FAIR_dataset_identifier",
+            "FAIR_dataset_creator",
+            "FAIR_dataset_license",
+            "FAIR_dataset_access_url",
+            "FAIR_dataset_documentation",
+            "FAIR_dataset_keywords",
+            "FAIR_dataset_publication_date",
+            "FAIR_dataset_publisher",
+            "MLSEA_dataPreprocessing"
+        ],
+        "RQ1.2_Model_Provenance": [
+            "MLSEA_hyperparameters",
+            "MLSEA_modelArchitecture",
+            "MLSEA_trainingProcedure",
+            "MLSEA_trainingCodeSnapshot",
+            "MLSEA_evaluationMetrics",
+            "ML_EXP_params",
+            "ML_EXP_metrics",
+            "mlflow.log-model.history",
+            "ML_EXP_dataset_name",
+            "ML_EXP_dataset_version",
+            "ML_EXP_model_name",
+            "ML_EXP_notebook_name"
+        ],
+        "RQ2_Metadata_Audit_Tracing": [
+            "GIT_code_version",
+            "GIT_current_commit_hash",
+            "GIT_user",
+            "GIT_user_email",
+            "MLSEA_modelPath",
+            "Internal_DBRepo_target_name",
+            "MLSEA_performanceInterpretation",
+            "ML_EXP_tags",
+            "ML_EXP_artifacts"
+        ],
+        "RQ4_Schema_Mapping_Interoperability": [
+            "PROV-O_prov_Activity",
+            "PROV-O_prov_used",
+            "PROV-O_prov_Entity",
+            "PROV-O_prov_location",
+            "PROV-O_prov_wasAssociatedWith",
+            "PROV-O_prov_wasGeneratedBy",
+            "FAIR4ML_target_variable",
+            "FAIR4ML_ml_task",
+            "FAIR4ML_serializationFormat",
+            "FAIR4ML_dataset_dataset_type",
+            "FAIR4ML_hasCO2eEmissions"
+        ]
+    }
+
+    grouped_output = {}
+    for section, fields in relevant_fields.items():
+        grouped_output[section] = {
+            field: run_data.get(field) or run_data.get("ML_EXP_tags", {}).get(field, "Not available")
+            for field in fields
+        }
+
+    with open(output_grouped_path, "w") as out:
+        json.dump(grouped_output, out, indent=2)
+
+    return output_grouped_path
+
+
+def export_full_provenance_rdf(grouped_metadata_path, output_basename="full_provenance"):
+    with open(grouped_metadata_path, "r") as f:
+        grouped = json.load(f)
+
+    g = Graph()
+    PROV = Namespace("http://www.w3.org/ns/prov#")
+    SCHEMA = Namespace("http://schema.org/")
+    MLS = Namespace("http://www.w3.org/ns/mls#")
+    EX = Namespace("http://example.org/")
+    g.bind("prov", PROV)
+    g.bind("schema", SCHEMA)
+    g.bind("mls", MLS)
+    g.bind("dcterms", DCTERMS)
+    g.bind("foaf", FOAF)
+    g.bind("ex", EX)
+
+    rq1 = grouped["RQ1.1_Data_Provenance"]
+    rq2 = grouped["RQ2_Metadata_Audit_Tracing"]
+    rq3 = grouped["RQ1.2_Model_Provenance"]
+    rq4 = grouped["RQ4_Schema_Mapping_Interoperability"]
+
+    model_name = rq3.get("ML_EXP_model_name", "unknown_model")
+    dataset_uri = URIRef(EX[f"{model_name}_dataset"])
+    activity_uri = URIRef(EX[f"{model_name}_training"])
+    agent_uri = URIRef(EX["Reema_George_Dass"])
+
+    def safe_literal(value):
+        if value and value != "Not available":
+            return Literal(value)
+        return None
+
+    def add_dict_as_nodes(parent_uri, predicate, data_dict):
+        for k, v in data_dict.items():
+            if v and v != "Not available":
+                node = BNode()
+                g.add((parent_uri, predicate, node))
+                g.add((node, SCHEMA.name, Literal(k)))
+                g.add((node, SCHEMA.value, Literal(str(v))))
+
+    g.add((dataset_uri, RDF.type, PROV.Entity))
+    for field in [
+        ("FAIR_dataset_title", DCTERMS.title),
+        ("FAIR_dataset_identifier", DCTERMS.identifier),
+        ("FAIR_dataset_creator", DCTERMS.creator),
+        ("FAIR_dataset_license", DCTERMS.license),
+        ("FAIR_dataset_documentation", DCTERMS.description),
+        ("FAIR_dataset_access_url", SCHEMA.url),
+        ("FAIR_dataset_keywords", SCHEMA.keywords),
+        ("FAIR_dataset_publication_date", DCTERMS.issued),
+        ("FAIR_dataset_publisher", DCTERMS.publisher),
+    ]:
+        val = safe_literal(rq1.get(field[0]))
+        if val:
+            g.add((dataset_uri, field[1], val))
+    g.add((dataset_uri, PROV.wasGeneratedBy, activity_uri))
+    g.add((dataset_uri, PROV.wasAttributedTo, agent_uri))
+
+    g.add((agent_uri, RDF.type, PROV.Agent))
+    g.add((agent_uri, FOAF.name, safe_literal(rq2.get("GIT_user", "Unknown"))))
+    g.add((agent_uri, FOAF.mbox, safe_literal(rq2.get("GIT_user_email", ""))))
+
+    g.add((activity_uri, RDF.type, PROV.Activity))
+    g.add((activity_uri, PROV.wasAssociatedWith, agent_uri))
+    if rq4.get("PROV-O_prov_used"):
+        g.add((activity_uri, PROV.used, URIRef(rq4["PROV-O_prov_used"])))
+    if rq4.get("FAIR4ML_ml_task"):
+        g.add((activity_uri, MLS.taskType, Literal(rq4["FAIR4ML_ml_task"])))
+    if rq4.get("PROV-O_prov_startedAtTime") and rq4["PROV-O_prov_startedAtTime"] != "info not available":
+        g.add((activity_uri, PROV.startedAtTime, Literal(rq4["PROV-O_prov_startedAtTime"], datatype=XSD.dateTime)))
+    if rq4.get("PROV-O_prov_endedAtTime"):
+        g.add((activity_uri, PROV.endedAtTime, Literal(rq4["PROV-O_prov_endedAtTime"], datatype=XSD.dateTime)))
+    if rq4.get("PROV-O_prov_location"):
+        g.add((activity_uri, PROV.atLocation, URIRef(rq4["PROV-O_prov_location"])))
+    if rq2.get("GIT_current_commit_hash"):
+        g.add((activity_uri, PROV.value, Literal(f"Git commit: {rq2['GIT_current_commit_hash']}")))
+
+    for field, pred in [
+        ("MLSEA_modelArchitecture", MLS.modelArchitecture),
+        ("MLSEA_trainingProcedure", MLS.trainingProcedure),
+        ("MLSEA_trainingCodeSnapshot", SCHEMA.codeRepository)
+    ]:
+        val = safe_literal(rq3.get(field))
+        if val:
+            g.add((activity_uri, pred, val))
+
+    try:
+        metrics = rq3.get("ML_EXP_metrics", {})
+        if isinstance(metrics, str):
+            metrics = json.loads(metrics)
+        add_dict_as_nodes(activity_uri, MLS.hasEvaluationMeasure, metrics)
+    except Exception:
+        pass
+
+    try:
+        params = rq3.get("ML_EXP_params", {})
+        if isinstance(params, str):
+            params = json.loads(params)
+        add_dict_as_nodes(activity_uri, MLS.hasHyperParameter, params)
+    except Exception:
+        pass
+
+    try:
+        preprocessing = rq1.get("MLSEA_dataPreprocessing", {})
+        if isinstance(preprocessing, str):
+            preprocessing = json.loads(preprocessing)
+        add_dict_as_nodes(activity_uri, MLS.dataPreparation, preprocessing)
+    except Exception:
+        pass
+
+    for k, v in rq2.get("ML_EXP_tags", {}).items():
+        if k.startswith("justification_") or k.startswith("MLSEA_justification"):
+            node = BNode()
+            g.add((activity_uri, PROV.wasInfluencedBy, node))
+            g.add((node, SCHEMA.name, Literal(k)))
+            g.add((node, SCHEMA.description, Literal(v)))
+
+    if "MLSEA_improvedFrom" in rq2.get("ML_EXP_tags", {}):
+        previous = rq2["ML_EXP_tags"]["MLSEA_improvedFrom"]
+        if previous and previous != "None":
+            g.add((activity_uri, PROV.wasDerivedFrom, URIRef(EX[previous])))
+
+    jsonld_path = f"{output_basename}.jsonld"
+    rdfxml_path = f"{output_basename}.rdf"
+    g.serialize(destination=jsonld_path, format="json-ld", indent=2)
+    g.serialize(destination=rdfxml_path, format="xml")
+
+    return jsonld_path, rdfxml_path
 
 @st.cache_data
 def load_data():
@@ -160,104 +408,30 @@ def evaluate_subset(features, test_size=0.2, random_state=42, n_estimators=200):
     m.fit(Xtr, ytr)
     return accuracy_score(yte, m.predict(Xte))
 
+from rdflib import Graph
+import networkx as nx
+import matplotlib.pyplot as plt
 
-# def trace_preprocessing(df, run_id=None):
-#     """
-#     Extract preprocessing trace information for a given run_id or all runs.
-#     """
-#     cols = ['run_id',
-#             'param_dataset.title',
-#             'param_columns_raw',
-#             'param_dropped_columns',
-#             'param_feature_names',
-#             'param_dataset.authors', 'param_dataset.doi', 'param_dataset.published',
-#             'param_test_size',
-#             'param_criterion',
-#             'param_max_depth','param_max_leaf_nodes', 'param_max_samples',
-#            'metric_accuracy','metric_f1_macro','metric_roc_auc']
-#     if run_id is None:
-#         subset = df.loc[:, cols]
-#     else:
-#         subset = df.loc[df['run_id'] == run_id, cols]
-#     return subset.to_dict(orient='records')
-
-# def drop_impact(df, feature, **_):
-#     """
-#     Evaluate the impact of dropping a single feature on model accuracy.
-#     """
-#     all_feats = _get_all_features(df)
-#     baseline = evaluate_subset(all_feats)
-#     without = [f for f in all_feats if f != feature]
-#     dropped = evaluate_subset(without)
-#     return {
-#       'dropped_feature': feature,
-#       'baseline_acc': baseline,
-#       'dropped_acc': dropped,
-#       'impact': baseline - dropped
-#     }
-
-# def drop_impact_all(df):
-#     """
-#     Compute drop-impact for every feature in the dataset.
-#     Returns list of dicts with dropped_feature, baseline_acc, dropped_acc, impact.
-#     """
-#     feats = _get_all_features(df)
-#     baseline = evaluate_subset(feats)
-#     summary = []
-#     for feat in feats:
-#         without = [f for f in feats if f != feat]
-#         acc = evaluate_subset(without)
-#         summary.append({
-#             'dropped_feature': feat,
-#             'baseline_acc': baseline,
-#             'dropped_acc': acc,
-#             'impact': round(baseline - acc, 4)
-#         })
-#     return summary
-
-# def best_feature_subset(df, features, **_):
-#     """
-#     Evaluate model accuracy using a specified subset of features.
-#     """
-#     acc = evaluate_subset(features)
-#     return {'features': features, 'accuracy': acc}
-
-# def common_high_accuracy(df, threshold=0.95):
-#     """
-#     Filter runs with test accuracy >= threshold and list unique shared preprocessing settings.
-#     """
-#     high = df[df['metric_accuracy_score_X_test'] >= threshold]
-#     cols = ['param_dropped_columns', 'param_test_size', 'param_feature_names']
-#     return high[cols].drop_duplicates().to_dict(orient='records')
-
-# USE_CASES = {
-#     'trace_preprocessing': {
-#         'func': trace_preprocessing,
-#         'required_params': [],
-#         'optional_params': ['run_id'],
-#     },
-#     'drop_impact': {
-#         'func': drop_impact,
-#         'required_params': ['feature'],
-#         'optional_params': [],
-#     },
-#     'drop_impact_all': {
-#         'func': drop_impact_all,
-#         'required_params': [],
-#         'optional_params': [],
-#     },
-#     'best_feature_subset': {
-#         'func': best_feature_subset,
-#         'required_params': ['features'],
-#         'optional_params': [],
-#     },
-#     'common_high_accuracy': {
-#         'func': common_high_accuracy,
-#         'required_params': ['threshold'],
-#         'optional_params': [],
-#     },
-# }
-# —— Find latest run summary with justification data ——
+# def generate_viz_if_missing(rdf_path, output_img_path):
+#     if not os.path.exists(rdf_path):
+#         return None
+#     if not os.path.exists(output_img_path):
+#         # Load RDF
+#         g = Graph()
+#         g.parse(rdf_path)
+#         # Build graph
+#         G = nx.DiGraph()
+#         for s, p, o in g:
+#             G.add_edge(str(s), str(o), label=str(p))
+#         pos = nx.spring_layout(G, k=0.6)
+#         plt.figure(figsize=(16, 12))
+#         nx.draw(G, pos, with_labels=True, node_size=2000, font_size=8, node_color="lightblue", edge_color="gray", arrows=True)
+#         edge_labels = nx.get_edge_attributes(G, 'label')
+#         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=6)
+#         plt.title("Provenance Graph")
+#         plt.tight_layout()
+#         plt.savefig(output_img_path)
+#         plt.close()
 
 def get_latest_justification_summary(base_dir="MODEL_PROVENANCE"):
     folders = [d for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
@@ -1263,65 +1437,153 @@ elif selected == "📚 Invenio Metadata":
         except Exception as e:
             st.error(f"❌ Error loading Invenio metadata: {e}")
 
+# elif selected == "📤 Export Provenance":
+#     st.title("📤 Export Provenance")
+
+#     # 1. List available runs
+#     provenance_folders = glob.glob(os.path.join("MODEL_PROVENANCE", "RandomForest_Iris_v*"))
+#     provenance_folders = [os.path.basename(folder) for folder in provenance_folders]
+
+#     if not provenance_folders:
+#         st.warning("⚠️ No provenance data available.")
+#     else:
+#         selected_run = st.selectbox("Select a Run ID", provenance_folders)
+#         run_base = os.path.join("MODEL_PROVENANCE", selected_run)
+#         run_summary_path = os.path.join(run_base, f"{selected_run}_run_summary.json")
+#         output_grouped_path = os.path.join(run_base, "grouped_run_metadata_extended.json")
+
+#         # Dynamically generate grouped metadata JSON
+#         generate_grouped_metadata_json(run_summary_path, output_grouped_path)
+#         export_format = st.radio("Choose Export Format", options=["JSON", "JSON-LD", "RDF/XML"])
+
+#         run_base = os.path.join("MODEL_PROVENANCE", selected_run)
+#         file_path = viz_path = None
+
+#         if export_format == "JSON":
+#             file_path = os.path.join(run_base, f"{selected_run}_run_summary.json")
+#         elif export_format == "JSON-LD":
+#             file_path = os.path.join(run_base, "full_provenance.jsonld")
+#             viz_path = os.path.join(run_base, "full_provenance_jsonld_viz.html")
+#             if not os.path.exists(viz_path):
+#                 visualize_interactive_provenance(file_path, viz_path)
+#         elif export_format == "RDF/XML":
+#             file_path = os.path.join(run_base, "full_provenance.rdf")
+#             viz_path = os.path.join(run_base, "full_provenance_rdfxml_viz.html")
+#             if not os.path.exists(viz_path):
+#                 visualize_interactive_provenance(file_path, viz_path)
+
+#         # 2. Provide download
+#         if file_path and os.path.exists(file_path):
+#             with open(file_path, "rb") as file:
+#                 file_content = file.read()
+
+#             st.download_button(
+#                 label=f"📥 Download {export_format}",
+#                 data=file_content,
+#                 file_name=os.path.basename(file_path),
+#                 mime="application/ld+json" if export_format == "JSON-LD" else
+#                      "application/rdf+xml" if export_format == "RDF/XML" else
+#                      "application/json"
+#             )
+
+#             # 3. Embed HTML interactive graph
+#             if viz_path and os.path.exists(viz_path):
+#                 with open(viz_path, "r", encoding="utf-8") as f:
+#                     html_content = f.read()
+#                 components.html(html_content, height=750, scrolling=True)
+#             else:
+#                 st.info("🔍 No interactive visualization available.")
+#         else:
+#             st.error(f"❌ {export_format} file not found for selected run.")
+
 elif selected == "📤 Export Provenance":
     st.title("📤 Export Provenance")
 
-    # 1. List available runs
+    # 1. Discover available provenance folders
     provenance_folders = glob.glob(os.path.join("MODEL_PROVENANCE", "RandomForest_Iris_v*"))
     provenance_folders = [os.path.basename(folder) for folder in provenance_folders]
 
     if not provenance_folders:
         st.warning("⚠️ No provenance data available.")
     else:
-        # 2. Run selection
+        # 2. User selects run and export format
         selected_run = st.selectbox("Select a Run ID", provenance_folders)
+        export_format = st.radio("Choose Export Format", options=["JSON", "JSON-LD", "RDF/XML"])
 
-        # 3. Format selection
-        export_format = st.radio(
-            "Choose Export Format",
-            options=["JSON", "JSON-LD", "RDF/XML"]
-        )
+        run_base = os.path.join("MODEL_PROVENANCE", selected_run)
+        run_summary_path = os.path.join(run_base, f"{selected_run}_run_summary.json")
+        grouped_path = os.path.join(run_base, "grouped_run_metadata_extended.json")
+        jsonld_path = os.path.join(run_base, "full_provenance.jsonld")
+        rdfxml_path = os.path.join(run_base, "full_provenance.rdf")
 
-        # 4. Base folder
-        base_path = os.path.join("MODEL_PROVENANCE", selected_run)
+        # 3. Ensure grouped metadata exists
+        try:
+            if not os.path.exists(grouped_path):
+                generate_grouped_metadata_json(run_summary_path, grouped_path)
+        except Exception as e:
+            st.error(f"❌ Error generating grouped metadata: {e}")
+            st.stop()
 
-        # 5. File discovery
-        file_path = None
-        viz_path = None
+        # 4. Ensure RDF and JSON-LD files exist
+        try:
+            if not os.path.exists(jsonld_path) or not os.path.exists(rdfxml_path):
+                export_full_provenance_rdf(grouped_path, output_basename=os.path.join(run_base, "full_provenance"))
+        except Exception as e:
+            st.error(f"❌ Error exporting RDF/JSON-LD: {e}")
+            st.stop()
 
+        # 5. Define paths and MIME types
         if export_format == "JSON":
-            file_path = os.path.join(base_path, f"{selected_run}_run_summary.json")
+            file_path = run_summary_path
+            mime = "application/json"
+            html_path = None
         elif export_format == "JSON-LD":
-            jsonld_files = glob.glob(os.path.join(base_path, "*.jsonld"))
-            file_path = jsonld_files[0] if jsonld_files else None
-            viz_candidates = glob.glob(os.path.join(base_path, "*JSONLD_viz.png"))
-            viz_path = viz_candidates[0] if viz_candidates else None
-        elif export_format == "RDF/XML":
-            xml_files = glob.glob(os.path.join(base_path, "*.xml"))
-            file_path = xml_files[0] if xml_files else None
-            viz_candidates = glob.glob(os.path.join(base_path, "*RDFXML_viz.png"))
-            viz_path = viz_candidates[0] if viz_candidates else None
-
-        # 6. Download and Preview
-        if file_path and os.path.exists(file_path):
-            with open(file_path, "rb") as file:
-                file_content = file.read()
-
-            st.download_button(
-                label=f"📥 Download {export_format}",
-                data=file_content,
-                file_name=os.path.basename(file_path),
-                mime="application/json" if "json" in file_path.lower() else "application/xml"
-            )
-
-            # 7. If Visualization exists
-            if viz_path and os.path.exists(viz_path):
-                st.image(viz_path, caption=f"Visualization for {export_format}", use_column_width=True)
-            else:
-                st.info("🔍 No visualization available for this format.")
-
+            file_path = jsonld_path
+            mime = "application/ld+json"
+            html_path = os.path.join(run_base, "full_provenance_jsonld_viz.html")
         else:
-            st.error(f"❌ {export_format} file not found for this run.")
+            file_path = rdfxml_path
+            mime = "application/rdf+xml"
+            html_path = os.path.join(run_base, "full_provenance_rdfxml_viz.html")
+
+        # 6. Generate visualization if missing
+        if export_format != "JSON" and not os.path.exists(html_path):
+            try:
+                visualize_interactive_provenance(file_path, html_path)
+            except Exception as e:
+                st.warning(f"⚠️ Could not generate interactive visualization: {e}")
+                html_path = None
+
+        # 7. Download file
+        if os.path.exists(file_path):
+            with open(file_path, "rb") as f:
+                file_bytes = f.read()
+            st.download_button(
+                f"📥 Download {export_format}",
+                data=file_bytes,
+                file_name=os.path.basename(file_path),
+                mime=mime
+            )
+        else:
+            st.error(f"❌ {export_format} file not found for selected run.")
+            st.stop()
+
+        # 8. Display interactive HTML visualization
+        if html_path and os.path.exists(html_path):
+            with open(html_path, "r", encoding="utf-8") as html_file:
+                html_content = html_file.read()
+            st.components.v1.html(html_content, height=750, scrolling=True)
+            # # Legend for node colors
+            # st.markdown("### 🧭 Legend")
+            # st.markdown("""
+            # - <span style="color:gold">🟡 Agent (prov:Agent)</span>  
+            # - <span style="color:tomato">🔴 Activity (prov:Activity)</span>  
+            # - <span style="color:dodgerblue">🔵 Entity (prov:Entity)</span>  
+            # - <span style="color:gray">⚪ Other Nodes</span>
+            # """, unsafe_allow_html=True)
+
+        elif export_format != "JSON":
+            st.info("🔍 No visualization available.")
 
             
 elif selected == "🧨 Error & Version Impact":
