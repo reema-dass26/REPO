@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/432125278223922573/b85a26811f614d5d877d8a0868e6a377/artifacts
+end_time: 1747406579052
+entry_point_name: ''
+experiment_id: '432125278223922573'
+lifecycle_stage: active
+run_id: b85a26811f614d5d877d8a0868e6a377
+run_name: calm-koi-933
+run_uuid: b85a26811f614d5d877d8a0868e6a377
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747406571493
+status: 4
+tags: []
+user_id: reema

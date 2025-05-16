@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/432125278223922573/a6b7b159d0d1401ca958b9742e829f0b/artifacts
+end_time: 1747407414322
+entry_point_name: ''
+experiment_id: '432125278223922573'
+lifecycle_stage: active
+run_id: a6b7b159d0d1401ca958b9742e829f0b
+run_name: likeable-foal-417
+run_uuid: a6b7b159d0d1401ca958b9742e829f0b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747407375884
+status: 4
+tags: []
+user_id: reema

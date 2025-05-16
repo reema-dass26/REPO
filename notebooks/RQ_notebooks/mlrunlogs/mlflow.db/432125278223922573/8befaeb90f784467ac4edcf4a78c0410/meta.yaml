@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/432125278223922573/8befaeb90f784467ac4edcf4a78c0410/artifacts
+end_time: 1747406929986
+entry_point_name: ''
+experiment_id: '432125278223922573'
+lifecycle_stage: active
+run_id: 8befaeb90f784467ac4edcf4a78c0410
+run_name: bemused-mink-238
+run_uuid: 8befaeb90f784467ac4edcf4a78c0410
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747406926789
+status: 4
+tags: []
+user_id: reema
