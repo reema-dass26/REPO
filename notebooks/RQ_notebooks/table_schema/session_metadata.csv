@@ -1,0 +1,2 @@
+session_id,username,timestamp_utc,hostname,platform,os_version,python_version,role,project_id
+session_001,demo_user,2025-05-16T17:53:22.617682,demo-host,Linux,Ubuntu 22.04,3.11.5,developer,demo_project

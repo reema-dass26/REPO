@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/225271718569336729/b9c9966343564be1a4238eb3ad3251d9/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '225271718569336729'
+lifecycle_stage: active
+run_id: b9c9966343564be1a4238eb3ad3251d9
+run_name: righteous-duck-717
+run_uuid: b9c9966343564be1a4238eb3ad3251d9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747580627854
+status: 1
+tags: []
+user_id: reema

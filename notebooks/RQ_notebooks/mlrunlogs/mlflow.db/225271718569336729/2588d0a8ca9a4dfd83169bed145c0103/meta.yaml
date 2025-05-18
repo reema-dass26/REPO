@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/225271718569336729/2588d0a8ca9a4dfd83169bed145c0103/artifacts
+end_time: 1747580421933
+entry_point_name: ''
+experiment_id: '225271718569336729'
+lifecycle_stage: active
+run_id: 2588d0a8ca9a4dfd83169bed145c0103
+run_name: welcoming-gull-357
+run_uuid: 2588d0a8ca9a4dfd83169bed145c0103
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747580363365
+status: 4
+tags: []
+user_id: reema
