@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "tomato", "font": {"size": 14}, "id": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "http://example.org/run_a6da5849dca64ecaa", "shape": "dot", "title": "http://example.org/run_a6da5849dca64ecaad141a1702b89306"}, {"color": "gold", "font": {"size": 14}, "id": "http://example.org/agent_reema", "label": "http://example.org/agent_reema", "shape": "dot", "title": "http://example.org/agent_reema"}, {"color": "lightgray", "font": {"size": 14}, "id": "No justification provided", "label": "No justification provided", "shape": "dot", "title": "No justification provided"}, {"color": "lightgray", "font": {"size": 14}, "id": "2025-05-19T12:23:04.499804", "label": "2025-05-19T12:23:04.499804", "shape": "dot", "title": "2025-05-19T12:23:04.499804"}, {"color": "lightgray", "font": {"size": 14}, "id": "None_specified", "label": "None_specified", "shape": "dot", "title": "None_specified"}, {"color": "dodgerblue", "font": {"size": 14}, "id": "http://example.org/model_model_iris", "label": "http://example.org/model_model_iris", "shape": "dot", "title": "http://example.org/model_model_iris"}, {"color": "lightgray", "font": {"size": 14}, "id": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (...", "label": "{\"dropped_columns\": [\"id\"], \"numeric_col", "shape": "dot", "title": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (..."}, {"color": "lightgray", "font": {"size": 14}, "id": "1.000000000000000000", "label": "1.000000000000000000", "shape": "dot", "title": "1.000000000000000000"}, {"color": "lightgray", "font": {"size": 14}, "id": "v12", "label": "v12", "shape": "dot", "title": "v12"}, {"color": "lightgray", "font": {"size": 14}, "id": "RandomForest_Iris_v20250519_122304", "label": "RandomForest_Iris_v20250519_122304", "shape": "dot", "title": "RandomForest_Iris_v20250519_122304"}, {"color": "dodgerblue", "font": {"size": 14}, "id": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "http://example.org/dataset_519eb3fc-687c", "shape": "dot", "title": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad"}, {"color": "lightgray", "font": {"size": 14}, "id": "[]", "label": "[]", "shape": "dot", "title": "[]"}, {"color": "lightgray", "font": {"size": 14}, "id": "0.200000000000000000", "label": "0.200000000000000000", "shape": "dot", "title": "0.200000000000000000"}, {"color": "lightgray", "font": {"size": 14}, "id": "519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "519eb3fc-687c-4791-aa13-96d5bee8cbad", "shape": "dot", "title": "519eb3fc-687c-4791-aa13-96d5bee8cbad"}, {"color": "dodgerblue", "font": {"size": 14}, "id": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "http://example.org/code_c53df1658851cb9c", "shape": "dot", "title": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e"}, {"color": "lightgray", "font": {"size": 14}, "id": "http://www.w3.org/ns/prov#Entity", "label": "http://www.w3.org/ns/prov#Entity", "shape": "dot", "title": "http://www.w3.org/ns/prov#Entity"}, {"color": "lightgray", "font": {"size": 14}, "id": "150.000000000000000000", "label": "150.000000000000000000", "shape": "dot", "title": "150.000000000000000000"}, {"color": "lightgray", "font": {"size": 14}, "id": "main", "label": "main", "shape": "dot", "title": "main"}, {"color": "lightgray", "font": {"size": 14}, "id": "https://archive.ics.uci.edu/dataset/53", "label": "https://archive.ics.uci.edu/dataset/53", "shape": "dot", "title": "https://archive.ics.uci.edu/dataset/53"}, {"color": "lightgray", "font": {"size": 14}, "id": "random_forest", "label": "random_forest", "shape": "dot", "title": "random_forest"}, {"color": "lightgray", "font": {"size": 14}, "id": "3", "label": "3", "shape": "dot", "title": "3"}, {"color": "lightgray", "font": {"size": 14}, "id": "a6da5849dca64ecaad141a1702b89306", "label": "a6da5849dca64ecaad141a1702b89306", "shape": "dot", "title": "a6da5849dca64ecaad141a1702b89306"}, {"color": "lightgray", "font": {"size": 14}, "id": "model_iris", "label": "model_iris", "shape": "dot", "title": "model_iris"}, {"color": "lightgray", "font": {"size": 14}, "id": "CSV", "label": "CSV", "shape": "dot", "title": "CSV"}, {"color": "lightgray", "font": {"size": 14}, "id": "http://www.w3.org/ns/prov#Activity", "label": "http://www.w3.org/ns/prov#Activity", "shape": "dot", "title": "http://www.w3.org/ns/prov#Activity"}, {"color": "lightgray", "font": {"size": 14}, "id": "106236154+reema-dass26@users.noreply.github.com", "label": "106236154+reema-dass26@users.noreply.git", "shape": "dot", "title": "106236154+reema-dass26@users.noreply.github.com"}, {"color": "lightgray", "font": {"size": 14}, "id": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py", "label": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Py", "shape": "dot", "title": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py"}, {"color": "lightgray", "font": {"size": 14}, "id": "2025-05-19T12:23:21.538475", "label": "2025-05-19T12:23:21.538475", "shape": "dot", "title": "2025-05-19T12:23:21.538475"}, {"color": "lightgray", "font": {"size": 14}, "id": "3.11.5", "label": "3.11.5", "shape": "dot", "title": "3.11.5"}, {"color": "lightgray", "font": {"size": 14}, "id": "Windows 10", "label": "Windows 10", "shape": "dot", "title": "Windows 10"}, {"color": "lightgray", "font": {"size": 14}, "id": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbo...", "label": "{\"n_estimators\": 100, \"criterion\": \"entr", "shape": "dot", "title": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbo..."}, {"color": "lightgray", "font": {"size": 14}, "id": "species", "label": "species", "shape": "dot", "title": "species"}, {"color": "lightgray", "font": {"size": 14}, "id": "c53df1658851cb9c02469abf06ede573625ef73e", "label": "c53df1658851cb9c02469abf06ede573625ef73e", "shape": "dot", "title": "c53df1658851cb9c02469abf06ede573625ef73e"}, {"color": "lightgray", "font": {"size": 14}, "id": "RandomForestClassifier", "label": "RandomForestClassifier", "shape": "dot", "title": "RandomForestClassifier"}, {"color": "lightgray", "font": {"size": 14}, "id": "51ea707f-6b0e-45b1-8458-c100c05b879d", "label": "51ea707f-6b0e-45b1-8458-c100c05b879d", "shape": "dot", "title": "51ea707f-6b0e-45b1-8458-c100c05b879d"}, {"color": "lightgray", "font": {"size": 14}, "id": "reema", "label": "reema", "shape": "dot", "title": "reema"}, {"color": "lightgray", "font": {"size": 14}, "id": "4", "label": "4", "shape": "dot", "title": "4"}, {"color": "lightgray", "font": {"size": 14}, "id": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}", "label": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicol", "shape": "dot", "title": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}"}, {"color": "lightgray", "font": {"size": 14}, "id": "2025-05-19 10:22:50.0", "label": "2025-05-19 10:22:50.0", "shape": "dot", "title": "2025-05-19 10:22:50.0"}, {"color": "lightgray", "font": {"size": 14}, "id": "2025-05-19T10:22:50.772189", "label": "2025-05-19T10:22:50.772189", "shape": "dot", "title": "2025-05-19T10:22:50.772189"}, {"color": "lightgray", "font": {"size": 14}, "id": "[\u0027sepallengthcm\u0027, \u0027sepalwidthcm\u0027, \u0027petallengthcm\u0027, \u0027petalwidthcm\u0027]", "label": "[\u0027sepallengthcm\u0027, \u0027sepalwidthcm\u0027, \u0027petal", "shape": "dot", "title": "[\u0027sepallengthcm\u0027, \u0027sepalwidthcm\u0027, \u0027petallengthcm\u0027, \u0027petalwidthcm\u0027]"}, {"color": "lightgray", "font": {"size": 14}, "id": "categorical", "label": "categorical", "shape": "dot", "title": "categorical"}, {"color": "lightgray", "font": {"size": 14}, "id": "RQ1_2.ipynb", "label": "RQ1_2.ipynb", "shape": "dot", "title": "RQ1_2.ipynb"}, {"color": "lightgray", "font": {"size": 14}, "id": "legendary-pug-966", "label": "legendary-pug-966", "shape": "dot", "title": "legendary-pug-966"}, {"color": "lightgray", "font": {"size": 14}, "id": "Iris", "label": "Iris", "shape": "dot", "title": "Iris"}, {"color": "lightgray", "font": {"size": 14}, "id": "R. A. Fisher", "label": "R. A. Fisher", "shape": "dot", "title": "R. A. Fisher"}, {"color": "lightgray", "font": {"size": 14}, "id": "http://www.w3.org/ns/prov#Agent", "label": "http://www.w3.org/ns/prov#Agent", "shape": "dot", "title": "http://www.w3.org/ns/prov#Agent"}, {"color": "lightgray", "font": {"size": 14}, "id": "RandomForest_Iris_v20250519_122304.pkl", "label": "RandomForest_Iris_v20250519_122304.pkl", "shape": "dot", "title": "RandomForest_Iris_v20250519_122304.pkl"}, {"color": "lightgray", "font": {"size": 14}, "id": "Windows", "label": "Windows", "shape": "dot", "title": "Windows"}, {"color": "lightgray", "font": {"size": 14}, "id": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm", "label": "id,sepallengthcm,sepalwidthcm,petallengt", "shape": "dot", "title": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm"}, {"color": "lightgray", "font": {"size": 14}, "id": "pickle", "label": "pickle", "shape": "dot", "title": "pickle"}, {"color": "lightgray", "font": {"size": 14}, "id": "0E-18", "label": "0E-18", "shape": "dot", "title": "0E-18"}, {"color": "lightgray", "font": {"size": 14}, "id": "provo", "label": "provo", "shape": "dot", "title": "provo"}, {"color": "lightgray", "font": {"size": 14}, "id": "unknown", "label": "unknown", "shape": "dot", "title": "unknown"}, {"color": "lightgray", "font": {"size": 14}, "id": "v0", "label": "v0", "shape": "dot", "title": "v0"}, {"color": "lightgray", "font": {"size": 14}, "id": "researcher", "label": "researcher", "shape": "dot", "title": "researcher"}, {"color": "lightgray", "font": {"size": 14}, "id": "10.24432/C56C76", "label": "10.24432/C56C76", "shape": "dot", "title": "10.24432/C56C76"}, {"color": "lightgray", "font": {"size": 14}, "id": "0.041452455793675400", "label": "0.041452455793675400", "shape": "dot", "title": "0.041452455793675400"}, {"color": "lightgray", "font": {"size": 14}, "id": "Purplish", "label": "Purplish", "shape": "dot", "title": "Purplish"}, {"color": "lightgray", "font": {"size": 14}, "id": "Reema George", "label": "Reema George", "shape": "dot", "title": "Reema George"}, {"color": "lightgray", "font": {"size": 14}, "id": "0.800000000000000000", "label": "0.800000000000000000", "shape": "dot", "title": "0.800000000000000000"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "wasAssociatedWith", "to": "http://example.org/agent_reema"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_not_intended_for", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "startedAtTime", "to": "2025-05-19T12:23:04.499804"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "script_name", "to": "None_specified"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_intended_use", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "preprocessing_info", "to": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (..."}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_recall_score", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "imbalance_ratio", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_dataset_version", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "wasGeneratedBy", "to": "http://example.org/run_a6da5849dca64ecaad141a1702b89306"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "version", "to": "v12"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "name", "to": "RandomForest_Iris_v20250519_122304"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_oob_score", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "license", "to": "[]"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "test_split", "to": "0.200000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "datasetid", "to": "519eb3fc-687c-4791-aa13-96d5bee8cbad"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_model_limitations", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "type", "to": "http://www.w3.org/ns/prov#Entity"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "dataset_id", "to": "519eb3fc-687c-4791-aa13-96d5bee8cbad"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "accuracy", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "experiment_id", "to": "None_specified"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "source_url", "to": "None_specified"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "row_count_start", "to": "150.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_ethical_considerations", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "branch", "to": "main"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "recall_macro", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "repo_url", "to": "https://archive.ics.uci.edu/dataset/53"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "model_short_name", "to": "random_forest"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "classes", "to": "3"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_verbose", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "run_id", "to": "a6da5849dca64ecaad141a1702b89306"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "version", "to": "v12"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "modelid", "to": "model_iris"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_start_time", "to": "2025-05-19T12:23:04.499804"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "detailed_type", "to": "CSV"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "type", "to": "http://www.w3.org/ns/prov#Activity"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "author_email", "to": "106236154+reema-dass26@users.noreply.github.com"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_bootstrap", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "source_file", "to": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "runid", "to": "a6da5849dca64ecaad141a1702b89306"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_end_time", "to": "2025-05-19T12:23:21.538475"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "python_version", "to": "3.11.5"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_target_variable", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "os_platform", "to": "Windows 10"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "hyperparameters", "to": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbo..."}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "target_var", "to": "species"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "commit_hash", "to": "c53df1658851cb9c02469abf06ede573625ef73e"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "algo", "to": "RandomForestClassifier"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_criterion", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "model_id", "to": "model_iris"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "session_id", "to": "51ea707f-6b0e-45b1-8458-c100c05b879d"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "name", "to": "reema"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "features", "to": "4"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_min_samples_split", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_max_depth", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "label_map", "to": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "timestamp", "to": "2025-05-19 10:22:50.0"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "f1_macro", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "timestamp", "to": "2025-05-19T10:22:50.772189"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "label_snap", "to": "species"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "architecture", "to": "RandomForestClassifier"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "features", "to": "[\u0027sepallengthcm\u0027, \u0027sepalwidthcm\u0027, \u0027petallengthcm\u0027, \u0027petalwidthcm\u0027]"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "description", "to": "[]"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "output_type", "to": "categorical"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "source_notebook", "to": "RQ1_2.ipynb"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_precision_score", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "run_name", "to": "legendary-pug-966"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "title", "to": "Iris"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "used", "to": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_class_weight", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "creator", "to": "R. A. Fisher"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_accuracy_score", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "type", "to": "http://www.w3.org/ns/prov#Agent"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "roc_auc", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_f1_score", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_model_choice", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "model_path", "to": "RandomForest_Iris_v20250519_122304.pkl"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "precision_macro", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_max_features", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "platform", "to": "Windows"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "feature_select", "to": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "serialization_format", "to": "pickle"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_n_estimators", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_metric_choice", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "num_inserted_rows", "to": "0E-18"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "project_id", "to": "provo"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "timestamp", "to": "2025-05-19T10:22:50.772189"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "username", "to": "reema"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_score", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "table_name", "to": "unknown"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "row_count_end", "to": "150.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_experiment_name", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "version", "to": "v0"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "type", "to": "http://www.w3.org/ns/prov#Entity"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_threshold_accuracy", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "used", "to": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "role", "to": "researcher"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_roc_auc", "to": "1.000000000000000000"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "git_commit", "to": "c53df1658851cb9c02469abf06ede573625ef73e"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_test_split", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_min_samples_leaf", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "invenioid", "to": "10.24432/C56C76"}, {"arrows": "to", "from": "http://example.org/dataset_519eb3fc-687c-4791-aa13-96d5bee8cbad", "label": "type", "to": "http://www.w3.org/ns/prov#Entity"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "origin_url", "to": "None_specified"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "endedAtTime", "to": "2025-05-19T12:23:21.538475"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_drop_column_x", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "justification_n_jobs", "to": "No justification provided"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "training_log_loss", "to": "0.041452455793675400"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "num_deleted_rows", "to": "0E-18"}, {"arrows": "to", "from": "http://example.org/agent_reema", "label": "hostname", "to": "Purplish"}, {"arrows": "to", "from": "http://example.org/run_a6da5849dca64ecaad141a1702b89306", "label": "sessionid", "to": "51ea707f-6b0e-45b1-8458-c100c05b879d"}, {"arrows": "to", "from": "http://example.org/code_c53df1658851cb9c02469abf06ede573625ef73e", "label": "author", "to": "Reema George"}, {"arrows": "to", "from": "http://example.org/model_model_iris", "label": "train_split", "to": "0.800000000000000000"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,2 @@
+dataset_id,table_name,detailed_type,classes,features,output_type,version,source_url,title,description,license,creator,created,updated
+ds_iris001,iris_cleaned,CSV,3,4,categorical,v1.0,https://zenodo.org/record/1234567,Iris Flower Dataset,Classic dataset used for classification tasks.,CC-BY-4.0,"Fisher, R.A.",1936-07-01,2025-05-19

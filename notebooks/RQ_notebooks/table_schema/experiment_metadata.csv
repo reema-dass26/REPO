@@ -1,2 +1,0 @@
-run_id,session_id,model_id,dataset_id,git_commit,invenio_id,timestamp,justification,metrics,tags
-62ed28a3-5c72-43ff-9f00-189fb5a283eb,session_001,model_001,dataset_001,abc123def456,invenio_001,1747418002615,Test justification for demo purposes.,"{""accuracy"": 0.95, ""f1_macro"": 0.93}","{""model_name"": ""DummyModel"", ""dataset_version"": ""v1""}"

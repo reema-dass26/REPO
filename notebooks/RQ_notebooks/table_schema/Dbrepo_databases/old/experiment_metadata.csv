@@ -1,0 +1,6 @@
+runID,sessionID,modelId,datasetID,git_commit,invenioID,timestamp
+run001,sess001,model001,data001,abc1234,inv001,qwertzui
+run002,sess002,model002,data002,def5678,inv002,qwertzui
+run003,sess003,model003,data003,ghi9012,inv003,qwertzui
+run004,sess004,model004,data004,jkl3456,inv004,qwertzui
+run005,sess005,model005,data005,mno7890,inv005,qwertzui

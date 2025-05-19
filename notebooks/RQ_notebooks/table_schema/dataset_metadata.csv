@@ -1,2 +1,0 @@
-dataset_id,title,description,creator,publisher,publication_date,version,license,access_url,columns,target_variable,ml_task,num_samples,fair_prov_json
-dataset_001,Demo Dataset,A simple dataset for testing.,John Doe,Demo Publisher,2023-01-01,v1,CC-BY-4.0,http://example.com/data.csv,"[""feature1"", ""feature2"", ""label""]",label,classification,100,"{""prov:activity"": ""demo ingestion""}"

@@ -1580,6 +1580,9 @@ elif selected == "📚 Invenio Metadata":
         except Exception as e:
             st.error(f"❌ Error loading Invenio metadata: {e}")
 
+    import streamlit as st
+    import glob, os
+
 elif selected == "📤 Export Provenance":
     st.title("📤 Export Provenance")
 
@@ -1590,60 +1593,61 @@ elif selected == "📤 Export Provenance":
     if not provenance_folders:
         st.warning("⚠️ No provenance data available.")
     else:
-        # 2. User selects run and export format
+        # 2. Select a run
         selected_run = st.selectbox("Select a Run ID", provenance_folders)
-        export_format = st.radio("Choose Export Format", options=["JSON", "JSON-LD", "RDF/XML"])
-
         run_base = os.path.join("MODEL_PROVENANCE", selected_run)
-        run_summary_path = os.path.join(run_base, f"{selected_run}_run_summary.json")
-        grouped_path = os.path.join(run_base, "grouped_run_metadata_extended.json")
-        jsonld_path = os.path.join(run_base, "full_provenance.jsonld")
-        rdfxml_path = os.path.join(run_base, "full_provenance.rdf")
 
-        # 3. Ensure grouped metadata exists
-        try:
-            if not os.path.exists(grouped_path):
-                generate_grouped_metadata_json(run_summary_path, grouped_path)
-        except Exception as e:
-            st.error(f"❌ Error generating grouped metadata: {e}")
+        # 3. Detect available export files
+        available_files = os.listdir(run_base)
+
+        json_file = next((f for f in available_files if "export" in f and f.endswith(".json")), None)
+        jsonld_file = next((f for f in available_files if f.endswith(".jsonld")), None)
+        rdfxml_file = next((f for f in available_files if f.endswith(".rdf")), None)
+
+        # If no exports available
+        if not any([json_file, jsonld_file, rdfxml_file]):
+            st.warning("⚠️ No exportable provenance files found.")
             st.stop()
 
-        # 4. Ensure RDF and JSON-LD files exist
-        try:
-            if not os.path.exists(jsonld_path) or not os.path.exists(rdfxml_path):
-                export_full_provenance_rdf(grouped_path, output_basename=os.path.join(run_base, "full_provenance"))
-        except Exception as e:
-            st.error(f"❌ Error exporting RDF/JSON-LD: {e}")
-            st.stop()
+        # 4. Let user pick format only from what's available
+        format_options = []
+        if json_file:
+            format_options.append("JSON")
+        if jsonld_file:
+            format_options.append("JSON-LD")
+        if rdfxml_file:
+            format_options.append("RDF/XML")
 
-        # 5. Define paths and MIME types
+        export_format = st.radio("Choose Export Format", options=format_options)
+
+        # 5. Map to file and MIME
         if export_format == "JSON":
-            file_path = run_summary_path
+            file_path = os.path.join(run_base, json_file)
             mime = "application/json"
             html_path = None
         elif export_format == "JSON-LD":
-            file_path = jsonld_path
+            file_path = os.path.join(run_base, jsonld_file)
             mime = "application/ld+json"
             html_path = os.path.join(run_base, "full_provenance_jsonld_viz.html")
         else:
-            file_path = rdfxml_path
+            file_path = os.path.join(run_base, rdfxml_file)
             mime = "application/rdf+xml"
             html_path = os.path.join(run_base, "full_provenance_rdfxml_viz.html")
 
-        # 6. Generate visualization if missing
-        if export_format != "JSON" and not os.path.exists(html_path):
+        # 6. Generate interactive visualization if needed
+        if html_path and not os.path.exists(html_path):
             try:
                 visualize_interactive_provenance(file_path, html_path)
             except Exception as e:
                 st.warning(f"⚠️ Could not generate interactive visualization: {e}")
                 html_path = None
 
-        # 7. Download file
+        # 7. Offer file download
         if os.path.exists(file_path):
             with open(file_path, "rb") as f:
                 file_bytes = f.read()
             st.download_button(
-                f"📥 Download {export_format}",
+                label=f"📥 Download {export_format}",
                 data=file_bytes,
                 file_name=os.path.basename(file_path),
                 mime=mime
@@ -1652,37 +1656,128 @@ elif selected == "📤 Export Provenance":
             st.error(f"❌ {export_format} file not found for selected run.")
             st.stop()
 
-        # 8. Display interactive HTML visualization
+        # 8. Display HTML visualization if available
         if html_path and os.path.exists(html_path):
-            with open(html_path, "r", encoding="utf-8") as html_file:
-                html_content = html_file.read()
+            with open(html_path, "r", encoding="utf-8") as f:
+                html_content = f.read()
             st.components.v1.html(html_content, height=750, scrolling=True)
-            # # Legend for node colors
-            # st.markdown("### 🧭 Legend")
-            # st.markdown("""
-            # - <span style="color:gold">🟡 Agent (prov:Agent)</span>  
-            # - <span style="color:tomato">🔴 Activity (prov:Activity)</span>  
-            # - <span style="color:dodgerblue">🔵 Entity (prov:Entity)</span>  
-            # - <span style="color:gray">⚪ Other Nodes</span>
-            # """, unsafe_allow_html=True)
-
         elif export_format != "JSON":
-            st.info("🔍 No visualization available.")
+            st.info("🔍 No visualization available for this export.")
 
             
+        
+        st.title("🔎 Query Your Provenance Data (SPARQL)")
+        
+        # --- 1. Load provenance file ---
+        run_base = os.path.join("MODEL_PROVENANCE", selected_run)
+        rdf_files = [f for f in os.listdir(run_base) if f.endswith(".rdf") or f.endswith(".jsonld")]
+        
+        if not rdf_files:
+            st.warning("⚠️ No RDF/JSON-LD provenance files found.")
+            st.stop()
+        
+        selected_file = st.selectbox("Select provenance file", rdf_files)
+        full_path = os.path.join(run_base, selected_file)
+        rdf_format = "json-ld" if selected_file.endswith(".jsonld") else "xml"
+        
+        # --- 2. Load RDF graph ---
+        g = Graph()
+        try:
+            g.parse(full_path, format=rdf_format)
+            st.success(f"✅ Loaded: {selected_file}")
+        except Exception as e:
+            st.error(f"❌ Failed to parse RDF file: {e}")
+            st.stop()
+        
+        # --- 3. Preset queries ---
+        PRESET_QUERIES = {
+            "Show all triples (limit 25)": """
+                SELECT ?s ?p ?o WHERE {
+                  ?s ?p ?o .
+                } LIMIT 25
+            """,
+            "Who ran the experiment?": """
+                SELECT ?agentName WHERE {
+                  ?agent a <http://www.w3.org/ns/prov#Agent> ;
+                         <http://xmlns.com/foaf/0.1/name> ?agentName .
+                }
+            """,
+            "Which dataset was used in a run?": """
+                SELECT ?dataset WHERE {
+                  ?run a <http://www.w3.org/ns/prov#Activity> ;
+                       <http://www.w3.org/ns/prov#used> ?dataset .
+                  FILTER CONTAINS(STR(?dataset), "dataset")
+                }
+            """,
+            "Which model was generated by which run?": """
+                SELECT ?model ?run WHERE {
+                  ?model a <http://www.w3.org/ns/prov#Entity> ;
+                         <http://www.w3.org/ns/prov#wasGeneratedBy> ?run .
+                }
+            """,
+            "Which code version was used in training?": """
+                SELECT ?codeHash WHERE {
+                  ?run a <http://www.w3.org/ns/prov#Activity> ;
+                       <http://www.w3.org/ns/prov#used> ?code .
+                  ?code <http://example.org/commit_hash> ?codeHash .
+                }
+            """,
+            "When did the training start and end?": """
+                SELECT ?start ?end WHERE {
+                  ?run a <http://www.w3.org/ns/prov#Activity> ;
+                       <http://www.w3.org/ns/prov#startedAtTime> ?start ;
+                       <http://www.w3.org/ns/prov#endedAtTime> ?end .
+                }
+            """,
+            "List all training accuracy metrics": """
+                SELECT ?metric ?value WHERE {
+                  ?run a <http://www.w3.org/ns/prov#Activity> ;
+                       ?metric ?value .
+                  FILTER CONTAINS(STR(?metric), "accuracy")
+                }
+            """,
+            "Get model hyperparameters": """
+                SELECT ?param ?value WHERE {
+                  ?model a <http://www.w3.org/ns/prov#Entity> ;
+                         ?param ?value .
+                  FILTER CONTAINS(STR(?param), "hyper")
+                }
+            """,
+            "Which model used a specific dataset?": """
+               SELECT ?model ?datasetLabel WHERE {
+  ?run a <http://www.w3.org/ns/prov#Activity> ;
+       <http://www.w3.org/ns/prov#used> ?dataset .
+  ?model <http://www.w3.org/ns/prov#wasGeneratedBy> ?run .
+  ?dataset <http://example.org/title> ?datasetLabel .
+}
 
-elif selected == "📦 Environment Requirements":
-
-    st.title("📦 Environment Requirements")
-    st.markdown("Download the list of Python dependencies used for this project.")
-    
-    if os.path.exists("requirements.txt"):
-        with open("requirements.txt", "rb") as f:
-            st.download_button(
-                label="📥 Download requirements.txt",
-                data=f,
-                file_name="requirements.txt",
-                mime="text/plain"
-            )
-    else:
-        st.error("requirements.txt not found.")
+            """,
+            "List all entity types in the graph": """
+                SELECT DISTINCT ?type WHERE {
+                  ?s a ?type .
+                }
+            """,
+        }
+        
+        # --- 4. Query Mode: Preset or Manual ---
+        query_mode = st.radio("Choose Query Mode", ["Use Preset", "Write Your Own"])
+        
+        if query_mode == "Use Preset":
+            preset_key = st.selectbox("Choose a SPARQL query", list(PRESET_QUERIES.keys()))
+            sparql_query = st.text_area("SPARQL Query", PRESET_QUERIES[preset_key], height=200)
+        else:
+            sparql_query = st.text_area("Write your SPARQL query below:", "", height=200)
+        
+        # --- 5. Execute Query ---
+        if st.button("▶️ Run Query"):
+            try:
+                results = g.query(sparql_query)
+                rows = [list(map(str, row)) for row in results]
+        
+                if not rows:
+                    st.info("No results found.")
+                else:
+                    st.success(f"✅ {len(rows)} results")
+                    st.dataframe(rows)
+            except Exception as e:
+                st.error(f"❌ Query failed: {e}")

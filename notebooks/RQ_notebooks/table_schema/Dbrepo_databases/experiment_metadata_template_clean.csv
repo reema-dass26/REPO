@@ -1,0 +1,2 @@
+runid,sessionid,modelid,datasetid,git_commit,invenioid,timestamp,run_name,experiment_id,training_start_time,training_end_time,source_file,source_notebook
+run_001abc,sess_123abc,model_rf001,ds_iris001,abc123def456,doi:10.1234/iris.ds,2025-05-19T10:15:30,RandomForest_Iris_Run,exp_001,2025-05-19T10:16:00,2025-05-19T10:17:30,train_model.py,iris_experiment.ipynb
