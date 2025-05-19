@@ -1135,14 +1135,14 @@ Visualize how your machine learning model is performing — and understand **why
         st.stop()
 
     # Step 3: Let user select a valid run_id
-    selected_run = st.selectbox("Select Run ID", valid_run_ids)
+    selected_run = st.selectbox("Select a Run ID", sorted(valid_run_ids))
+    run_df = df[df["run_id"] == selected_run]
 
-    filtered_df = df[df["run_id"] == selected_run]
-    if filtered_df.empty:
+    if run_df.empty:
         st.error(f"No metadata found for selected run ID: {selected_run}")
         st.stop()
 
-    run_data = filtered_df.iloc[0].to_dict()
+    run_data = run_df.iloc[0].to_dict()
     run_folder = run_id_to_folder[selected_run]
 
     st.success(f"📁 Loaded metadata from: `{selected_run}` at `{run_folder}`")
@@ -1181,6 +1181,7 @@ Visualize how your machine learning model is performing — and understand **why
             hparams = json.loads(run_data.get("tags_hyperparameters", "{}"))
         except:
             hparams = {}
+
         for k, v in hparams.items():
             meta_preview[f"Hyperparam → {k}"] = v
 
@@ -1188,6 +1189,7 @@ Visualize how your machine learning model is performing — and understand **why
             prep = json.loads(run_data.get("tags_preprocessing_info", "{}"))
         except:
             prep = {}
+
         for k in ["dropped_columns", "final_feature_columns", "target_column"]:
             if k in prep:
                 meta_preview[f"Preprocessing → {k}"] = prep[k]
