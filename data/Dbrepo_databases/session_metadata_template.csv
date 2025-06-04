@@ -1,0 +1,2 @@
+session_id,username,timestamp,hostname,platform,python_version,os_platform,role,project_id,script_name
+sess_123abc,reema1,2025-05-19T10:15:30,local-machine,Linux,3.10.12,Linux-5.15.0-91-generic-x86_64,developer,proj_iris_001,train_model.py

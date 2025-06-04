@@ -1,0 +1,2 @@
+dataset_id,table_name,detailed_type,classes,features,output_type,version
+ds_001,table_xyz,CSV,3,5,categorical,v1.0

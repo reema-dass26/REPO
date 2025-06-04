@@ -701,7 +701,7 @@ if selected == "🏠 Dashboard":
             st.markdown("**📜 Provenance JSON** — centralized record of your entire workflow")
             time.sleep(1)
             st.markdown("**🌐 Dashboard** — interactive viewer to explore results & metadata")
-            st.balloons()
+            # st.balloons()
     
     with col2:
         st.markdown("### 🧭 Visual Flow Diagram")
@@ -1104,48 +1104,178 @@ Explore structured ML model metadata from each experiment.
 
 
 
+# elif selected == "📊 Model Plots":
+#     st.title("📊 Model Explainability & Evaluation Plots")
+#     st.markdown("""
+# Visualize how your machine learning model is performing — and understand **why** it's making the predictions it does.
+
+# 🔗 This section links each plot back to the run ID, dataset, and model used to generate it.
+# """)
+
+#     import glob
+#     import json
+#     import os
+
+#     # Step 1: Build mapping of folder names to run_ids based on summary files
+
+#     folder_paths = glob.glob(os.path.join("MODEL_PROVENANCE", "*_run_summary.json")) + \
+#                glob.glob(os.path.join("MODEL_PROVENANCE", "*", "*_run_summary.json"))
+
+    
+    
+#     run_id_to_folder = {}
+
+#     for path in folder_paths:
+#         folder = os.path.dirname(path)
+#         folder_name = os.path.basename(folder)
+#         run_id = folder_name  # Assuming folder name is equal to run_id
+#         run_id_to_folder[run_id] = folder
+
+#     # Step 2: Filter df to only those with matching folders
+#     valid_run_ids = df["run_id"].dropna().unique()
+#     valid_run_ids = [r for r in valid_run_ids if r in run_id_to_folder]
+
+#     if not valid_run_ids:
+#         st.warning("No valid run folders found that match run IDs in metadata.")
+#         st.stop()
+
+#     # Step 3: Let user select a valid run_id
+#     selected_run = st.selectbox("Select a Run ID", sorted(valid_run_ids))
+#     run_df = df[df["run_id"] == selected_run]
+
+#     if run_df.empty:
+#         st.error(f"No metadata found for selected run ID: {selected_run}")
+#         st.stop()
+
+#     run_data = run_df.iloc[0].to_dict()
+#     run_folder = run_id_to_folder[selected_run]
+
+#     st.success(f"📁 Loaded metadata from: `{selected_run}` at `{run_folder}`")
+
+#     # ── Extended Metadata ──
+#     with st.expander("📋 Extended Metadata"):
+
+#         def safe_str(val):
+#             if isinstance(val, (dict, list)):
+#                 return json.dumps(val)
+#             elif val is None:
+#                 return "—"
+#             return str(val)
+
+#         meta_preview = {
+#             "Run ID": run_data.get("run_id", "—"),
+#             "Model Name": run_data.get("tags_model_name", "—"),
+#             "Dataset Title": run_data.get("tags_DOI_dataset_title", "—"),
+#             "Training Start": run_data.get("tags_training_start_time", "—"),
+#             "Training End": run_data.get("tags_training_end_time", "—"),
+#             "Accuracy (Test)": run_data.get("metrics_accuracy", "—"),
+#             "F1 Macro (Test)": run_data.get("metrics_f1_macro", "—"),
+#             "Precision (Test)": run_data.get("metrics_precision_macro", "—"),
+#             "Recall (Test)": run_data.get("metrics_recall_macro", "—"),
+#             "ROC AUC (Test)": run_data.get("metrics_roc_auc", "—"),
+#             "Training Accuracy": run_data.get("metrics_training_accuracy_score", "—"),
+#             "Target Variable": run_data.get("tags_target_variable", "—"),
+#             "Serialization Format": run_data.get("tags_model_serialization", "—"),
+#             "Model Path": run_data.get("tags_model_path", "—"),
+#             "Improved From": run_data.get("tags_MLSEA_improvedFrom", "—"),
+#             "Training Code Snapshot": run_data.get("tags_justification_training_code_snapshot", "—"),
+#             "Training Procedure": run_data.get("tags_justification_training_procedure", "—")
+#         }
+
+#         try:
+#             hparams = json.loads(run_data.get("tags_hyperparameters", "{}"))
+#         except:
+#             hparams = {}
+
+#         for k, v in hparams.items():
+#             meta_preview[f"Hyperparam → {k}"] = v
+
+#         try:
+#             prep = json.loads(run_data.get("tags_preprocessing_info", "{}"))
+#         except:
+#             prep = {}
+
+#         for k in ["dropped_columns", "final_feature_columns", "target_column"]:
+#             if k in prep:
+#                 meta_preview[f"Preprocessing → {k}"] = prep[k]
+
+#         cleaned = {k: safe_str(v) for k, v in meta_preview.items()}
+#         st.dataframe(pd.DataFrame(list(cleaned.items()), columns=["Field", "Value"]), use_container_width=True)
+
+#     # ── Plot Viewer ──
+#     st.markdown("### 📈 Select and View Plot")
+
+#     plot_files = glob.glob(os.path.join(run_folder, "*.png"))
+
+#     if not plot_files:
+#         st.warning("⚠️ No plots found in the run folder.")
+#         st.stop()
+
+#     plot_options = {}
+#     for fpath in plot_files:
+#         fname = os.path.basename(fpath).replace(".png", "")
+#         label = fname.replace("_", " ").title()
+#         plot_options[label] = fpath
+
+#     selected_plot = st.selectbox("Choose Plot", list(plot_options.keys()))
+#     plot_path = plot_options[selected_plot]
+
+#     plot_width = st.slider("Adjust Plot Width", 400, 1000, 600)
+#     st.image(plot_path, caption=f"{selected_plot} — {selected_run}", width=plot_width)
+
+#     # ── Interpretation ──
+#     explanations = {
+#         "Feature Importances": "Shows which features contribute most to predictions.",
+#         "Shap Summary": "SHAP values show feature impact and distribution.",
+#         "Roc Curve": "Visualizes true vs. false positive rates.",
+#         "Precision Recall": "Helps evaluate classifier performance under class imbalance.",
+#         "Confusion Matrix": "Compares predicted vs. actual outcomes."
+#     }
+
+#     for key, explanation in explanations.items():
+#         if key.lower() in selected_plot.lower():
+#             st.markdown(f"**Interpretation:** {explanation}")
+#             break
 elif selected == "📊 Model Plots":
     st.title("📊 Model Explainability & Evaluation Plots")
     st.markdown("""
 Visualize how your machine learning model is performing — and understand **why** it's making the predictions it does.
 
-🔗 This section links each plot back to the run ID, dataset, and model used to generate it.
+🔗 This section links each plot back to the run folder and summary metadata.
 """)
 
     import glob
     import json
     import os
+    import pandas as pd
 
-    # Step 1: Build mapping of folder names to run_ids based on summary files
+    # Step 1: Find all run folders with a summary JSON
     folder_paths = glob.glob(os.path.join("MODEL_PROVENANCE", "*", "*_run_summary.json"))
     run_id_to_folder = {}
 
     for path in folder_paths:
         folder = os.path.dirname(path)
         folder_name = os.path.basename(folder)
-        run_id = folder_name  # Assuming folder name is equal to run_id
-        run_id_to_folder[run_id] = folder
+        run_id_to_folder[folder_name] = folder
 
-    # Step 2: Filter df to only those with matching folders
-    valid_run_ids = df["run_id"].dropna().unique()
-    valid_run_ids = [r for r in valid_run_ids if r in run_id_to_folder]
-
-    if not valid_run_ids:
-        st.warning("No valid run folders found that match run IDs in metadata.")
+    if not run_id_to_folder:
+        st.warning("⚠️ No run folders with summary JSONs found.")
         st.stop()
 
-    # Step 3: Let user select a valid run_id
-    selected_run = st.selectbox("Select a Run ID", sorted(valid_run_ids))
-    run_df = df[df["run_id"] == selected_run]
-
-    if run_df.empty:
-        st.error(f"No metadata found for selected run ID: {selected_run}")
-        st.stop()
-
-    run_data = run_df.iloc[0].to_dict()
+    # Step 2: Let user select a run folder (run_id = folder name)
+    selected_run = st.selectbox("Select a Run ID", sorted(run_id_to_folder.keys()))
     run_folder = run_id_to_folder[selected_run]
 
-    st.success(f"📁 Loaded metadata from: `{selected_run}` at `{run_folder}`")
+    st.success(f"📁 Loaded run folder: `{selected_run}`")
+
+    # Step 3: Load summary JSON
+    summary_path = glob.glob(os.path.join(run_folder, "*_run_summary.json"))
+    if not summary_path:
+        st.error("❌ Could not find a summary JSON file in the selected folder.")
+        st.stop()
+
+    with open(summary_path[0], "r") as f:
+        run_data = json.load(f)
 
     # ── Extended Metadata ──
     with st.expander("📋 Extended Metadata"):
@@ -1158,7 +1288,7 @@ Visualize how your machine learning model is performing — and understand **why
             return str(val)
 
         meta_preview = {
-            "Run ID": run_data.get("run_id", "—"),
+            "Run ID": selected_run,
             "Model Name": run_data.get("tags_model_name", "—"),
             "Dataset Title": run_data.get("tags_DOI_dataset_title", "—"),
             "Training Start": run_data.get("tags_training_start_time", "—"),
@@ -1177,6 +1307,7 @@ Visualize how your machine learning model is performing — and understand **why
             "Training Procedure": run_data.get("tags_justification_training_procedure", "—")
         }
 
+        # Optional Hyperparameters
         try:
             hparams = json.loads(run_data.get("tags_hyperparameters", "{}"))
         except:
@@ -1185,6 +1316,7 @@ Visualize how your machine learning model is performing — and understand **why
         for k, v in hparams.items():
             meta_preview[f"Hyperparam → {k}"] = v
 
+        # Optional Preprocessing Info
         try:
             prep = json.loads(run_data.get("tags_preprocessing_info", "{}"))
         except:
@@ -1203,7 +1335,7 @@ Visualize how your machine learning model is performing — and understand **why
     plot_files = glob.glob(os.path.join(run_folder, "*.png"))
 
     if not plot_files:
-        st.warning("⚠️ No plots found in the run folder.")
+        st.warning("⚠️ No plots found in the selected run folder.")
         st.stop()
 
     plot_options = {}

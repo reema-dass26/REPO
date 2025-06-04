@@ -1,0 +1,2 @@
+model_id,name,algo,features,label_snap,train_split,test_split,target_var,label_map,feature_select,imbalance_ratio
+model_001,RandomForest,RandomForestClassifier,"['age', 'income', 'education', 'gender', 'marital_status']",income_group,0.8,0.2,income_group,"{'0': 'Low', '1': 'Medium', '2': 'High'}","['age', 'income', 'education']",1.5
