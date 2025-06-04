@@ -1,0 +1,2 @@
+dataset_guid,dataset_id,table_name,detailed_type,classes,features,output_type,version,source_url,title,description,license,creator,created,updated
+24ba8230-017a-474c-95ae-24ca50bdcf1b,,iris_variant,CSV,3,4,categorical,v1.0,https://doi.org/10.1234/iris.variant.v1,Iris Variant Dataset,A randomized variant of the classic Iris dataset.,CC-BY-4.0,"Fisher, R.A.",01-06-2025,04-06-2025
