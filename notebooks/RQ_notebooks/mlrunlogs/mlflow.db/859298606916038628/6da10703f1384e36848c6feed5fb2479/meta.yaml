@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/859298606916038628/6da10703f1384e36848c6feed5fb2479/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '859298606916038628'
+lifecycle_stage: active
+run_id: 6da10703f1384e36848c6feed5fb2479
+run_name: legendary-panda-236
+run_uuid: 6da10703f1384e36848c6feed5fb2479
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749200784386
+status: 1
+tags: []
+user_id: reema

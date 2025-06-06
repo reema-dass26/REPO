@@ -20,7 +20,7 @@ from streamlit_agraph import agraph, Node, Edge, Config
 import time
 from datetime import datetime
 import re
-
+from pathlib import Path
 st.set_page_config(
     page_title="Building Bridges in Research: Integrating Provenance and Data Management in Virtual Research Environments",
     page_icon="🧠",
@@ -1353,6 +1353,23 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     run_ids = df['run_id'].dropna().unique()  # 🔧 ADD THIS LINE
 
     selected_run = st.selectbox("Select Run 1", run_ids)
+    # 📥 Download Reproducibility Guide
+    repro_path = Path("MODEL_PROVENANCE") / selected_run / f"{selected_run}_reproducibility.txt"
+    
+    if repro_path.exists():
+        with open(repro_path, "r", encoding="utf-8") as file:
+            reproducibility_content = file.read()
+    
+        st.markdown("### 📥 Download Reproducibility Guide")
+        st.download_button(
+            label="⬇️ Download Reproducibility Instructions",
+            data=reproducibility_content,
+            file_name=f"{selected_run}_reproducibility.txt",
+            mime="text/plain"
+        )
+    else:
+        st.info("ℹ️ No reproducibility guide found for this run.")
+
     run_data_1 = df[df['run_id'] == selected_run].iloc[0].to_dict()
     run_data_1 = rebuild_nested_from_flat(run_data_1)  # <-- ADD THIS
     
