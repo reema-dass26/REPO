@@ -1,1 +1,0 @@
-{"n_estimators": 200, "criterion": "entropy", "max_depth": 12, "min_samples_split": 5, "min_samples_leaf": 2, "max_features": "sqrt", "bootstrap": true, "oob_score": false, "class_weight": null, "random_state": 42, "verbose": 1, "n_jobs": -1}

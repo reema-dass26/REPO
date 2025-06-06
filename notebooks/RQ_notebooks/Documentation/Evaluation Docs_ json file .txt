@@ -1,0 +1,50 @@
+Sources:
+
+Dublin Core: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+
+W3 PROV-O: https://www.w3.org/TR/prov-o/
+
+FAIR4ML: https://arxiv.org/abs/2207.07633
+
+Croissant: https://github.com/ml-schemas/croissant
+
+MLSEA: https://arxiv.org/abs/2401.07106
+
+✅ 1. Why This Structure?
+You’ve grouped fields under key categories like FAIR, FAIR4ML, MLSEA, Croissant, and Uncategorized to reflect standardized metadata models. This supports:
+
+Group	Based On	Purpose
+FAIR	FAIR Principles and DCAT/DCMI	Dataset-level metadata (title, version, identifier)
+FAIR4ML	FAIR4ML + PROV-O	Reproducibility and experiment trace metadata
+MLSEA	ML Schema Evaluation & Justification Extension (MLSEA)	Evaluation metrics and researcher justifications
+Croissant	ML-Schema / Croissant	Model metadata (architecture, learning algorithm, path, version, etc.)
+Uncategorized	Internal / custom schema	Captures extra info not covered in above (session, git)
+
+This structure promotes interoperability, reusability, and traceability of ML experiments.
+
+. How to Evaluate the Metadata Coverage?
+You can assess how complete your metadata is per standard using:
+
+A. Checklists from standards (manual or scripted):
+FAIR: FAIR-Checklist
+
+PROV-O: PROV-O Core
+
+MLSEA: From paper Table 1 & 2 (look at all mlsea:* fields and justification_*)
+
+Croissant: Field Index
+
+B. Open-source Tools:
+You can use or adapt:
+
+Tool	Purpose
+FAIR Evaluator	Tests your metadata/DOI for FAIR compliance
+RO-Crate Validator	If wrapping in RO-Crate for broader validation
+Custom Python script	Check % of expected fields present per schem
+
+2. Validate it using these open-source tools:
+Tool	Purpose	How
+RDFUnit	Validate RDF data against vocabularies (e.g. PROV, DCAT)	Run locally with SHACL/DQ constraints
+FAIR Evaluator	Score metadata on FAIR compliance	Upload your JSON-LD or register your dataset
+SHACL Validator	Check conformance of RDF/JSON-LD data to SHACL shapes	Paste your JSON-LD
+RO-Crate Validator	Validate full dataset + metadata crates	If you extend your metadata into a RO-Crate format

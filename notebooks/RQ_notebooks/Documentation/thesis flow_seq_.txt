@@ -1,0 +1,15 @@
+title Thesis Process Flow
+
+participant DBRepo
+participant JupyterHub
+participant ProvenanceDB
+participant Invenio
+participant Dashboard
+
+DBRepo->>JupyterHub: Fetch source data (API call)
+JupyterHub->>JupyterHub: Load, process data, train ML model
+JupyterHub->>ProvenanceDB: Log experiment, metrics, Git, model, dataset, session metadata
+ProvenanceDB->>JupyterHub: Return structured data
+JupyterHub->>JupyterHub: Format data according to standards (FAIR, FAIR4ML, MLSEA, Croissant)
+JupyterHub->>Invenio: Store JSON, PKL, and exported formats
+JupyterHub->>Dashboard: Provide JSON to UI (Streamlit dashboard)
