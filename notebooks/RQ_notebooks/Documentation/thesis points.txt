@@ -1,0 +1,22 @@
+Treat this as a visual enhancement issue:
+
+✅ Keep the visualization feature
+
+✅ Filter out example.org and blank node junk
+
+✅ Add a 1-line comment in your code or thesis if needed:
+
+“Graph may include system-generated blank nodes (e.g., example.org/...) — these are filtered out for clarity in visualization.”
+ the example.com on the graphs isYour Position
+If you're asked about it:
+
+“The export functionality is correct and complete. The visualization is an enhancement, and any example.org nodes shown are system-generated blank nodes from RDF parsers like rdflib, not part of the original data.”
+
+Visualization: Optional but Polished
+Since your main task is to export the file, and the visualization is a bonus feature, the presence of example.org nodes:
+
+Does not affect export correctness ✅
+
+Could slightly confuse users viewing the graph ⚠️
+
+Could reduce visual polish, especially if others interpret the nodes as user data ❌

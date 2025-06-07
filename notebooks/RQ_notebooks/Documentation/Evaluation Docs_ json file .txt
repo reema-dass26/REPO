@@ -48,3 +48,73 @@ RDFUnit	Validate RDF data against vocabularies (e.g. PROV, DCAT)	Run locally wit
 FAIR Evaluator	Score metadata on FAIR compliance	Upload your JSON-LD or register your dataset
 SHACL Validator	Check conformance of RDF/JSON-LD data to SHACL shapes	Paste your JSON-LD
 RO-Crate Validator	Validate full dataset + metadata crates	If you extend your metadata into a RO-Crate format
+
+
+Recommended Open-Source Validators for PROV-O and RDF Data
+1. pySHACL – Python SHACL Validator
+Description: A pure Python module that allows for the validation of RDF graphs against SHACL shapes. It uses the rdflib library and supports OWL2 RL reasoning.
+
+Use Case: Ideal for integrating into Python-based workflows for validating RDF data against SHACL constraints.
+
+Source: pySHACL on GitHub
+rdf4j.org
++5
+github.com
++5
+github.com
++5
+shacl.dev
++1
+shacl.org
++1
+
+2. SHACL Validator by ISAITB – Web and Command-Line Application
+Description: A web application to validate RDF data against SHACL shapes. It provides a reusable core with configuration options and supports validation via web interface, REST API, and command-line.
+
+Use Case: Suitable for both interactive and automated validation processes.
+
+Source: ISAITB/shacl-validator on GitHub
+github.com
++4
+github.com
++4
+hub.docker.com
++4
+
+3. Validata – RDF Validator Using Shape Expressions
+Description: An intuitive, standalone web-based tool to help build valid RDF documents by validating against preset schemas written in the Shape Expressions (ShEx) language.
+
+Use Case: Useful for validating RDF data against ShEx schemas in a user-friendly interface.
+
+Source: Validata RDF Validator
+fr.wikipedia.org
++3
+w3.org
++3
+en.wikipedia.org
++3
+
+4. ProvValidator – PROV Validation Tool
+Description: Performs a series of tests to check the validity of an in-memory PROV representation and returns a validation report listing identified issues.
+
+Use Case: Specifically designed for validating PROV data models.
+
+Source: Open Provenance – ProvValidator
+openprovenance.org
++1
+lucmoreau.wordpress.com
++1
+en.wikipedia.org
++5
+w3.org
++5
+en.wikipedia.org
++5
+
+5. W3C RDF Validation Service
+Description: A service that allows you to paste an RDF/XML document and have it checked for validity. It provides options to display the result as triples and/or a graph.
+
+Use Case: Quick validation of RDF/XML documents for syntax and structure.
+
+Source: W3C RDF Validation Service
+w3.org

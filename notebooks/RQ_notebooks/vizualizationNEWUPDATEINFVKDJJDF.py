@@ -41,76 +41,65 @@ def detect_deprecated_code(df: pd.DataFrame, deprecated_commits: List[str], **_)
     cols = [c for c in cols if c in df.columns]
     return out[cols].to_dict(orient='records')
 
-from rdflib import Graph, Namespace
+from rdflib import Graph
+from rdflib.namespace import RDF, DC, DCTERMS, FOAF, Namespace
+from rdflib.term import BNode
 from pyvis.network import Network
+import os
 
-def visualize_interactive_provenance(rdf_file, output_html="provenance_graph.html", max_edges=150):
+def visualize_interactive_provenance(rdf_path, html_output_path):
     g = Graph()
-    g.parse(rdf_file)
+    g.parse(rdf_path)
 
-    # Namespace for type checking
-    PROV = Namespace("http://www.w3.org/ns/prov#")
-
-    # Build type map first
-    node_types = {}
-    for s, p, o in g.triples((None, RDF.type, None)):
-        node_types[str(s)] = str(o)
-
-    # Initialize PyVis
-    net = Network(height="800px", width="100%", directed=True, notebook=False)
+    # Set up PyVis network
+    net = Network(height="750px", width="100%", directed=True)
     net.force_atlas_2based()
 
-    seen_nodes = set()
-    edge_count = 0
+    # Optional: your base namespace
+    EX = Namespace("https://github.com/reema-dass26/ml-provenance/provenance/")
 
-    for s, p, o in g:
-        if edge_count >= max_edges:
-            break
+    def get_label(node):
+        """Return a clean, readable label or None if system-generated."""
+        for prop in [DC.title, DCTERMS.title, FOAF.name, EX["modelName"]]:
+            label = g.value(subject=node, predicate=prop)
+            if label:
+                return str(label)
+        node_str = str(node)
+        fallback = node_str.split("/")[-1]
+        if "example.org" in node_str or "example.com" in node_str or fallback.startswith("Node") or fallback.startswith("genid") or len(fallback) < 2:
+            return None
+        return fallback
 
-        s_label = str(s)
-        o_label = str(o)
-        p_label = str(p).split("#")[-1] if "#" in str(p) else str(p).split("/")[-1]
+    for subj, pred, obj in g:
+        # Skip RDF noise
+        if pred == RDF.type:
+            continue
 
-        # Skip long literals
-        if len(o_label) > 200:
-            o_label = o_label[:200] + "..."
+        # Skip system-generated blank nodes
+        if isinstance(subj, BNode) or isinstance(obj, BNode):
+            continue
 
-        if s_label.startswith("_:"):
-            s_label = f"BlankNode:{s_label[-5:]}"
-        if o_label.startswith("_:"):
-            o_label = f"BlankNode:{o_label[-5:]}"
+        # Skip if URI contains example.org/com
+        if "example.org" in str(subj) or "example.com" in str(subj) or \
+           "example.org" in str(obj) or "example.com" in str(obj):
+            continue
 
-        def color_for(node):
-            if node_types.get(node) == str(PROV.Agent):
-                return "gold"
-            elif node_types.get(node) == str(PROV.Activity):
-                return "tomato"
-            elif node_types.get(node) == str(PROV.Entity):
-                return "dodgerblue"
-            else:
-                return "lightgray"
+        # Try to get clean labels
+        subj_label = get_label(subj)
+        obj_label = get_label(obj)
+        pred_label = str(pred).split("/")[-1]
 
-        # Add subject node
-        if s_label not in seen_nodes:
-            net.add_node(s_label, label=s_label[:40], title=s_label, color=color_for(s_label), font={'size': 14})
-            seen_nodes.add(s_label)
+        # Skip if labels are not clean
+        if not subj_label or not obj_label:
+            continue
 
-        # Add object node
-        if o_label not in seen_nodes:
-            net.add_node(o_label, label=o_label[:40], title=o_label, color=color_for(o_label), font={'size': 14})
-            seen_nodes.add(o_label)
+        net.add_node(str(subj), label=subj_label)
+        net.add_node(str(obj), label=obj_label)
+        net.add_edge(str(subj), str(obj), label=pred_label)
 
-        # Add edge
-        net.add_edge(s_label, o_label, label=p_label)
-        edge_count += 1
+    os.makedirs(os.path.dirname(html_output_path), exist_ok=True)
+    net.show(html_output_path)
 
-    net.show(output_html)
-    return output_html
-
-import os
-import json
-from rdflib import Graph, Namespace, URIRef, BNode, Literal
-from rdflib.namespace import RDF, DCTERMS, FOAF, XSD
 
 
 # def generate_grouped_metadata_json(run_summary_path, output_grouped_path):
@@ -1849,13 +1838,7 @@ elif selected == "📤 Export Provenance":
                          <http://www.w3.org/ns/prov#wasGeneratedBy> ?run .
                 }
             """,
-            "Which code version was used in training?": """
-                SELECT ?codeHash WHERE {
-                  ?run a <http://www.w3.org/ns/prov#Activity> ;
-                       <http://www.w3.org/ns/prov#used> ?code .
-                  ?code <http://example.org/commit_hash> ?codeHash .
-                }
-            """,
+            
             "When did the training start and end?": """
                 SELECT ?start ?end WHERE {
                   ?run a <http://www.w3.org/ns/prov#Activity> ;
@@ -1877,15 +1860,7 @@ elif selected == "📤 Export Provenance":
                   FILTER CONTAINS(STR(?param), "hyper")
                 }
             """,
-            "Which model used a specific dataset?": """
-               SELECT ?model ?datasetLabel WHERE {
-  ?run a <http://www.w3.org/ns/prov#Activity> ;
-       <http://www.w3.org/ns/prov#used> ?dataset .
-  ?model <http://www.w3.org/ns/prov#wasGeneratedBy> ?run .
-  ?dataset <http://example.org/title> ?datasetLabel .
-}
-
-            """,
+           
             "List all entity types in the graph": """
                 SELECT DISTINCT ?type WHERE {
                   ?s a ?type .
