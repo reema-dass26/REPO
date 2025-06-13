@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/911598975428532760/06cb57a374334786ba7b2ca98324bdff/artifacts
+end_time: 1749360418221
+entry_point_name: ''
+experiment_id: '911598975428532760'
+lifecycle_stage: active
+run_id: 06cb57a374334786ba7b2ca98324bdff
+run_name: persistent-yak-887
+run_uuid: 06cb57a374334786ba7b2ca98324bdff
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749360410946
+status: 4
+tags: []
+user_id: reema

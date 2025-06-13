@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/456755057026686271/e48ed3cf3272419693c214f67f515179/artifacts
+end_time: 1749813288658
+entry_point_name: ''
+experiment_id: '456755057026686271'
+lifecycle_stage: active
+run_id: e48ed3cf3272419693c214f67f515179
+run_name: clean-cod-764
+run_uuid: e48ed3cf3272419693c214f67f515179
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749813266392
+status: 4
+tags: []
+user_id: reema

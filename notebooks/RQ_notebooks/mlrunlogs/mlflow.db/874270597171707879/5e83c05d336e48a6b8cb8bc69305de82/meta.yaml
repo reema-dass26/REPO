@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/874270597171707879/5e83c05d336e48a6b8cb8bc69305de82/artifacts
+end_time: 1749813109640
+entry_point_name: ''
+experiment_id: '874270597171707879'
+lifecycle_stage: active
+run_id: 5e83c05d336e48a6b8cb8bc69305de82
+run_name: suave-bug-382
+run_uuid: 5e83c05d336e48a6b8cb8bc69305de82
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749813063364
+status: 4
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/456755057026686271/dfca698baac94c43b6b9806659561d2e/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '456755057026686271'
+lifecycle_stage: active
+run_id: dfca698baac94c43b6b9806659561d2e
+run_name: thundering-wren-700
+run_uuid: dfca698baac94c43b6b9806659561d2e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749813294313
+status: 1
+tags: []
+user_id: reema
