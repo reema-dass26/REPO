@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/115521718435782564/799b03f926434b97a9854aa7d2126de0/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '115521718435782564'
+lifecycle_stage: active
+run_id: 799b03f926434b97a9854aa7d2126de0
+run_name: amusing-toad-22
+run_uuid: 799b03f926434b97a9854aa7d2126de0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750099226054
+status: 1
+tags: []
+user_id: reema
