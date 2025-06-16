@@ -1,5 +1,5 @@
 artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/510015420735481410/fe848b1fb5364ef5951d7f016705a5c4/artifacts
-end_time: null
+end_time: 1750100649059
 entry_point_name: ''
 experiment_id: '510015420735481410'
 lifecycle_stage: active
@@ -10,6 +10,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1750100544948
-status: 1
+status: 3
 tags: []
 user_id: reema

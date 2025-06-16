@@ -1,0 +1,8 @@
+digest: dbb7aa98
+name: dataset
+profile: '{"num_rows": 75, "num_elements": 150}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "random_feature_1", "required":
+  true}, {"type": "double", "name": "random_feature_2", "required": true}]}'
+source: '{"tags": {"mlflow.user": "reema", "mlflow.source.name": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code
