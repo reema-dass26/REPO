@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ex="https://github.com/reema-dass26/ml-provenance/provenance/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:ns1="https://github.com/reema-dass26/ml-provenance/provenance/fair4ml:"
+   xmlns:ns2="https://github.com/reema-dass26/ml-provenance/provenance/mls:"
+   xmlns:ns3="https://github.com/reema-dass26/ml-provenance/provenance/dc:"
+   xmlns:ns4="https://github.com/reema-dass26/ml-provenance/provenance/mlsea:"
+   xmlns:ns5="https://github.com/reema-dass26/ml-provenance/provenance/prov:"
+   xmlns:ns6="https://github.com/reema-dass26/ml-provenance/provenance/dcat:"
+   xmlns:ns7="https://github.com/reema-dass26/ml-provenance/provenance/dcterms:"
+   xmlns:prov="http://www.w3.org/ns/prov#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/code/fc83b755bc2bc85581dfcddd8ca04f69f9ac1914">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <ex:commit_hash>fc83b755bc2bc85581dfcddd8ca04f69f9ac1914</ex:commit_hash>
+    <ex:repo_url>https://archive.ics.uci.edu/dataset/53</ex:repo_url>
+    <ex:branch>main</ex:branch>
+    <ex:author>Reema George</ex:author>
+    <ex:author_email>106236154+reema-dass26@users.noreply.github.com</ex:author_email>
+    <ex:version>v12</ex:version>
+    <ex:origin_url>None_specified</ex:origin_url>
+    <ex:timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-06-16T11:46:13.734175</ex:timestamp>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/run/default">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+    <prov:used rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/dataset/default"/>
+    <prov:used rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/code/fc83b755bc2bc85581dfcddd8ca04f69f9ac1914"/>
+    <prov:wasAssociatedWith rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/agent/reema"/>
+    <ns1:experimentID>None_specified</ns1:experimentID>
+    <ns1:runID>81d768a54d8340a5b57d6dbfe0cc1bc9</ns1:runID>
+    <ns1:sessionID>2b400ce1-b273-4958-9e01-5aedcabe1632</ns1:sessionID>
+    <ns1:modelID>model_randomforest_iris_v20250616_134630_20250616_134630</ns1:modelID>
+    <ns1:datasetID>cf627e66-a8e5-45b1-93a9-2882123a9ea6</ns1:datasetID>
+    <ns5:startedAtTime>2025-06-16T11:46:13.734175</ns5:startedAtTime>
+    <ns1:trainingStartTime>2025-06-16 13:46:30.0</ns1:trainingStartTime>
+    <ns1:trainingEndTime>2025-06-16T13:47:03.461157</ns1:trainingEndTime>
+    <ns5:usedFile>C:\Users\reema\AppData\Roaming\Python\Python311\site-packages\ipykernel_launcher.py</ns5:usedFile>
+    <ns1:usedNotebook>RQ1_2.ipynb</ns1:usedNotebook>
+    <ex:invenio_id>10.24432/C56C76</ex:invenio_id>
+    <ns4:accuracy>1.0</ns4:accuracy>
+    <ns4:f1_macro>1.0</ns4:f1_macro>
+    <ns4:precision_macro>1.0</ns4:precision_macro>
+    <ns4:recall_macro>1.0</ns4:recall_macro>
+    <ns4:roc_auc>1.0</ns4:roc_auc>
+    <ns4:training_accuracy_score>1.0</ns4:training_accuracy_score>
+    <ns4:training_f1_score>1.0</ns4:training_f1_score>
+    <ns4:training_log_loss>0.037709870594232316</ns4:training_log_loss>
+    <ns4:training_precision_score>1.0</ns4:training_precision_score>
+    <ns4:training_recall_score>1.0</ns4:training_recall_score>
+    <ns4:training_roc_auc>1.0</ns4:training_roc_auc>
+    <ns4:training_score>1.0</ns4:training_score>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/dataset/default">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <ns7:identifier>e9914484-a8b1-4bbc-b053-5f0ecba5a78b</ns7:identifier>
+    <ns3:title>Iris</ns3:title>
+    <ns3:description>https://archive.ics.uci.edu/dataset/53</ns3:description>
+    <ns3:creator>R. A. Fisher</ns3:creator>
+    <ns7:hasVersion>v0</ns7:hasVersion>
+    <ns7:created>2023-03-16 12:57:44.0</ns7:created>
+    <ns7:modified>2025-04-18 08:55:20.0</ns7:modified>
+    <ns6:landingPage>https://archive.ics.uci.edu/dataset/53</ns6:landingPage>
+    <ex:publisher>UCI Machine Learning Repository</ex:publisher>
+    <ex:publication_year>1936</ex:publication_year>
+    <ex:citation_count>23</ex:citation_count>
+    <ex:related_resources>"[]"</ex:related_resources>
+    <ex:schema_version>http://datacite.org/schema/kernel-4</ex:schema_version>
+    <ex:registered>2023-03-16 12:57:45.0</ex:registered>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/model/model_randomforest_iris_v20250616_134630_20250616_134630">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:wasGeneratedBy rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/run/default"/>
+    <ns2:model_id>model_randomforest_iris_v20250616_134630_20250616_134630</ns2:model_id>
+    <ns2:modelName>RandomForest_Iris_v20250616_134630</ns2:modelName>
+    <ns2:learningAlgorithm>RandomForestClassifier</ns2:learningAlgorithm>
+    <ns2:modelArchitecture>RandomForestClassifier</ns2:modelArchitecture>
+    <ns2:featureList>['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']</ns2:featureList>
+    <ns2:targetVariable>species</ns2:targetVariable>
+    <ns2:labelEncoding>species</ns2:labelEncoding>
+    <ns2:modelPath>RandomForest_Iris_v20250616_134630.pkl</ns2:modelPath>
+    <ns2:serializationFormat>pickle</ns2:serializationFormat>
+    <ns2:modelVersion>v12</ns2:modelVersion>
+    <ex:hyperparameters>{"n_estimators": 100, "criterion": "entropy", "max_depth": 10, "min_samples_split": 3, "min_samples_leaf": 1, "max_features": "sqrt", "bootstrap": true, "oob_score": true, "class_weight": null, "verbose": 1, "n_jobs": -1}</ex:hyperparameters>
+    <ex:preprocessing_info>{"dropped_columns": ["id"], "numeric_columns": ["sepallengthcm", "sepalwidthcm", "petallengthcm", "petalwidthcm"], "target_column": "species", "stratified": false, "coercion_strategy": "Numeric cast (auto)", "feature_engineering": "None", "missing_value_strategy": "None", "outlier_detection": "None", "encoding_strategy": "LabelEncoder (target only)", "scaling": "None", "sampling": "None", "feature_selection": "None", "train_test_split": {"test_size": 0.2, "random_state": 42}, "imbalance_ratio": "{0: 50, 1: 50, 2: 50}", "preprocessing_timestamp": "2025-06-16T13:47:20.316517"}</ex:preprocessing_info>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/agent/reema">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+    <foaf:name>reema</foaf:name>
+    <ex:session_id>2b400ce1-b273-4958-9e01-5aedcabe1632</ex:session_id>
+    <ex:username>reema</ex:username>
+    <ex:timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-06-16T11:46:13.734175</ex:timestamp>
+    <ex:hostname>Purplish</ex:hostname>
+    <ex:platform>Windows</ex:platform>
+    <ex:python_version>3.11.5</ex:python_version>
+    <ex:os_platform>Windows 10</ex:os_platform>
+    <ex:role>collaborator</ex:role>
+    <ex:project_id>default_project</ex:project_id>
+    <ex:script_name>None_specified</ex:script_name>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,2 +1,3 @@
 dataset_guid,dataset_id,table_name,detailed_type,classes,features,output_type,version,source_url,title,description,license,creator
 some-uuid,unique-dataset-id,iris_v0_clean,CSV,3,4,categorical,v1,https://example.com,Iris Cleaned,Iris dataset cleaned version,CC-BY-4.0,R. A. Fisher
+35a8f7f8-ed3f-4ced-a24c-01199c75f2b4,e9914484-a8b1-4bbc-b053-5f0ecba5a78b,iris_v0,CSV,3,4,categorical,v0,unknown,Iris,info not available,info not available,R. A. Fisher,UCI Machine Learning Repository,unknown,unknown,0,info not available,[],unknown,,[],,
