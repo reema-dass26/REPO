@@ -1,0 +1,2 @@
+dataset_guid,dataset_id,table_name,detailed_type,classes,features,output_type,version,source_url,title,description,license,creator
+some-uuid,unique-dataset-id,iris_v0_clean,CSV,3,4,categorical,v1,https://example.com,Iris Cleaned,Iris dataset cleaned version,CC-BY-4.0,R. A. Fisher
