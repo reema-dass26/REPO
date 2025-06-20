@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/942301886774505684/826899ceda724432848be1e1e308c7bf/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '942301886774505684'
+lifecycle_stage: active
+run_id: 826899ceda724432848be1e1e308c7bf
+run_name: silent-quail-366
+run_uuid: 826899ceda724432848be1e1e308c7bf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750413654042
+status: 1
+tags: []
+user_id: reema

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/751928359373101335/a46d6e9bc750449b8a0dbbbd4d48704f/artifacts
+end_time: 1750413358863
+entry_point_name: ''
+experiment_id: '751928359373101335'
+lifecycle_stage: active
+run_id: a46d6e9bc750449b8a0dbbbd4d48704f
+run_name: charming-slug-166
+run_uuid: a46d6e9bc750449b8a0dbbbd4d48704f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750413353764
+status: 4
+tags: []
+user_id: reema

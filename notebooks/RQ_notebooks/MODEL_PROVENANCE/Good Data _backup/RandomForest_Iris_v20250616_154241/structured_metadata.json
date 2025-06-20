@@ -1,0 +1,302 @@
+{
+  "FAIR": {
+    "dcterms:identifier": "e9914484-a8b1-4bbc-b053-5f0ecba5a78b",
+    "dc:title": "Iris",
+    "dc:description": "https://archive.ics.uci.edu/dataset/53",
+    "dc:creator": "R. A. Fisher",
+    "dc:license": "info not available",
+    "dcterms:hasVersion": "v0",
+    "dcterms:created": "2023-03-16 12:57:44.0",
+    "dcterms:modified": "2025-04-18 08:55:20.0",
+    "dcat:landingPage": "https://archive.ics.uci.edu/dataset/53",
+    "publisher": "UCI Machine Learning Repository",
+    "publication_year": "1936",
+    "language": "unknown",
+    "citation_count": "23",
+    "subjects": "info not available",
+    "related_resources": "\"[]\"",
+    "schema_version": "http://datacite.org/schema/kernel-4",
+    "registered": "2023-03-16 12:57:45.0",
+    "citations_over_time": "\"[{\\\"year\\\": \\\"2023\\\", \\\"total\\\": 5}, {\\\"year\\\": \\\"2024\\\", \\\"total\\\": 11}, {\\\"year\\\": \\\"2025\\\", \\\"total\\\": 7}]\""
+  },
+  "FAIR4ML": {
+    "fair4ml:experimentID": "None_specified",
+    "fair4ml:runID": "cb33f4b0bf2c46599ab9f1232bd4f6f2",
+    "fair4ml:sessionID": "c3e56ae1-0f6b-4a1c-84c6-ae6d36cacc56",
+    "fair4ml:modelID": "model_randomforest_iris_v20250616_154241_20250616_154241",
+    "fair4ml:datasetID": "7c33a27c-f968-4de9-925f-c9de9d9ad512",
+    "prov:startedAtTime": "2025-06-16T13:42:31.756229",
+    "fair4ml:trainingStartTime": "2025-06-16 15:42:41.0",
+    "fair4ml:trainingEndTime": "2025-06-16T15:43:06.458114",
+    "prov:usedFile": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "fair4ml:usedNotebook": "RQ1_2.ipynb",
+    "dcterms:source": "10.24432/C56C76"
+  },
+  "MLSEA": {
+    "mlsea:accuracy": "1.0",
+    "mlsea:f1_macro": "1.0",
+    "mlsea:precision_macro": "1.0",
+    "mlsea:recall_macro": "1.0",
+    "mlsea:roc_auc": "1.0",
+    "mlsea:training_accuracy_score": "1.0",
+    "mlsea:training_f1_score": "1.0",
+    "mlsea:training_log_loss": "0.0407423417995777",
+    "mlsea:training_precision_score": "1.0",
+    "mlsea:training_recall_score": "1.0",
+    "mlsea:training_roc_auc": "1.0",
+    "mlsea:training_score": "1.0",
+    "justification_bootstrap": "No justification provided",
+    "justification_class_weight": "No justification provided",
+    "justification_criterion": "No justification provided",
+    "justification_dataset_version": "No justification provided",
+    "justification_drop_column_x": "No justification provided",
+    "justification_ethical_considerations": "No justification provided",
+    "justification_experiment_name": "No justification provided",
+    "justification_intended_use": "No justification provided",
+    "justification_max_depth": "No justification provided",
+    "justification_max_features": "No justification provided",
+    "justification_metric_choice": "No justification provided",
+    "justification_min_samples_leaf": "No justification provided",
+    "justification_min_samples_split": "No justification provided",
+    "justification_model_choice": "No justification provided",
+    "justification_model_limitations": "No justification provided",
+    "justification_not_intended_for": "No justification provided",
+    "justification_n_estimators": "No justification provided",
+    "justification_n_jobs": "No justification provided",
+    "justification_oob_score": "No justification provided",
+    "justification_target_variable": "No justification provided",
+    "justification_test_split": "No justification provided",
+    "justification_threshold_accuracy": "No justification provided",
+    "justification_verbose": "No justification provided"
+  },
+  "Croissant": {
+    "mls:modelID": "model_randomforest_iris_v20250616_154241_20250616_154241",
+    "mls:modelName": "RandomForest_Iris_v20250616_154241",
+    "mls:learningAlgorithm": "RandomForestClassifier",
+    "mls:modelArchitecture": "RandomForestClassifier",
+    "mls:featureList": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "mls:targetVariable": "species",
+    "mls:labelEncoding": "species",
+    "mls:modelPath": "RandomForest_Iris_v20250616_154241.pkl",
+    "mls:serializationFormat": "pickle",
+    "mls:modelVersion": "v01",
+    "mls:hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}",
+    "mls:preprocessingSteps": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 42}, \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\", \"preprocessing_timestamp\": \"2025-06-16T15:43:18.407598\"}"
+  },
+  "Uncategorized": {
+    "session_metadata": {
+      "session_id": "c3e56ae1-0f6b-4a1c-84c6-ae6d36cacc56",
+      "username": "reema",
+      "timestamp": "2025-06-16T13:42:31.756229",
+      "hostname": "Purplish",
+      "platform": "Windows",
+      "python_version": "3.11.5",
+      "os_platform": "Windows 10",
+      "role": "collaborator",
+      "project_id": "default_project",
+      "script_name": "None_specified"
+    },
+    "git_metadata": {
+      "commit_hash": "16941beed9b5e6753f166534717a2d3cc9d7df11",
+      "repo_url": "https://archive.ics.uci.edu/dataset/53",
+      "branch": "main",
+      "author": "Reema George",
+      "author_email": "106236154+reema-dass26@users.noreply.github.com",
+      "version": "v01",
+      "origin_url": "None_specified",
+      "timestamp": "2025-06-16T13:42:31.756229"
+    },
+    "invenio_metadata": {
+      "id": "0dcyp-0rm77",
+      "title": "RandomForest_Iris_v20250616_154241",
+      "creator": "Dass, Reema",
+      "publication_date": "2025-04-24",
+      "files": [
+        {
+          "key": "RandomForest_Iris_v20250616_154241/pr_curve_cls_0.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/pr_curve_cls_0.png/content",
+          "size": 20358,
+          "mimetype": "image/png",
+          "checksum": "md5:30a6a3742bcbd69750bc5fd30aea58d2",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/confusion_matrix.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/confusion_matrix.png/content",
+          "size": 14623,
+          "mimetype": "image/png",
+          "checksum": "md5:c74643bc910d8d9a4eda8648aae6b040",
+          "metadata": {
+            "width": 600,
+            "height": 600
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/prov_JSONLD_export.jsonld",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/prov_JSONLD_export.jsonld/content",
+          "size": 24092,
+          "mimetype": "application/ld+json",
+          "checksum": "md5:83b6f510954a547df4be1ae3c707e792",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/feature_importances.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/feature_importances.png/content",
+          "size": 19173,
+          "mimetype": "image/png",
+          "checksum": "md5:bf489588b7cdfd20a2ab3b21739d8cdd",
+          "metadata": {
+            "width": 800,
+            "height": 600
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/prov_RDFXML_export.rdf",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/prov_RDFXML_export.rdf/content",
+          "size": 10553,
+          "mimetype": "application/rdf+xml",
+          "checksum": "md5:e6158f000a4bde61b1d6ae2af578f442",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/pr_curve_cls_1.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/pr_curve_cls_1.png/content",
+          "size": 20226,
+          "mimetype": "image/png",
+          "checksum": "md5:7f396723afbfa90eb3d5f3e850f52c80",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/roc_curve_cls_0.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/roc_curve_cls_0.png/content",
+          "size": 20100,
+          "mimetype": "image/png",
+          "checksum": "md5:f6d5e559a27d81fb010b416bddc2fb02",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/pr_curve_cls_2.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/pr_curve_cls_2.png/content",
+          "size": 19809,
+          "mimetype": "image/png",
+          "checksum": "md5:22a124dad652fd24fb3a5691abcae494",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/.ipynb_checkpoints/prov_JSONLD_export-checkpoint.jsonld",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/.ipynb_checkpoints/prov_JSONLD_export-checkpoint.jsonld/content",
+          "size": 24092,
+          "mimetype": "application/ld+json",
+          "checksum": "md5:83b6f510954a547df4be1ae3c707e792",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/RandomForest_Iris_v20250616_154241.pkl",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/RandomForest_Iris_v20250616_154241.pkl/content",
+          "size": 168534,
+          "mimetype": "application/octet-stream",
+          "checksum": "md5:a66e797918d4ef152d85dc923b9f5f8b",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/roc_curve_cls_1.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/roc_curve_cls_1.png/content",
+          "size": 20143,
+          "mimetype": "image/png",
+          "checksum": "md5:917e9847fda527b030c0bcad8f2a2ea3",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/RandomForest_Iris_v20250616_154241_reproducibility.txt",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/RandomForest_Iris_v20250616_154241_reproducibility.txt/content",
+          "size": 3457,
+          "mimetype": "text/plain",
+          "checksum": "md5:10c975d24c4f1bfc984685a86ed24846",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/RandomForest_Iris_v20250616_154241_run_summary.json",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/RandomForest_Iris_v20250616_154241_run_summary.json/content",
+          "size": 11153,
+          "mimetype": "application/json",
+          "checksum": "md5:bf11c5105a0dedcc16c7df81974a30e4",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/requirements.txt",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/requirements.txt/content",
+          "size": 1020,
+          "mimetype": "text/plain",
+          "checksum": "md5:0aedf900a3c11ae67b2ac38ca3345906",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/roc_curve_cls_2.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/roc_curve_cls_2.png/content",
+          "size": 20227,
+          "mimetype": "image/png",
+          "checksum": "md5:c076643c49b9ae7ba3cf0794b18f74db",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/.ipynb_checkpoints/structured_metadata-checkpoint.json",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/.ipynb_checkpoints/structured_metadata-checkpoint.json/content",
+          "size": 6042,
+          "mimetype": "application/json",
+          "checksum": "md5:5963686892940a3cfc0610c61a09781d",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/shap_summary.png",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/shap_summary.png/content",
+          "size": 17735,
+          "mimetype": "image/png",
+          "checksum": "md5:2cdec559264ec525f8f7dd89d6a55bf1",
+          "metadata": {
+            "width": 1150,
+            "height": 660
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250616_154241/structured_metadata.json",
+          "url": "https://127.0.0.1:5000/api/records/0dcyp-0rm77/files/RandomForest_Iris_v20250616_154241/structured_metadata.json/content",
+          "size": 6042,
+          "mimetype": "application/json",
+          "checksum": "md5:5963686892940a3cfc0610c61a09781d",
+          "metadata": {}
+        }
+      ],
+      "pids": {
+        "oai": {
+          "identifier": "oai:my-site.com:0dcyp-0rm77",
+          "provider": "oai"
+        }
+      },
+      "version_info": {
+        "is_latest": true,
+        "index": 1
+      },
+      "status": "published",
+      "views": 0,
+      "downloads": 0
+    }
+  }
+}

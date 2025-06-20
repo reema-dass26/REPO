@@ -102,208 +102,6 @@ def visualize_interactive_provenance(rdf_path, html_output_path):
 
 
 
-# def generate_grouped_metadata_json(run_summary_path, output_grouped_path):
-#     with open(run_summary_path, "r") as f:
-#         run_data = json.load(f)
-
-#     relevant_fields = {
-#         "RQ1.1_Data_Provenance": [
-#             "Internal_DBRepo_feature_names",
-#             "Internal_DBRepo_dropped_columns",
-#             "Internal_DBRepo_n_records",
-#             "FAIR_dataset_title",
-#             "FAIR_dataset_identifier",
-#             "FAIR_dataset_creator",
-#             "FAIR_dataset_license",
-#             "FAIR_dataset_access_url",
-#             "FAIR_dataset_documentation",
-#             "FAIR_dataset_keywords",
-#             "FAIR_dataset_publication_date",
-#             "FAIR_dataset_publisher",
-#             "MLSEA_dataPreprocessing"
-#         ],
-#         "RQ1.2_Model_Provenance": [
-#             "MLSEA_hyperparameters",
-#             "MLSEA_modelArchitecture",
-#             "MLSEA_trainingProcedure",
-#             "MLSEA_trainingCodeSnapshot",
-#             "MLSEA_evaluationMetrics",
-#             "ML_EXP_params",
-#             "ML_EXP_metrics",
-#             "mlflow.log-model.history",
-#             "ML_EXP_dataset_name",
-#             "ML_EXP_dataset_version",
-#             "ML_EXP_model_name",
-#             "ML_EXP_notebook_name"
-#         ],
-#         "RQ2_Metadata_Audit_Tracing": [
-#             "GIT_code_version",
-#             "GIT_current_commit_hash",
-#             "GIT_user",
-#             "GIT_user_email",
-#             "MLSEA_modelPath",
-#             "Internal_DBRepo_target_name",
-#             "MLSEA_performanceInterpretation",
-#             "ML_EXP_tags",
-#             "ML_EXP_artifacts"
-#         ],
-#         "RQ4_Schema_Mapping_Interoperability": [
-#             "PROV-O_prov_Activity",
-#             "PROV-O_prov_used",
-#             "PROV-O_prov_Entity",
-#             "PROV-O_prov_location",
-#             "PROV-O_prov_wasAssociatedWith",
-#             "PROV-O_prov_wasGeneratedBy",
-#             "FAIR4ML_target_variable",
-#             "FAIR4ML_ml_task",
-#             "FAIR4ML_serializationFormat",
-#             "FAIR4ML_dataset_dataset_type",
-#             "FAIR4ML_hasCO2eEmissions"
-#         ]
-#     }
-
-#     grouped_output = {}
-#     for section, fields in relevant_fields.items():
-#         grouped_output[section] = {
-#             field: run_data.get(field) or run_data.get("ML_EXP_tags", {}).get(field, "Not available")
-#             for field in fields
-#         }
-
-#     with open(output_grouped_path, "w") as out:
-#         json.dump(grouped_output, out, indent=2)
-
-#     return output_grouped_path
-
-
-# def export_full_provenance_rdf(grouped_metadata_path, output_basename="full_provenance"):
-#     with open(grouped_metadata_path, "r") as f:
-#         grouped = json.load(f)
-
-#     g = Graph()
-#     PROV = Namespace("http://www.w3.org/ns/prov#")
-#     SCHEMA = Namespace("http://schema.org/")
-#     MLS = Namespace("http://www.w3.org/ns/mls#")
-#     EX = Namespace("http://example.org/")
-#     g.bind("prov", PROV)
-#     g.bind("schema", SCHEMA)
-#     g.bind("mls", MLS)
-#     g.bind("dcterms", DCTERMS)
-#     g.bind("foaf", FOAF)
-#     g.bind("ex", EX)
-
-#     rq1 = grouped["RQ1.1_Data_Provenance"]
-#     rq2 = grouped["RQ2_Metadata_Audit_Tracing"]
-#     rq3 = grouped["RQ1.2_Model_Provenance"]
-#     rq4 = grouped["RQ4_Schema_Mapping_Interoperability"]
-
-#     model_name = rq3.get("ML_EXP_model_name", "unknown_model")
-#     dataset_uri = URIRef(EX[f"{model_name}_dataset"])
-#     activity_uri = URIRef(EX[f"{model_name}_training"])
-#     agent_uri = URIRef(EX["Reema_George_Dass"])
-
-#     def safe_literal(value):
-#         if value and value != "Not available":
-#             return Literal(value)
-#         return None
-
-#     def add_dict_as_nodes(parent_uri, predicate, data_dict):
-#         for k, v in data_dict.items():
-#             if v and v != "Not available":
-#                 node = BNode()
-#                 g.add((parent_uri, predicate, node))
-#                 g.add((node, SCHEMA.name, Literal(k)))
-#                 g.add((node, SCHEMA.value, Literal(str(v))))
-
-#     g.add((dataset_uri, RDF.type, PROV.Entity))
-#     for field in [
-#         ("FAIR_dataset_title", DCTERMS.title),
-#         ("FAIR_dataset_identifier", DCTERMS.identifier),
-#         ("FAIR_dataset_creator", DCTERMS.creator),
-#         ("FAIR_dataset_license", DCTERMS.license),
-#         ("FAIR_dataset_documentation", DCTERMS.description),
-#         ("FAIR_dataset_access_url", SCHEMA.url),
-#         ("FAIR_dataset_keywords", SCHEMA.keywords),
-#         ("FAIR_dataset_publication_date", DCTERMS.issued),
-#         ("FAIR_dataset_publisher", DCTERMS.publisher),
-#     ]:
-#         val = safe_literal(rq1.get(field[0]))
-#         if val:
-#             g.add((dataset_uri, field[1], val))
-#     g.add((dataset_uri, PROV.wasGeneratedBy, activity_uri))
-#     g.add((dataset_uri, PROV.wasAttributedTo, agent_uri))
-
-#     g.add((agent_uri, RDF.type, PROV.Agent))
-#     g.add((agent_uri, FOAF.name, safe_literal(rq2.get("GIT_user", "Unknown"))))
-#     g.add((agent_uri, FOAF.mbox, safe_literal(rq2.get("GIT_user_email", ""))))
-
-#     g.add((activity_uri, RDF.type, PROV.Activity))
-#     g.add((activity_uri, PROV.wasAssociatedWith, agent_uri))
-#     if rq4.get("PROV-O_prov_used"):
-#         g.add((activity_uri, PROV.used, URIRef(rq4["PROV-O_prov_used"])))
-#     if rq4.get("FAIR4ML_ml_task"):
-#         g.add((activity_uri, MLS.taskType, Literal(rq4["FAIR4ML_ml_task"])))
-#     if rq4.get("PROV-O_prov_startedAtTime") and rq4["PROV-O_prov_startedAtTime"] != "info not available":
-#         g.add((activity_uri, PROV.startedAtTime, Literal(rq4["PROV-O_prov_startedAtTime"], datatype=XSD.dateTime)))
-#     if rq4.get("PROV-O_prov_endedAtTime"):
-#         g.add((activity_uri, PROV.endedAtTime, Literal(rq4["PROV-O_prov_endedAtTime"], datatype=XSD.dateTime)))
-#     if rq4.get("PROV-O_prov_location"):
-#         g.add((activity_uri, PROV.atLocation, URIRef(rq4["PROV-O_prov_location"])))
-#     if rq2.get("GIT_current_commit_hash"):
-#         g.add((activity_uri, PROV.value, Literal(f"Git commit: {rq2['GIT_current_commit_hash']}")))
-
-#     for field, pred in [
-#         ("MLSEA_modelArchitecture", MLS.modelArchitecture),
-#         ("MLSEA_trainingProcedure", MLS.trainingProcedure),
-#         ("MLSEA_trainingCodeSnapshot", SCHEMA.codeRepository)
-#     ]:
-#         val = safe_literal(rq3.get(field))
-#         if val:
-#             g.add((activity_uri, pred, val))
-
-#     try:
-#         metrics = rq3.get("ML_EXP_metrics", {})
-#         if isinstance(metrics, str):
-#             metrics = json.loads(metrics)
-#         add_dict_as_nodes(activity_uri, MLS.hasEvaluationMeasure, metrics)
-#     except Exception:
-#         pass
-
-#     try:
-#         params = rq3.get("ML_EXP_params", {})
-#         if isinstance(params, str):
-#             params = json.loads(params)
-#         add_dict_as_nodes(activity_uri, MLS.hasHyperParameter, params)
-#     except Exception:
-#         pass
-
-#     try:
-#         preprocessing = rq1.get("MLSEA_dataPreprocessing", {})
-#         if isinstance(preprocessing, str):
-#             preprocessing = json.loads(preprocessing)
-#         add_dict_as_nodes(activity_uri, MLS.dataPreparation, preprocessing)
-#     except Exception:
-#         pass
-
-#     for k, v in rq2.get("ML_EXP_tags", {}).items():
-#         if k.startswith("justification_") or k.startswith("MLSEA_justification"):
-#             node = BNode()
-#             g.add((activity_uri, PROV.wasInfluencedBy, node))
-#             g.add((node, SCHEMA.name, Literal(k)))
-#             g.add((node, SCHEMA.description, Literal(v)))
-
-#     if "MLSEA_improvedFrom" in rq2.get("ML_EXP_tags", {}):
-#         previous = rq2["ML_EXP_tags"]["MLSEA_improvedFrom"]
-#         if previous and previous != "None":
-#             g.add((activity_uri, PROV.wasDerivedFrom, URIRef(EX[previous])))
-
-#     jsonld_path = f"{output_basename}.jsonld"
-#     rdfxml_path = f"{output_basename}.rdf"
-#     g.serialize(destination=jsonld_path, format="json-ld", indent=2)
-#     g.serialize(destination=rdfxml_path, format="xml")
-
-#     return jsonld_path, rdfxml_path
-
-
 import os
 import glob
 import json
@@ -349,6 +147,7 @@ def load_data():
 
     df = pd.DataFrame(rows)
     st.success(f"✅ Loaded {len(df)} structured runs with {len(df.columns)} fields.")
+    print(df)
     return df
 
 
@@ -771,7 +570,7 @@ Review comprehensive metadata for the datasets used in your machine learning exp
             show_table("🏛️ DBRepo Metadata", dbrepo_keys)
 
         # 🧪 Preprocessing Info
-        prep_info = row.get("Croissant_preprocessing_info", row.get("Uncategorized_preprocessing_info"))
+        prep_info = row.get("Croissant_mls:preprocessingSteps", row.get("Uncategorized_preprocessing_info"))
         st.subheader("🧪 Preprocessing Info")
         try:
             if isinstance(prep_info, str):
@@ -951,7 +750,7 @@ elif selected == "🧠 ML Model Metadata":
 
 
         # 🧠 Hyperparameters
-        hyper = row.get("Croissant_hyperparameters", {})
+        hyper = row.get("Croissant_mls:hyperparameters", {})
         if isinstance(hyper, str):
             try:
                 hyper = json.loads(hyper)
@@ -971,150 +770,9 @@ elif selected == "🧠 ML Model Metadata":
         git = row.get("Uncategorized_git_metadata", {})
         show_section("🔗 Git Metadata", git)
 
-        # # 🧪 Label Encoding Snapshot
-        # label_info = row.get("Croissant_label_encoding", {})
-        # if isinstance(label_info, str):
-        #     try:
-        #         label_info = json.loads(label_info)
-        #     except:
-        #         label_info = {"note": "Could not parse label encoding"}
-        # show_section("🧪 Label Encoding", label_info)
 
 
 
-
-# elif selected == "📊 Model Plots":
-#     st.title("📊 Model Explainability & Evaluation Plots")
-#     st.markdown("""
-# Visualize how your machine learning model is performing — and understand **why** it's making the predictions it does.
-
-# 🔗 This section links each plot back to the run ID, dataset, and model used to generate it.
-# """)
-
-#     import glob
-#     import json
-#     import os
-
-#     # Step 1: Build mapping of folder names to run_ids based on summary files
-
-#     folder_paths = glob.glob(os.path.join("MODEL_PROVENANCE", "*_run_summary.json")) + \
-#                glob.glob(os.path.join("MODEL_PROVENANCE", "*", "*_run_summary.json"))
-
-    
-    
-#     run_id_to_folder = {}
-
-#     for path in folder_paths:
-#         folder = os.path.dirname(path)
-#         folder_name = os.path.basename(folder)
-#         run_id = folder_name  # Assuming folder name is equal to run_id
-#         run_id_to_folder[run_id] = folder
-
-#     # Step 2: Filter df to only those with matching folders
-#     valid_run_ids = df["run_id"].dropna().unique()
-#     valid_run_ids = [r for r in valid_run_ids if r in run_id_to_folder]
-
-#     if not valid_run_ids:
-#         st.warning("No valid run folders found that match run IDs in metadata.")
-#         st.stop()
-
-#     # Step 3: Let user select a valid run_id
-#     selected_run = st.selectbox("Select a Run ID", sorted(valid_run_ids))
-#     run_df = df[df["run_id"] == selected_run]
-
-#     if run_df.empty:
-#         st.error(f"No metadata found for selected run ID: {selected_run}")
-#         st.stop()
-
-#     run_data = run_df.iloc[0].to_dict()
-#     run_folder = run_id_to_folder[selected_run]
-
-#     st.success(f"📁 Loaded metadata from: `{selected_run}` at `{run_folder}`")
-
-#     # ── Extended Metadata ──
-#     with st.expander("📋 Extended Metadata"):
-
-#         def safe_str(val):
-#             if isinstance(val, (dict, list)):
-#                 return json.dumps(val)
-#             elif val is None:
-#                 return "—"
-#             return str(val)
-
-#         meta_preview = {
-#             "Run ID": run_data.get("run_id", "—"),
-#             "Model Name": run_data.get("tags_model_name", "—"),
-#             "Dataset Title": run_data.get("tags_DOI_dataset_title", "—"),
-#             "Training Start": run_data.get("tags_training_start_time", "—"),
-#             "Training End": run_data.get("tags_training_end_time", "—"),
-#             "Accuracy (Test)": run_data.get("metrics_accuracy", "—"),
-#             "F1 Macro (Test)": run_data.get("metrics_f1_macro", "—"),
-#             "Precision (Test)": run_data.get("metrics_precision_macro", "—"),
-#             "Recall (Test)": run_data.get("metrics_recall_macro", "—"),
-#             "ROC AUC (Test)": run_data.get("metrics_roc_auc", "—"),
-#             "Training Accuracy": run_data.get("metrics_training_accuracy_score", "—"),
-#             "Target Variable": run_data.get("tags_target_variable", "—"),
-#             "Serialization Format": run_data.get("tags_model_serialization", "—"),
-#             "Model Path": run_data.get("tags_model_path", "—"),
-#             "Improved From": run_data.get("tags_MLSEA_improvedFrom", "—"),
-#             "Training Code Snapshot": run_data.get("tags_justification_training_code_snapshot", "—"),
-#             "Training Procedure": run_data.get("tags_justification_training_procedure", "—")
-#         }
-
-#         try:
-#             hparams = json.loads(run_data.get("tags_hyperparameters", "{}"))
-#         except:
-#             hparams = {}
-
-#         for k, v in hparams.items():
-#             meta_preview[f"Hyperparam → {k}"] = v
-
-#         try:
-#             prep = json.loads(run_data.get("tags_preprocessing_info", "{}"))
-#         except:
-#             prep = {}
-
-#         for k in ["dropped_columns", "final_feature_columns", "target_column"]:
-#             if k in prep:
-#                 meta_preview[f"Preprocessing → {k}"] = prep[k]
-
-#         cleaned = {k: safe_str(v) for k, v in meta_preview.items()}
-#         st.dataframe(pd.DataFrame(list(cleaned.items()), columns=["Field", "Value"]), use_container_width=True)
-
-#     # ── Plot Viewer ──
-#     st.markdown("### 📈 Select and View Plot")
-
-#     plot_files = glob.glob(os.path.join(run_folder, "*.png"))
-
-#     if not plot_files:
-#         st.warning("⚠️ No plots found in the run folder.")
-#         st.stop()
-
-#     plot_options = {}
-#     for fpath in plot_files:
-#         fname = os.path.basename(fpath).replace(".png", "")
-#         label = fname.replace("_", " ").title()
-#         plot_options[label] = fpath
-
-#     selected_plot = st.selectbox("Choose Plot", list(plot_options.keys()))
-#     plot_path = plot_options[selected_plot]
-
-#     plot_width = st.slider("Adjust Plot Width", 400, 1000, 600)
-#     st.image(plot_path, caption=f"{selected_plot} — {selected_run}", width=plot_width)
-
-#     # ── Interpretation ──
-#     explanations = {
-#         "Feature Importances": "Shows which features contribute most to predictions.",
-#         "Shap Summary": "SHAP values show feature impact and distribution.",
-#         "Roc Curve": "Visualizes true vs. false positive rates.",
-#         "Precision Recall": "Helps evaluate classifier performance under class imbalance.",
-#         "Confusion Matrix": "Compares predicted vs. actual outcomes."
-#     }
-
-#     for key, explanation in explanations.items():
-#         if key.lower() in selected_plot.lower():
-#             st.markdown(f"**Interpretation:** {explanation}")
-#             break
 elif selected == "📊 Model Plots":
     st.title("📊 Model Explainability & Evaluation Plots")
     st.markdown("""
@@ -1384,7 +1042,7 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     
         # ✅ Parse preprocessing info string
         try:
-            preprocessing_info = json.loads(croissant.get("preprocessing_info", "{}"))
+            preprocessing_info = json.loads(croissant.get("mls:preprocessingSteps", "{}"))
         except Exception:
             preprocessing_info = {}
     
@@ -1395,20 +1053,16 @@ Use this view to inspect detailed provenance metadata for a specific training ru
             "Dataset Source URL": fair.get("dcat:landingPage", "—"),
     
             # ✅ Fixed key for notebook name
-            "Notebook Name": uncategorized.get("session_metadata", {}).get("script_name", "—"),
+            "Notebook Name": fair4ml.get("fair4ml:usedNotebook", {}),
     
             "Model Path": croissant.get("mls:modelPath", "—"),
             "Model Architecture": croissant.get("mls:modelArchitecture", "—"),
     
-            # ❌ Missing in JSON — will show as "—"
-            "Training Code Snapshot": uncategorized.get("session_metadata", {}).get("training_code_snapshot", "—"),
     
             # ✅ Fixed commit hash + fallback URL
             "Git Commit Hash": uncategorized.get("git_metadata", {}).get("commit_hash", "—"),
             "Git Commit URL": uncategorized.get("git_metadata", {}).get("repo_url", "—"),
     
-            # ❌ Preprocessing hash is missing in your JSON — will show as "—"
-            "Preprocessing Hash": uncategorized.get("session_metadata", {}).get("preprocessing_hash", "—"),
     
             # ✅ Extracted from JSON string
             "Preprocessing Timestamp": preprocessing_info.get("preprocessing_timestamp", "—"),
@@ -1420,9 +1074,8 @@ Use this view to inspect detailed provenance metadata for a specific training ru
             "Database Creator": fair.get("dc:creator", "—"),
             "Database Last Modified": fair.get("dcterms:modified", "—"),
     
-            "Generated By": prov.get("prov:wasGeneratedBy", "—"),
-            "Used Source": prov.get("prov:used", "—"),
-            "Activity": prov.get("prov:Activity", "—")
+            "Generated By": uncategorized.get("session_metadata", {}).get("username", "—"),
+
         }
 
   # ✅ Function to extract configuration & evaluation details
@@ -1433,12 +1086,12 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     
         # Parse hyperparameters and preprocessing_info JSON strings
         try:
-            hparams = json.loads(croissant.get("hyperparameters", "{}"))
+            hparams = json.loads(croissant.get("mls:hyperparameters", "{}"))
         except Exception:
             hparams = {}
     
         try:
-            prep = json.loads(croissant.get("preprocessing_info", "{}"))
+            prep = json.loads(croissant.get("mls:preprocessingSteps", "{}"))
         except Exception:
             prep = {}
     
@@ -1446,7 +1099,7 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     
         return {
             "Target Variable": croissant.get("mls:targetVariable", "—"),
-            "Split Strategy": mlsea.get("mlsea:splitStrategy", "—"),
+            "Split Strategy": mlsea.get("mlsea:splitStrategy", "Train-Test Split"),
             "Model Architecture": croissant.get("mls:modelArchitecture", "—"),
             "Serialization Format": croissant.get("mls:serializationFormat", "—"),
             "Model Version": croissant.get("mls:modelVersion", "—"),

@@ -1,0 +1,617 @@
+[
+  {
+    "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/model_model_randomforest_iris_v20250616_154241_20250616_154241",
+    "@type": [
+      "http://www.w3.org/ns/prov#Entity"
+    ],
+    "http://www.w3.org/ns/prov#wasGeneratedBy": [
+      {
+        "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/run_cb33f4b0bf2c46599ab9f1232bd4f6f2"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/algo": [
+      {
+        "@value": "RandomForestClassifier"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/architecture": [
+      {
+        "@value": "RandomForestClassifier"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/feature_select": [
+      {
+        "@value": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/features": [
+      {
+        "@value": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/hyperparameters": [
+      {
+        "@value": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/imbalance_ratio": [
+      {
+        "@value": "1.000000000000000000"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/label_map": [
+      {
+        "@value": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/label_snap": [
+      {
+        "@value": "species"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/model_id": [
+      {
+        "@value": "model_randomforest_iris_v20250616_154241_20250616_154241"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/model_path": [
+      {
+        "@value": "RandomForest_Iris_v20250616_154241.pkl"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/model_short_name": [
+      {
+        "@value": "random_forest"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/name": [
+      {
+        "@value": "RandomForest_Iris_v20250616_154241"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/preprocessing_info": [
+      {
+        "@value": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 42}, \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\", \"preprocessing_timestamp\": \"2025-06-16T15:43:18.407598\"}"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/serialization_format": [
+      {
+        "@value": "pickle"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/target_var": [
+      {
+        "@value": "species"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/test_split": [
+      {
+        "@value": "0.200000000000000000"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/train_split": [
+      {
+        "@value": "0.800000000000000000"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/version": [
+      {
+        "@value": "v01"
+      }
+    ]
+  },
+  {
+    "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/dataset_7c33a27c-f968-4de9-925f-c9de9d9ad512",
+    "@type": [
+      "http://www.w3.org/ns/prov#Entity"
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/citation_count": [
+      {
+        "@value": "23"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/citations_over_time": [
+      {
+        "@value": "\"[{\\\"year\\\": \\\"2023\\\", \\\"total\\\": 5}, {\\\"year\\\": \\\"2024\\\", \\\"total\\\": 11}, {\\\"year\\\": \\\"2025\\\", \\\"total\\\": 7}]\""
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/classes": [
+      {
+        "@value": "3"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/created": [
+      {
+        "@value": "2023-03-16 12:57:44.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/creator": [
+      {
+        "@value": "R. A. Fisher"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/dataset_guid": [
+      {
+        "@value": "7c33a27c-f968-4de9-925f-c9de9d9ad512"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/dataset_id": [
+      {
+        "@value": "e9914484-a8b1-4bbc-b053-5f0ecba5a78b"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/description": [
+      {
+        "@value": "https://archive.ics.uci.edu/dataset/53"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/detailed_type": [
+      {
+        "@value": "CSV"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/features": [
+      {
+        "@value": "4"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/language": [
+      {
+        "@value": "unknown"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/license": [
+      {
+        "@value": "info not available"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/output_type": [
+      {
+        "@value": "categorical"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/publication_year": [
+      {
+        "@value": "1936"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/publisher": [
+      {
+        "@value": "UCI Machine Learning Repository"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/registered": [
+      {
+        "@value": "2023-03-16 12:57:45.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/related_resources": [
+      {
+        "@value": "\"[]\""
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/schema_version": [
+      {
+        "@value": "http://datacite.org/schema/kernel-4"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/source_url": [
+      {
+        "@value": "https://archive.ics.uci.edu/dataset/53"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/subjects": [
+      {
+        "@value": "info not available"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/table_name": [
+      {
+        "@value": "iris_v0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/title": [
+      {
+        "@value": "Iris"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/updated": [
+      {
+        "@value": "2025-04-18 08:55:20.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/version": [
+      {
+        "@value": "v0"
+      }
+    ]
+  },
+  {
+    "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/code_16941beed9b5e6753f166534717a2d3cc9d7df11",
+    "@type": [
+      "http://www.w3.org/ns/prov#Entity"
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/author": [
+      {
+        "@value": "Reema George"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/author_email": [
+      {
+        "@value": "106236154+reema-dass26@users.noreply.github.com"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/branch": [
+      {
+        "@value": "main"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/commit_hash": [
+      {
+        "@value": "16941beed9b5e6753f166534717a2d3cc9d7df11"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/repo_url": [
+      {
+        "@value": "https://archive.ics.uci.edu/dataset/53"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/timestamp": [
+      {
+        "@value": "2025-06-16T13:42:31.756229"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/version": [
+      {
+        "@value": "v01"
+      }
+    ]
+  },
+  {
+    "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/agent_reema",
+    "@type": [
+      "http://www.w3.org/ns/prov#Agent"
+    ],
+    "http://xmlns.com/foaf/0.1/name": [
+      {
+        "@value": "reema"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/hostname": [
+      {
+        "@value": "Purplish"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/os_platform": [
+      {
+        "@value": "Windows 10"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/platform": [
+      {
+        "@value": "Windows"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/project_id": [
+      {
+        "@value": "default_project"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/python_version": [
+      {
+        "@value": "3.11.5"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/role": [
+      {
+        "@value": "collaborator"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/session_id": [
+      {
+        "@value": "c3e56ae1-0f6b-4a1c-84c6-ae6d36cacc56"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/timestamp": [
+      {
+        "@value": "2025-06-16T13:42:31.756229"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/username": [
+      {
+        "@value": "reema"
+      }
+    ]
+  },
+  {
+    "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/run_cb33f4b0bf2c46599ab9f1232bd4f6f2",
+    "@type": [
+      "http://www.w3.org/ns/prov#Activity"
+    ],
+    "http://www.w3.org/ns/prov#endedAtTime": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2025-06-16T15:43:06"
+      }
+    ],
+    "http://www.w3.org/ns/prov#startedAtTime": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2025-06-16T15:42:41"
+      }
+    ],
+    "http://www.w3.org/ns/prov#used": [
+      {
+        "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/dataset_7c33a27c-f968-4de9-925f-c9de9d9ad512"
+      },
+      {
+        "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/code_16941beed9b5e6753f166534717a2d3cc9d7df11"
+      }
+    ],
+    "http://www.w3.org/ns/prov#wasAssociatedWith": [
+      {
+        "@id": "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/agent_reema"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/accuracy": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/datasetid": [
+      {
+        "@value": "7c33a27c-f968-4de9-925f-c9de9d9ad512"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/f1_macro": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/git_commit": [
+      {
+        "@value": "16941beed9b5e6753f166534717a2d3cc9d7df11"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/invenioid": [
+      {
+        "@value": "10.24432/C56C76"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_bootstrap": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_class_weight": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_criterion": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_dataset_version": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_drop_column_x": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_ethical_considerations": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_experiment_name": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_intended_use": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_max_depth": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_max_features": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_metric_choice": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_min_samples_leaf": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_min_samples_split": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_model_choice": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_model_limitations": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_n_estimators": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_n_jobs": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_not_intended_for": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_oob_score": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_target_variable": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_test_split": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_threshold_accuracy": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/justification_verbose": [
+      {
+        "@value": "No justification provided"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/modelid": [
+      {
+        "@value": "model_randomforest_iris_v20250616_154241_20250616_154241"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/num_deleted_rows": [
+      {
+        "@value": "0.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/num_inserted_rows": [
+      {
+        "@value": "0.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/precision_macro": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/recall_macro": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/roc_auc": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/row_count_end": [
+      {
+        "@value": "150.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/row_count_start": [
+      {
+        "@value": "150.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/run_id": [
+      {
+        "@value": "cb33f4b0bf2c46599ab9f1232bd4f6f2"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/run_name": [
+      {
+        "@value": "omniscient-wasp-373"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/runid": [
+      {
+        "@value": "cb33f4b0bf2c46599ab9f1232bd4f6f2"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/sessionid": [
+      {
+        "@value": "c3e56ae1-0f6b-4a1c-84c6-ae6d36cacc56"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/source_file": [
+      {
+        "@value": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/source_notebook": [
+      {
+        "@value": "RQ1_2.ipynb"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/timestamp": [
+      {
+        "@value": "2025-06-16T13:42:31.756229"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_accuracy_score": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_end_time": [
+      {
+        "@value": "2025-06-16T15:43:06.458114"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_f1_score": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_log_loss": [
+      {
+        "@value": "0.0407423417995777"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_precision_score": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_recall_score": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_roc_auc": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_score": [
+      {
+        "@value": "1.0"
+      }
+    ],
+    "https://github.com/reema-dass26/ml-provenance/provenance/run_cb33f4b0bf2c46599ab9f1232bd4f6f2/training_start_time": [
+      {
+        "@value": "2025-06-16 15:42:41.0"
+      }
+    ]
+  }
+]
