@@ -1,0 +1,260 @@
+{
+  "run_id": "826899ceda724432848be1e1e308c7bf",
+  "run_name": "silent-quail-366",
+  "experiment_id": "942301886774505684",
+  "start_time": 1750413654042,
+  "end_time": null,
+  "params": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "None",
+    "criterion": "entropy",
+    "dropped_columns": "['id']",
+    "feature_matrix_shape": "(150, 4)",
+    "final_feature_names": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "final_num_features": "4",
+    "hostname": "Purplish",
+    "input_row_count": "150",
+    "label_vector_shape": "(150,)",
+    "matplotlib_version": "3.7.2",
+    "max_depth": "10",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "1",
+    "min_samples_split": "3",
+    "min_weight_fraction_leaf": "0.0",
+    "numeric_columns_converted": "4",
+    "numpy_version": "1.24.4",
+    "n_estimators": "100",
+    "n_features": "4",
+    "n_jobs": "-1",
+    "n_test_samples": "30",
+    "n_train_samples": "120",
+    "oob_score": "True",
+    "os_platform": "Windows 10",
+    "os_version": "10.0.26100",
+    "pandas_version": "2.2.3",
+    "platform": "Windows",
+    "project_id": "default_project",
+    "python_version": "3.11.5",
+    "random_seed": "67",
+    "random_state": "None",
+    "raw_columns": "['id', 'sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm', 'species']",
+    "raw_row_count": "150",
+    "retrieval_time_utc": "2025-06-20T10:00:58.174523",
+    "role": "collaborator",
+    "seaborn_version": "0.12.2",
+    "session_id": "a1106b93-26a1-4232-ae60-ffafa68afca6",
+    "shap_version": "0.47.1",
+    "sklearn_version": "1.3.0",
+    "test_size": "0.2",
+    "timestamp_utc": "2025-06-20T10:00:54.137581",
+    "username": "reema",
+    "verbose": "1",
+    "warm_start": "False"
+  },
+  "metrics": {
+    "accuracy": 0.9666666666666667,
+    "f1_macro": 0.9628647214854111,
+    "num_deleted_rows": 0.0,
+    "num_inserted_rows": 0.0,
+    "precision_macro": 0.9523809523809524,
+    "recall_macro": 0.9777777777777779,
+    "roc_auc": 1.0,
+    "row_count_end": 150.0,
+    "row_count_start": 150.0,
+    "training_accuracy_score": 1.0,
+    "training_f1_score": 1.0,
+    "training_log_loss": 0.028612126160556854,
+    "training_precision_score": 1.0,
+    "training_recall_score": 1.0,
+    "training_roc_auc": 1.0,
+    "training_score": 1.0
+  },
+  "tags": {
+    "accuracy": "0.9666666666666667",
+    "class_names": "Iris-setosa,Iris-versicolor,Iris-virginica",
+    "compute_environment": "{\"os\": \"Windows 10\", \"cpu\": \"AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD\", \"ram_gb\": 13.69, \"python_version\": \"3.11.5\", \"sklearn_version\": \"1.3.0\", \"pandas_version\": \"2.2.3\", \"numpy_version\": \"1.24.4\"}",
+    "dataset_id": "0a16d4fd-8567-46b8-8f0c-223bfe29f4a1",
+    "dataset_name": "iris_v0",
+    "dataset_version": "v0",
+    "data_source": "http://localhost/api/database/c94c9774-8407-49fd-b21f-9e6e4af57d3b/table/0a16d4fd-8567-46b8-8f0c-223bfe29f4a1/data?size=100000&page=0",
+    "DOI_citations_over_time": "[{\"year\": \"2023\", \"total\": 5}, {\"year\": \"2024\", \"total\": 11}, {\"year\": \"2025\", \"total\": 7}]",
+    "DOI_citation_count": "23",
+    "DOI_created": "2023-03-16T12:57:44.000Z",
+    "DOI_dataset_access_url": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_dataset_creator": "R. A. Fisher",
+    "DOI_dataset_description": "info not available",
+    "DOI_dataset_documentation": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_dataset_id": "10.24432/C56C76",
+    "DOI_dataset_license": "info not available",
+    "DOI_dataset_publication_date": "1936",
+    "DOI_dataset_publisher": "UCI Machine Learning Repository",
+    "DOI_dataset_subjects": "info not available",
+    "DOI_dataset_title": "Iris",
+    "DOI_metadata_standard": "Dataset",
+    "DOI_prov_activity": "Ingestion and Publication",
+    "DOI_prov_agent_dataset_creator": "R. A. Fisher",
+    "DOI_prov_entity": "Iris",
+    "DOI_prov_role_database_creator": "Database Ingestor and Maintainer",
+    "DOI_prov_role_dataset_creator": "Original Data Author",
+    "DOI_prov_startedAtTime": "1936",
+    "DOI_prov_used": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_prov_wasAttributedTo": "R. A. Fisher",
+    "DOI_prov_wasDerivedFrom": "10.24432/C56C76",
+    "DOI_registered_date": "2023-03-16T12:57:45.000Z",
+    "DOI_related_resources": "[]",
+    "DOI_schema_version": "http://datacite.org/schema/kernel-4",
+    "DOI_updated": "2025-04-18T08:55:20.000Z",
+    "dropped_id_columns": "id",
+    "estimator_class": "sklearn.ensemble._forest.RandomForestClassifier",
+    "estimator_name": "RandomForestClassifier",
+    "f1_macro": "0.9628647214854111",
+    "feature_columns": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm",
+    "GIT_code_version": "v98",
+    "git_commit": "73d1f5a368d13dda84e207df39765ece82e2d936",
+    "GIT_user": "Reema George",
+    "GIT_user_email": "106236154+reema-dass26@users.noreply.github.com",
+    "hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}",
+    "Internal_DBRepo_table_last_modified": "2025-06-20T09:36:52.804Z",
+    "justification_bootstrap": "Guided case",
+    "justification_class_weight": "Guided case",
+    "justification_criterion": "Guided case",
+    "justification_dataset_version": "Guided case",
+    "justification_drop_column_X": "Guided case",
+    "justification_ethical_considerations": "Guided case",
+    "justification_experiment_name": "Guided case",
+    "justification_intended_use": "Guided case",
+    "justification_max_depth": "Guided case",
+    "justification_max_features": "Guided case",
+    "justification_metric_choice": "Guided case",
+    "justification_min_samples_leaf": "Guided case",
+    "justification_min_samples_split": "Guided case",
+    "justification_model_choice": "Guided case",
+    "justification_model_limitations": "Guided case",
+    "justification_not_intended_for": "Guided case",
+    "justification_n_estimators": "Guided case",
+    "justification_n_jobs": "Guided case",
+    "justification_oob_score": "Guided case",
+    "justification_target_variable": "Guided case",
+    "justification_test_split": "Guided case",
+    "justification_threshold_accuracy": "Guided case",
+    "justification_verbose": "Guided case",
+    "label_map": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}",
+    "mlflow.log-model.history": "[{\"run_id\": \"826899ceda724432848be1e1e308c7bf\", \"artifact_path\": \"model\", \"utc_time_created\": \"2025-06-20 10:01:29.071215\", \"model_uuid\": \"9381a9d67630491789ad726632e17605\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.5\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.3.0\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+    "mlflow.runName": "silent-quail-366",
+    "mlflow.source.name": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.user": "reema",
+    "model_architecture": "RandomForestClassifier",
+    "model_name": "RandomForest_Iris_v20250620_120058",
+    "model_path": "RandomForest_Iris_v20250620_120058.pkl",
+    "model_serialization": "pickle",
+    "model_version": "v98",
+    "notebook_name": "RQ1_2.ipynb",
+    "precision_macro": "0.9523809523809524",
+    "preprocessing_hash": "2c623ca44bb0be29385d186ec4a2d90ee6e29f07c5a2217ce142bc438bf45bce",
+    "preprocessing_info": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 67}, \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\", \"preprocessing_timestamp\": \"2025-06-20T12:01:58.842059\"}",
+    "random_state": "67",
+    "raw_columns": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm,species",
+    "recall_macro": "0.9777777777777779",
+    "roc_auc": "1.0",
+    "row_hash_tracking": "enabled",
+    "run_id": "826899ceda724432848be1e1e308c7bf",
+    "selected_model": "random_forest",
+    "startedAtTime": "2025-06-20T12:00:57.840170",
+    "target_variable": "species",
+    "target_variable_encoded": "species",
+    "test_size": "0.2",
+    "training_end_time": "2025-06-20T12:01:42.169669",
+    "training_start_time": "2025-06-20T12:00:58.516875"
+  },
+  "artifacts": [
+    {
+      "path": "RandomForest_Iris_v20250620_120058/RandomForest_Iris_v20250620_120058.pkl",
+      "type": "other"
+    },
+    {
+      "path": "confusion_matrix.png",
+      "type": "image"
+    },
+    {
+      "path": "estimator.html",
+      "type": "other"
+    },
+    {
+      "path": "feature_importances.png",
+      "type": "image"
+    },
+    {
+      "path": "label_mapping.json",
+      "type": "text"
+    },
+    {
+      "path": "metadata/doi_metadata_snapshot.json",
+      "type": "text"
+    },
+    {
+      "path": "model/MLmodel",
+      "type": "other"
+    },
+    {
+      "path": "model/conda.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "model/model.pkl",
+      "type": "other"
+    },
+    {
+      "path": "model/python_env.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/requirements.txt",
+      "type": "text"
+    },
+    {
+      "path": "model/serving_input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "pr_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "shap_summary.png",
+      "type": "image"
+    },
+    {
+      "path": "training_confusion_matrix.png",
+      "type": "image"
+    }
+  ]
+}
