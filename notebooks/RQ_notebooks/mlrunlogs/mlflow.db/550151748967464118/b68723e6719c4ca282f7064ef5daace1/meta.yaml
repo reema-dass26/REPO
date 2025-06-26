@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/550151748967464118/b68723e6719c4ca282f7064ef5daace1/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '550151748967464118'
+lifecycle_stage: active
+run_id: b68723e6719c4ca282f7064ef5daace1
+run_name: charming-boar-698
+run_uuid: b68723e6719c4ca282f7064ef5daace1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750950835136
+status: 1
+tags: []
+user_id: reema
