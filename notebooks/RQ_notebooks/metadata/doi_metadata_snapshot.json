@@ -1,0 +1,44 @@
+{
+  "dataset_id": "10.24432/C56C76",
+  "dataset_title": "Iris",
+  "dataset_creator": "R. A. Fisher",
+  "dataset_publisher": "UCI Machine Learning Repository",
+  "dataset_publication_date": 1936,
+  "dataset_description": "info not available",
+  "dataset_version": null,
+  "dataset_license": "info not available",
+  "dataset_subjects": "info not available",
+  "dataset_language": null,
+  "dataset_access_url": "https://archive.ics.uci.edu/dataset/53",
+  "dataset_documentation": "https://archive.ics.uci.edu/dataset/53",
+  "metadata_standard": "Dataset",
+  "related_resources": [],
+  "citation_count": 23,
+  "citations_over_time": [
+    {
+      "year": "2023",
+      "total": 5
+    },
+    {
+      "year": "2024",
+      "total": 11
+    },
+    {
+      "year": "2025",
+      "total": 7
+    }
+  ],
+  "schema_version": "http://datacite.org/schema/kernel-4",
+  "registered_date": "2023-03-16T12:57:45.000Z",
+  "created": "2023-03-16T12:57:44.000Z",
+  "updated": "2025-04-18T08:55:20.000Z",
+  "prov_entity": "Iris",
+  "prov_activity": "Ingestion and Publication",
+  "prov_agent_dataset_creator": "R. A. Fisher",
+  "prov_used": "https://archive.ics.uci.edu/dataset/53",
+  "prov_wasDerivedFrom": "10.24432/C56C76",
+  "prov_wasAttributedTo": "R. A. Fisher",
+  "prov_startedAtTime": 1936,
+  "prov_role_dataset_creator": "Original Data Author",
+  "prov_role_database_creator": "Database Ingestor and Maintainer"
+}

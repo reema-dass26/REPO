@@ -144,10 +144,10 @@ def load_data():
 
         except Exception as e:
             st.error(f"❌ Failed to load {file_path}: {e}")
-
+    
     df = pd.DataFrame(rows)
     st.success(f"✅ Loaded {len(df)} structured runs with {len(df.columns)} fields.")
-    print(df)
+    print(df.columns.tolist())
     return df
 
 
@@ -520,9 +520,6 @@ if selected == "🏠 Dashboard":
           {svg}
         </div>
         """, height=580)
-
-    
-
 elif selected == "📁 Dataset Metadata":
     st.title("📁 Dataset Metadata")
     st.markdown("""
@@ -537,6 +534,7 @@ Review comprehensive metadata for the datasets used in your machine learning exp
 - Trace dataset origin and preprocessing stages
 - Evaluate FAIR compliance and metadata completeness
 """)
+
     run_ids = df['run_id'].dropna().unique()
     if not run_ids.any():
         st.warning("⚠️ No runs found.")
@@ -550,47 +548,85 @@ Review comprehensive metadata for the datasets used in your machine learning exp
 
         row = run_df.iloc[0].to_dict()
 
+        # Display label formatting function
+        def format_label(k):
+            if ":" in k:
+                ns, name = k.split(":", 1)
+                return f"{ns.upper()} {name.replace('_', ' ').capitalize()}"
+            return k.replace("_", " ").capitalize()
+
         def show_table(title, keys):
             st.subheader(title)
-            table = {k.split(":", 1)[-1].replace("_", " ").capitalize(): row.get(k, "—") for k in keys}
+            table = {}
+            for k in keys:
+                val = row.get(k)
+                label = format_label(k)
+                table[label] = val if pd.notna(val) and val != "" else "—"
+            if table:
+                st.dataframe(pd.DataFrame(list(table.items()), columns=["Field", "Value"]), use_container_width=True)
+            else:
+                st.info("ℹ️ No data available for this section.")
+
+       # Filter all FAIR keys first
+        fair_keys = [k for k in row if k.startswith(("FAIR_dc:", "FAIR_dcterms:", "FAIR_dcat:", "FAIR_"))]
+        
+        # Prepare display table with only keys that have real values
+        table = {}
+        for k in fair_keys:
+            val = row.get(k)
+            if val is None or (isinstance(val, float) and pd.isna(val)) or val == "":
+                continue  # skip empty/missing
+            label = k.split(":", 1)[-1].replace("_", " ").capitalize()  # simple label
+            if label not in table:  # prefer first populated key to avoid duplicates
+                table[label] = val
+        
+        if table:
             st.dataframe(pd.DataFrame(list(table.items()), columns=["Field", "Value"]), use_container_width=True)
+        else:
+            st.info("ℹ️ No FAIR dataset metadata available.")
 
-        # 📚 FAIR Dataset Metadata
-        fair_keys = [k for k in row if k.startswith("FAIR_")]
-        show_table("📚 FAIR Dataset Metadata", fair_keys)
+        provo_keys = [k for k in row if k.startswith("PROV-O_prov:")]
+        if any(
+            val is not None and not (isinstance(val, float) and pd.isna(val)) and val != ""
+            for val in (row.get(k) for k in provo_keys)
+        ):
+            show_table("🛰️ PROV-O Provenance Metadata", provo_keys)
+        else:
+            st.info("ℹ️ No provenance metadata available for this run.")
 
-        # 🛰️ PROV-O Metadata (if applicable)
-        prov_keys = [k for k in row if "prov" in k]
-        if prov_keys:
-            show_table("🛰️ PROV-O Provenance Metadata", prov_keys)
 
-        # 🏛️ DBRepo Metadata (mapped to Uncategorized or FAIR4ML if needed)
-        dbrepo_keys = [k for k in row if k.startswith("Uncategorized_session_metadata") or k.startswith("FAIR4ML_dataset_")]
+
+        # 🏛️ DBRepo Metadata
+        dbrepo_keys = [
+            k for k in row
+            if k.startswith("Uncategorized_session_metadata") or k.startswith("FAIR4ML_dataset_")
+        ]
         if dbrepo_keys:
             show_table("🏛️ DBRepo Metadata", dbrepo_keys)
 
         # 🧪 Preprocessing Info
-        prep_info = row.get("Croissant_mls:preprocessingSteps", row.get("Uncategorized_preprocessing_info"))
         st.subheader("🧪 Preprocessing Info")
+        prep_info = row.get("Croissant_mls:preprocessingSteps", row.get("Uncategorized_preprocessing_info"))
         try:
             if isinstance(prep_info, str):
                 prep_info = json.loads(prep_info)
             elif prep_info is None:
                 prep_info = {}
-        
+
             prep_rows = []
             for k, v in prep_info.items():
                 pretty_val = json.dumps(v, indent=2) if isinstance(v, (dict, list)) else str(v)
-                prep_rows.append({"Step": k.replace("_", " ").capitalize(), "Details": pretty_val})
-        
+                prep_rows.append({
+                    "Step": k.replace("_", " ").capitalize(),
+                    "Details": pretty_val
+                })
+
             if prep_rows:
                 st.dataframe(pd.DataFrame(prep_rows), use_container_width=True)
             else:
                 st.info("ℹ️ No preprocessing info found.")
         except Exception as e:
             st.warning(f"⚠️ Could not parse preprocessing info: {e}")
-
-
 
 
 
@@ -612,51 +648,254 @@ Detect which ML experiments were affected by **outdated code versions**.
     import subprocess
     import json
 
-    # 🔁 Parse git info from flattened dict column
-    git_col = "Uncategorized_git_metadata"
+    import json
 
+    # Parse git JSON metadata if available
+    git_col = "Uncategorized_git_metadata"
+    
     if git_col in df.columns:
+        # Parse JSON strings safely into dicts
         git_info = df[git_col].dropna().apply(lambda x: json.loads(x) if isinstance(x, str) else x)
+        # Extract commit hash & version as separate columns for easy filtering
         df["_git_commit_hash"] = git_info.apply(lambda d: d.get("commit_hash", "—") if isinstance(d, dict) else "—")
         df["_git_version"] = git_info.apply(lambda d: d.get("version", "untagged") if isinstance(d, dict) else "untagged")
     else:
         st.warning(f"⚠️ Column `{git_col}` not found in metadata.")
         st.stop()
-
+    
+    # Get current git commit hash from local repo (if applicable)
     def get_current_git_commit():
+        import subprocess
         try:
             return subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip()
         except Exception:
             return None
-
+    
     current_hash = get_current_git_commit()
+    
+    # Map commit hash → version tag for lookup
     version_map = df.set_index("_git_commit_hash")["_git_version"].to_dict()
     current_version_tag = version_map.get(current_hash, "untagged")
-
+    
     st.markdown("### 🏷️ Git Commit – Version Mapping")
+    
     if current_hash:
         st.markdown(f"### 📌 Current Git Commit: `{current_hash}`")
-    st.dataframe(df[["run_id", "_git_commit_hash", "_git_version"]], use_container_width=True)
+    
+    # Show a dataframe with selected columns including flat keys
+    st.dataframe(
+        df[[
+            "run_id",
+            "PROV-O_prov:commit",         # flat commit hash from provenance
+            "FAIR_dcterms:hasVersion",   # flat dataset version
+                      # parsed from git JSON
+        ]],
+        use_container_width=True
+    )
+    
+    # # Input deprecated versions to flag experiments
+    # deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
+    # simulate_current = st.checkbox("☢️ Also mark current local commit as deprecated")
+    
+    # if simulate_current and current_version_tag:
+    #     deprecated_versions_input += f"\n{current_version_tag}"
+    #     st.info(f"☢️ Added current version `{current_version_tag}` to deprecated list.")
+    
+    # deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
+    
+    # def detect_deprecated_versions(df, deprecated_versions):
+    #     # Use the parsed _git_version column to find affected runs
+    #     affected = df[df["_git_version"].isin(deprecated_versions)].copy()
+    #     if "Uncategorized_git_metadata" in df.columns:
+    #         git_data = df["Uncategorized_git_metadata"].apply(lambda x: json.loads(x) if isinstance(x, str) else x)
+    #         affected["github_user"] = git_data.apply(
+    #             lambda g: g.get("author_email", "").split("+")[-1].split("@")[0] if "author_email" in g else None
+    #         )
+    #     return affected
 
-    # 🚫 Deprecated version input
-    deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
-    simulate_current = st.checkbox("☢️ Also mark current local commit as deprecated")
+    # if st.button("🚨 Detect Impacted Runs"):
+    #     if not deprecated_versions:
+    #         st.warning("Please enter at least one deprecated version.")
+    #     else:
+    #         detected = detect_deprecated_versions(df, deprecated_versions)
+    #         if detected.empty:
+    #             st.success("✅ No impacted runs found.")
+    #         else:
+    #             st.warning("⚠️ Impacted Experiments Detected:")
+    #             st.session_state.results_df = detected
+    #             st.dataframe(st.session_state.results_df, use_container_width=True)
 
-    if simulate_current and current_version_tag:
-        deprecated_versions_input += f"\n{current_version_tag}"
-        st.info(f"☢️ Added current version `{current_version_tag}` to deprecated list.")
+    # if not st.session_state.results_df.empty:
+    #     st.markdown("### 📣 Notify Affected Users via GitHub")
+    #     with st.expander("🔐 GitHub Authentication"):
+    #         owner = st.text_input("GitHub Owner", value="reema-dass26")
+    #         repo = st.text_input("Repository Name", value="REPO")
+    #         token = st.text_input("GitHub Token", type="password")
 
+    #         if st.button("📬 Notify Affected Users"):
+    #             if not all([owner, repo, token]):
+    #                 st.warning("❗ Provide all GitHub credentials.")
+    #             else:
+    #                 try:
+    #                     impacted_users = st.session_state.results_df["prov:commitEmail"].dropna().unique()
+    #                     user_tags = " ".join(f"@{u}" for u in impacted_users if u)
+    #                     issue_body = (
+    #                         f"The following experiments were run on deprecated versions:\n\n"
+    #                         f"- Versions: {', '.join(set(deprecated_versions)) or 'N/A'}\n\n"
+    #                         f"{user_tags or '—'}\n\n"
+    #                         "Please retrain or validate your experiments.\n\n"
+    #                         "— Provenance Dashboard"
+    #                     )
+
+    #                     headers = {
+    #                         "Authorization": f"token {token}",
+    #                         "Accept": "application/vnd.github+json"
+    #                     }
+    #                     issue_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+    #                     resp = requests.post(issue_url, headers=headers, json={"title": "🚨 Deprecated Version Used", "body": issue_body})
+
+    #                     if resp.status_code == 201:
+    #                         st.success(f"✅ GitHub Issue Created: [View Issue]({resp.json().get('html_url')})")
+    #                     else:
+    #                         st.error(f"❌ GitHub Issue failed: {resp.status_code}")
+    #                         st.code(resp.text)
+    #                 except Exception as e:
+    #                     st.error(f"Exception occurred: {str(e)}")
+
+    # import json
+    # deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
+
+    # deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
+
+    # def extract_commit_email(metadata):
+    #     if not metadata:
+    #         return None
+    #     try:
+    #         data = json.loads(metadata) if isinstance(metadata, str) else metadata
+    #         return data.get("PROV-O", {}).get("prov:commitEmail", None)
+    #     except Exception:
+    #         return None
+    #      "PROV-O_prov:commit",         # flat commit hash from provenance
+    #         "FAIR_dcterms:hasVersion"
+    # def extract_github_username(email):
+    #     if not email or "+" not in email:
+    #         return None
+    #     try:
+    #         return email.split("+")[1].split("@")[0]
+    #     except IndexError:
+    #         return None
+    
+    # def detect_deprecated_versions(df, deprecated_versions):
+    #     affected = df[df["FAIR_dcterms:hasVersion"].isin(deprecated_versions)].copy()
+    
+    #     if "PROVO" in affected.columns:
+    #         affected["prov:commitEmail"] = affected["PROV-O_prov:commitEmail"].apply(extract_commit_email)
+    #     else:
+    #         affected["prov:commitEmail"] = None
+    
+    #     return affected
+    
+    # # ... your existing UI code ...
+    
+    # if st.button("🚨 Detect Impacted Runs"):
+    #     if not deprecated_versions:
+    #         st.warning("Please enter at least one deprecated version.")
+    #     else:
+    #         detected = detect_deprecated_versions(df, deprecated_versions)
+    #         if detected.empty:
+    #             st.success("✅ No impacted runs found.")
+    #         else:
+    #             st.warning("⚠️ Impacted Experiments Detected:")
+    #             st.session_state.results_df = detected
+    #             st.dataframe(st.session_state.results_df, use_container_width=True)
+    
+    # if not st.session_state.results_df.empty:
+    #     st.markdown("### 📣 Notify Affected Users via GitHub")
+    #     with st.expander("🔐 GitHub Authentication"):
+    #         owner = st.text_input("GitHub Owner", value="reema-dass26")
+    #         repo = st.text_input("Repository Name", value="REPO")
+    #         token = st.text_input("GitHub Token", type="password")
+    
+    #         if st.button("📬 Notify Affected Users"):
+    #             if not all([owner, repo, token]):
+    #                 st.warning("❗ Provide all GitHub credentials.")
+    #             else:
+    #                 try:
+    #                     impacted_emails = st.session_state.results_df["prov:commitEmail"].dropna().unique()
+    #                     impacted_users = [extract_github_username(e) for e in impacted_emails if e]
+    #                     user_tags = " ".join(f"@{u}" for u in impacted_users if u)
+                        
+    #                     issue_body = (
+    #                         f"The following experiments were run on deprecated versions:\n\n"
+    #                         f"- Versions: {', '.join(set(deprecated_versions)) or 'N/A'}\n\n"
+    #                         f"{user_tags or '—'}\n\n"
+    #                         "Please retrain or validate your experiments.\n\n"
+    #                         "— Provenance Dashboard"
+    #                     )
+    
+    #                     headers = {
+    #                         "Authorization": f"token {token}",
+    #                         "Accept": "application/vnd.github+json"
+    #                     }
+    #                     issue_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+    #                     resp = requests.post(issue_url, headers=headers, json={"title": "🚨 Deprecated Version Used", "body": issue_body})
+    
+    #                     if resp.status_code == 201:
+    #                         st.success(f"✅ GitHub Issue Created: [View Issue]({resp.json().get('html_url')})")
+    #                     else:
+    #                         st.error(f"❌ GitHub Issue failed: {resp.status_code}")
+    #                         st.code(resp.text)
+    #                 except Exception as e:
+    #                     st.error(f"Exception occurred: {str(e)}")
+    import json
+    import requests  # ensure you import requests
+    
+    # Deprecated versions input box, provide placeholder as string
+    deprecated_versions_input = st.text_area(
+        "Enter deprecated version tags (one per line):",
+        height=100,
+        placeholder="e.g. v1.0.0\nv2.0.3\nabc123commit"
+    )
+    
     deprecated_versions = [v.strip() for v in deprecated_versions_input.splitlines() if v.strip()]
-
+    
+    def extract_commit_email(metadata):
+        if not metadata:
+            return None
+        try:
+            # metadata could be JSON string or dict
+            data = json.loads(metadata) if isinstance(metadata, str) else metadata
+            # According to your data structure, PROV-O might be a dict inside
+            return data.get("PROV-O", {}).get("prov:commitEmail", None) or data.get("prov:commitEmail")
+        except Exception:
+            return None
+    
+    def extract_github_username(email):
+        if not email or "+" not in email:
+            return None
+        try:
+            # Extract username after '+' and before '@'
+            return email.split("+")[1].split("@")[0]
+        except IndexError:
+            return None
+    
     def detect_deprecated_versions(df, deprecated_versions):
-        affected = df[df["_git_version"].isin(deprecated_versions)].copy()
-        if "Uncategorized_git_metadata" in df.columns:
-            git_data = df["Uncategorized_git_metadata"].apply(lambda x: json.loads(x) if isinstance(x, str) else x)
-            affected["github_user"] = git_data.apply(
-                lambda g: g.get("author_email", "").split("+")[-1].split("@")[0] if "author_email" in g else None
-            )
+        # Filter rows where version column matches deprecated versions
+        affected = df[df["FAIR_dcterms:hasVersion"].isin(deprecated_versions)].copy()
+    
+        # Check if 'PROV-O_prov:commitEmail' column exists and extract emails
+        if "PROV-O_prov:commitEmail" in affected.columns:
+            affected["prov:commitEmail"] = affected["PROV-O_prov:commitEmail"].apply(extract_commit_email)
+        else:
+            # Fall back: try to extract from 'Uncategorized_git_metadata' if available
+            if "Uncategorized_git_metadata" in affected.columns:
+                affected["prov:commitEmail"] = affected["Uncategorized_git_metadata"].apply(extract_commit_email)
+            else:
+                affected["prov:commitEmail"] = None
+    
         return affected
-
+    
+    # UI trigger to detect deprecated runs
     if st.button("🚨 Detect Impacted Runs"):
         if not deprecated_versions:
             st.warning("Please enter at least one deprecated version.")
@@ -668,21 +907,24 @@ Detect which ML experiments were affected by **outdated code versions**.
                 st.warning("⚠️ Impacted Experiments Detected:")
                 st.session_state.results_df = detected
                 st.dataframe(st.session_state.results_df, use_container_width=True)
-
-    if not st.session_state.results_df.empty:
+    
+    # Notify affected users via GitHub
+    if "results_df" in st.session_state and not st.session_state.results_df.empty:
         st.markdown("### 📣 Notify Affected Users via GitHub")
         with st.expander("🔐 GitHub Authentication"):
             owner = st.text_input("GitHub Owner", value="reema-dass26")
             repo = st.text_input("Repository Name", value="REPO")
             token = st.text_input("GitHub Token", type="password")
-
+    
             if st.button("📬 Notify Affected Users"):
                 if not all([owner, repo, token]):
                     st.warning("❗ Provide all GitHub credentials.")
                 else:
                     try:
-                        impacted_users = st.session_state.results_df["github_user"].dropna().unique()
+                        impacted_emails = st.session_state.results_df["prov:commitEmail"].dropna().unique()
+                        impacted_users = [extract_github_username(e) for e in impacted_emails if e]
                         user_tags = " ".join(f"@{u}" for u in impacted_users if u)
+                        
                         issue_body = (
                             f"The following experiments were run on deprecated versions:\n\n"
                             f"- Versions: {', '.join(set(deprecated_versions)) or 'N/A'}\n\n"
@@ -690,14 +932,14 @@ Detect which ML experiments were affected by **outdated code versions**.
                             "Please retrain or validate your experiments.\n\n"
                             "— Provenance Dashboard"
                         )
-
+    
                         headers = {
                             "Authorization": f"token {token}",
                             "Accept": "application/vnd.github+json"
                         }
                         issue_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
                         resp = requests.post(issue_url, headers=headers, json={"title": "🚨 Deprecated Version Used", "body": issue_body})
-
+    
                         if resp.status_code == 201:
                             st.success(f"✅ GitHub Issue Created: [View Issue]({resp.json().get('html_url')})")
                         else:
@@ -758,17 +1000,67 @@ elif selected == "🧠 ML Model Metadata":
                 hyper = {"error": "Could not parse hyperparameters"}
         show_section("🧠 Hyperparameters", hyper)
 
-        # 📊 Evaluation Metrics
-        metric_keys = [k for k in row.keys() if k.startswith("MLSEA_") and any(metric in k for metric in ["accuracy", "f1", "precision", "recall", "roc"])]
-        show_section("📊 Evaluation Metrics", {k: row[k] for k in metric_keys})
+        import numpy as np
 
-        # 🧰 Compute Environment
-        env = row.get("Uncategorized_session_metadata", {})
-        show_section("🧰 Session Info", env)
+        def safe_val(val):
+            if val is None or (isinstance(val, float) and np.isnan(val)):
+                return "—"
+            return val
+        
+        # Filter keys for relevant metrics (case-insensitive)
+        metric_keys = [
+            k for k in row.keys() 
+            if k.startswith("MLSEA_") and any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"])
+        ]
+        import numpy as np
+        # Prepare display dict with cleaned keys and safe values
+        def safe_val(val):
+            
+            if val is None or (isinstance(val, float) and np.isnan(val)):
+                return "—"
+            return val
+        
+        excluded_prefixes = ["mlsea_justification_"]
 
-        # 🔗 Git Info
-        git = row.get("Uncategorized_git_metadata", {})
-        show_section("🔗 Git Metadata", git)
+        test_metric_keys = [
+            k for k in row.keys()
+            if k.lower().startswith("mlsea_")
+            and not any(k.lower().startswith(prefix) for prefix in excluded_prefixes)
+            and any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"])
+            and "training" not in k.lower()
+        ]
+        def is_valid_metric(value):
+            return value not in [None, "", "—", "No justification provided"]
+        
+        # Build dict of key: value pairs from row using your filtered keys
+        metrics = {k: row[k] for k in test_metric_keys[0:5]}
+        
+        # Now filter out invalid metrics
+        cleaned_metrics = {k: v for k, v in metrics.items() if is_valid_metric(v)}
+        
+
+
+
+        
+        training_metric_keys = [
+            k for k in row.keys()
+            if k.startswith("MLSEA_") and 
+               any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"]) and
+               "training" in k.lower()
+        ]
+        
+        def clean_key(k):
+            # Remove prefixes and underscores, capitalize nicely
+            k = k.replace("MLSEA_mlsea:", "").replace("MLSEA_justification_", "").replace("_", " ")
+            return k.capitalize()
+        
+        test_metrics = {clean_key(k): safe_val(row[k]) for k in cleaned_metrics}
+        training_metrics = {clean_key(k): safe_val(row[k]) for k in training_metric_keys}
+        
+        show_section("📊 Test Metrics", test_metrics)
+        show_section("📊 Training Metrics", training_metrics)
+
+
 
 
 
@@ -823,7 +1115,6 @@ Visualize how your machine learning model is performing — and understand **why
             elif val is None:
                 return "—"
             return str(val)
-
         meta_preview = {
     "Run ID": selected_run,
     "Model Name": run_data.get("Croissant", {}).get("mls:modelName", "—"),
@@ -838,17 +1129,48 @@ Visualize how your machine learning model is performing — and understand **why
     "Dataset Title": run_data.get("FAIR", {}).get("dc:title", "—"),
     "Training Start": run_data.get("FAIR4ML", {}).get("fair4ml:trainingStartTime", "—"),
     "Training End": run_data.get("FAIR4ML", {}).get("fair4ml:trainingEndTime", "—"),
-
     "Accuracy (Test)": run_data.get("MLSEA", {}).get("mlsea:accuracy", "—"),
-    "F1 Macro (Test)": run_data.get("MLSEA", {}).get("mlsea:f1_macro", "—"),
-    "Precision (Test)": run_data.get("MLSEA", {}).get("mlsea:precision_macro", "—"),
-    "Recall (Test)": run_data.get("MLSEA", {}).get("mlsea:recall_macro", "—"),
-    "ROC AUC (Test)": run_data.get("MLSEA", {}).get("mlsea:roc_auc", "—"),
-    "Training Accuracy": run_data.get("MLSEA", {}).get("mlsea:training_accuracy_score", "—")
 }
 
+# Add MLSEA metrics only if valid
+        test_metric_keys = [
+            k for k in run_data.keys()
+            if k.lower().startswith("mlsea_")
+            and not any(k.lower().startswith(prefix) for prefix in excluded_prefixes)
+            and any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"])
+            and "training" not in k.lower()
+        ]
+        def is_valid_metric(value):
+            return value not in [None, "", "—", "No justification provided"]
+        
+        # Build dict of key: value pairs from row using your filtered keys
+        metrics = {k: row[k] for k in test_metric_keys[0:5]}
+        
+        # Now filter out invalid metrics
+        cleaned_metrics = {k: v for k, v in metrics.items() if is_valid_metric(v)}
+    
+        training_metric_keys = [
+            k for k in run_data.keys()
+            if k.startswith("MLSEA_") and 
+               any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"]) and
+               "training" in k.lower()
+        ]
+        
+        def clean_key(k):
+            # Remove prefixes and underscores, capitalize nicely
+            k = k.replace("MLSEA_mlsea:", "").replace("MLSEA_justification_", "").replace("_", " ")
+            return k.capitalize()
+        
+        test_metrics = {clean_key(k): safe_val(row[k]) for k in cleaned_metrics}
+        training_metrics = {clean_key(k): safe_val(row[k]) for k in training_metric_keys}
+        
+        meta_preview.update(test_metrics)
+        meta_preview.update(training_metrics)
 
 
+
+        
+     
         # Optional Hyperparameters
         try:
             hparams = json.loads(run_data.get("tags_hyperparameters", "{}"))
@@ -925,6 +1247,8 @@ Gain insights into which machine learning models were trained on which datasets 
 
     try:
         mapping_records = []
+        print("dddddddddddddddddddddddddddddddddddddddddddddddd")
+        print(df.columns.tolist())
 
         for _, row in df.iterrows():
             model_name = row.get("Croissant_mls:modelName", "—")
@@ -932,8 +1256,10 @@ Gain insights into which machine learning models were trained on which datasets 
             dataset_title = row.get("FAIR_dc:title", "—")
             dataset_version = row.get("FAIR_dcterms:hasVersion", "—")
             dataset_url = row.get("FAIR_dcat:landingPage", "—")
-            accuracy = row.get("MLSEA_mlsea:accuracy", "—")
-            f1_score = row.get("MLSEA_mlsea:f1_macro", "—")
+            accuracy = row["MLSEA_mlsea:accuracy"] if "MLSEA_mlsea:accuracy" in row else "—"
+            # recall_macro = row["MLSEA_mlsea:recall_macro"] if "MLSEA_mlsea:recall_macro" in row else "—"
+            # precision_macro = row["MLSEA_mlsea:precision_macro"] if "MLSEA_mlsea:precision_macro" in row else "—"
+
             roc_auc = row.get("MLSEA_mlsea:roc_auc", "—")
             run_id = row.get("run_id", "—")
 
@@ -945,9 +1271,12 @@ Gain insights into which machine learning models were trained on which datasets 
                 "Dataset Version": dataset_version,
                 "Dataset Access URL": dataset_url,
                 "Accuracy (Test)": accuracy,
-                "F1 Score (Test)": f1_score,
+                # "Recall (Test)": recall_macro,
+                # "Precision (Test)": precision_macro,
+
                 "ROC AUC (Test)": roc_auc
             })
+        print( mapping_records)
 
         if mapping_records:
             df_mapping = pd.DataFrame(mapping_records)
@@ -997,6 +1326,7 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     
         return nested
 
+
     run_ids = df['run_id'].dropna().unique()  # 🔧 ADD THIS LINE
 
     selected_run = st.selectbox("Select Run 1", run_ids)
@@ -1034,6 +1364,7 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     
   # ✅ Function to extract provenance fields (updated with correct keys and parsed fields)
     def get_provenance_fields(run_data):
+        print(run_data.get("PROV-O_prov:commit", "—"))
         croissant = run_data.get("Croissant", {})
         fair = run_data.get("FAIR", {})
         prov = run_data.get("PROV-O", {})
@@ -1060,8 +1391,12 @@ Use this view to inspect detailed provenance metadata for a specific training ru
     
     
             # ✅ Fixed commit hash + fallback URL
-            "Git Commit Hash": uncategorized.get("git_metadata", {}).get("commit_hash", "—"),
-            "Git Commit URL": uncategorized.get("git_metadata", {}).get("repo_url", "—"),
+            "Git Commit Hash": prov.get("prov:commit", "—"),
+            "Git Commit Author": prov.get("prov:commitAuthor", "—"),
+            "Git Branch": prov.get("prov:branch", "—"),
+            "Git Commit Time": prov.get("prov:commitTime", "—"),
+            "Git Repository": prov.get("prov:repository", "—"),
+
     
     
             # ✅ Extracted from JSON string
@@ -1074,7 +1409,6 @@ Use this view to inspect detailed provenance metadata for a specific training ru
             "Database Creator": fair.get("dc:creator", "—"),
             "Database Last Modified": fair.get("dcterms:modified", "—"),
     
-            "Generated By": uncategorized.get("session_metadata", {}).get("username", "—"),
 
         }
 
