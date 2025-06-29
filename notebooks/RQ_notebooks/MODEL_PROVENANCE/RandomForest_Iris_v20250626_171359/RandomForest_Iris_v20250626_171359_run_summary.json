@@ -1,0 +1,260 @@
+{
+  "run_id": "b68723e6719c4ca282f7064ef5daace1",
+  "run_name": "charming-boar-698",
+  "experiment_id": "550151748967464118",
+  "start_time": 1750950835136,
+  "end_time": null,
+  "params": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "None",
+    "criterion": "entropy",
+    "dropped_columns": "['id']",
+    "feature_matrix_shape": "(150, 4)",
+    "final_feature_names": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "final_num_features": "4",
+    "hostname": "Purplish",
+    "input_row_count": "150",
+    "label_vector_shape": "(150,)",
+    "matplotlib_version": "3.7.2",
+    "max_depth": "10",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "1",
+    "min_samples_split": "3",
+    "min_weight_fraction_leaf": "0.0",
+    "numeric_columns_converted": "4",
+    "numpy_version": "1.24.4",
+    "n_estimators": "100",
+    "n_features": "4",
+    "n_jobs": "-1",
+    "n_test_samples": "30",
+    "n_train_samples": "120",
+    "oob_score": "True",
+    "os_platform": "Windows 10",
+    "os_version": "10.0.26100",
+    "pandas_version": "2.2.3",
+    "platform": "Windows",
+    "project_id": "default_project",
+    "python_version": "3.11.5",
+    "random_seed": "42",
+    "random_state": "None",
+    "raw_columns": "['id', 'sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm', 'species']",
+    "raw_row_count": "150",
+    "retrieval_time_utc": "2025-06-26T15:13:59.654684",
+    "role": "d",
+    "seaborn_version": "0.12.2",
+    "session_id": "e07eb931-d725-4a64-a4f9-5c89dcc0bd10",
+    "shap_version": "0.47.1",
+    "sklearn_version": "1.3.0",
+    "test_size": "0.2",
+    "timestamp_utc": "2025-06-26T15:13:55.245566",
+    "username": "reema",
+    "verbose": "1",
+    "warm_start": "False"
+  },
+  "metrics": {
+    "accuracy": 1.0,
+    "f1_macro": 1.0,
+    "num_deleted_rows": 0.0,
+    "num_inserted_rows": 0.0,
+    "precision_macro": 1.0,
+    "recall_macro": 1.0,
+    "roc_auc": 1.0,
+    "row_count_end": 150.0,
+    "row_count_start": 150.0,
+    "training_accuracy_score": 1.0,
+    "training_f1_score": 1.0,
+    "training_log_loss": 0.04164432403912479,
+    "training_precision_score": 1.0,
+    "training_recall_score": 1.0,
+    "training_roc_auc": 1.0,
+    "training_score": 1.0
+  },
+  "tags": {
+    "accuracy": "1.0",
+    "class_names": "Iris-setosa,Iris-versicolor,Iris-virginica",
+    "compute_environment": "{\"os\": \"Windows 10\", \"cpu\": \"AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD\", \"ram_gb\": 13.69, \"python_version\": \"3.11.5\", \"sklearn_version\": \"1.3.0\", \"pandas_version\": \"2.2.3\", \"numpy_version\": \"1.24.4\"}",
+    "dataset_id": "0a16d4fd-8567-46b8-8f0c-223bfe29f4a1",
+    "dataset_name": "iris_v0",
+    "dataset_version": "v0",
+    "data_source": "http://localhost/api/database/c94c9774-8407-49fd-b21f-9e6e4af57d3b/table/0a16d4fd-8567-46b8-8f0c-223bfe29f4a1/data?size=100000&page=0",
+    "DOI_citations_over_time": "[{\"year\": \"2023\", \"total\": 5}, {\"year\": \"2024\", \"total\": 11}, {\"year\": \"2025\", \"total\": 7}]",
+    "DOI_citation_count": "23",
+    "DOI_created": "2023-03-16T12:57:44.000Z",
+    "DOI_dataset_access_url": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_dataset_creator": "R. A. Fisher",
+    "DOI_dataset_description": "info not available",
+    "DOI_dataset_documentation": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_dataset_id": "10.24432/C56C76",
+    "DOI_dataset_license": "info not available",
+    "DOI_dataset_publication_date": "1936",
+    "DOI_dataset_publisher": "UCI Machine Learning Repository",
+    "DOI_dataset_subjects": "info not available",
+    "DOI_dataset_title": "Iris",
+    "DOI_metadata_standard": "Dataset",
+    "DOI_prov_activity": "Ingestion and Publication",
+    "DOI_prov_agent_dataset_creator": "R. A. Fisher",
+    "DOI_prov_entity": "Iris",
+    "DOI_prov_role_database_creator": "Database Ingestor and Maintainer",
+    "DOI_prov_role_dataset_creator": "Original Data Author",
+    "DOI_prov_startedAtTime": "1936",
+    "DOI_prov_used": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_prov_wasAttributedTo": "R. A. Fisher",
+    "DOI_prov_wasDerivedFrom": "10.24432/C56C76",
+    "DOI_registered_date": "2023-03-16T12:57:45.000Z",
+    "DOI_related_resources": "[]",
+    "DOI_schema_version": "http://datacite.org/schema/kernel-4",
+    "DOI_updated": "2025-04-18T08:55:20.000Z",
+    "dropped_id_columns": "id",
+    "estimator_class": "sklearn.ensemble._forest.RandomForestClassifier",
+    "estimator_name": "RandomForestClassifier",
+    "f1_macro": "1.0",
+    "feature_columns": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm",
+    "GIT_code_version": "vtest",
+    "git_commit": "b90e74fa2eb66e90619c525eb9829f72ed65de62",
+    "GIT_user": "Reema George",
+    "GIT_user_email": "106236154+reema-dass26@users.noreply.github.com",
+    "hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}",
+    "Internal_DBRepo_table_last_modified": "2025-06-20T09:36:52.804Z",
+    "justification_bootstrap": "No justification provided",
+    "justification_class_weight": "No justification provided",
+    "justification_criterion": "No justification provided",
+    "justification_dataset_version": "No justification provided",
+    "justification_drop_column_X": "No justification provided",
+    "justification_ethical_considerations": "No justification provided",
+    "justification_experiment_name": "No justification provided",
+    "justification_intended_use": "No justification provided",
+    "justification_max_depth": "No justification provided",
+    "justification_max_features": "No justification provided",
+    "justification_metric_choice": "No justification provided",
+    "justification_min_samples_leaf": "No justification provided",
+    "justification_min_samples_split": "No justification provided",
+    "justification_model_choice": "No justification provided",
+    "justification_model_limitations": "No justification provided",
+    "justification_not_intended_for": "No justification provided",
+    "justification_n_estimators": "No justification provided",
+    "justification_n_jobs": "No justification provided",
+    "justification_oob_score": "No justification provided",
+    "justification_target_variable": "No justification provided",
+    "justification_test_split": "No justification provided",
+    "justification_threshold_accuracy": "No justification provided",
+    "justification_verbose": "No justification provided",
+    "label_map": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}",
+    "mlflow.log-model.history": "[{\"run_id\": \"b68723e6719c4ca282f7064ef5daace1\", \"artifact_path\": \"model\", \"utc_time_created\": \"2025-06-26 15:14:15.549949\", \"model_uuid\": \"2d3985ba409841539b1de589bb20acee\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.5\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.3.0\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+    "mlflow.runName": "charming-boar-698",
+    "mlflow.source.name": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.user": "reema",
+    "model_architecture": "RandomForestClassifier",
+    "model_name": "RandomForest_Iris_v20250626_171359",
+    "model_path": "RandomForest_Iris_v20250626_171359.pkl",
+    "model_serialization": "pickle",
+    "model_version": "vtest",
+    "notebook_name": "RQ1_2.ipynb",
+    "precision_macro": "1.0",
+    "preprocessing_hash": "9816b2da4698d330464b74fe5c42068d75268d0dfa11f437dae584e6a948fa70",
+    "preprocessing_info": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 42}, \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\", \"preprocessing_timestamp\": \"2025-06-26T17:14:40.371803\"}",
+    "random_state": "42",
+    "raw_columns": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm,species",
+    "recall_macro": "1.0",
+    "roc_auc": "1.0",
+    "row_hash_tracking": "enabled",
+    "run_id": "b68723e6719c4ca282f7064ef5daace1",
+    "selected_model": "random_forest",
+    "startedAtTime": "2025-06-26T17:13:59.319787",
+    "target_variable": "species",
+    "target_variable_encoded": "species",
+    "test_size": "0.2",
+    "training_end_time": "2025-06-26T17:14:29.026176",
+    "training_start_time": "2025-06-26T17:13:59.922204"
+  },
+  "artifacts": [
+    {
+      "path": "RandomForest_Iris_v20250626_171359/RandomForest_Iris_v20250626_171359.pkl",
+      "type": "other"
+    },
+    {
+      "path": "confusion_matrix.png",
+      "type": "image"
+    },
+    {
+      "path": "estimator.html",
+      "type": "other"
+    },
+    {
+      "path": "feature_importances.png",
+      "type": "image"
+    },
+    {
+      "path": "label_mapping.json",
+      "type": "text"
+    },
+    {
+      "path": "metadata/doi_metadata_snapshot.json",
+      "type": "text"
+    },
+    {
+      "path": "model/MLmodel",
+      "type": "other"
+    },
+    {
+      "path": "model/conda.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "model/model.pkl",
+      "type": "other"
+    },
+    {
+      "path": "model/python_env.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/requirements.txt",
+      "type": "text"
+    },
+    {
+      "path": "model/serving_input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "pr_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "shap_summary.png",
+      "type": "image"
+    },
+    {
+      "path": "training_confusion_matrix.png",
+      "type": "image"
+    }
+  ]
+}
