@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/317165366584971910/61c967cd3f5644edb902ba5486eeda08/artifacts
+end_time: 1751225525385
+entry_point_name: ''
+experiment_id: '317165366584971910'
+lifecycle_stage: active
+run_id: 61c967cd3f5644edb902ba5486eeda08
+run_name: indecisive-crow-410
+run_uuid: 61c967cd3f5644edb902ba5486eeda08
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751225418808
+status: 4
+tags: []
+user_id: reema

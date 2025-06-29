@@ -1,0 +1,75 @@
+📌 Model Details:
+  Model Name: RandomForest_Iris_v20250629_212719
+  Dataset Name: iris_v2
+  Dataset Version: v2
+  Run ID: 60bba4e509d64570be26eef05705b68f
+  Timestamp: 2025-06-29 19:28 UTC
+🛠️ Hyperparameters:
+  n_estimators: 100
+  criterion: entropy
+  max_depth: 10
+  min_samples_split: 3
+  min_samples_leaf: 1
+  max_features: sqrt
+  bootstrap: true
+  oob_score: true
+  class_weight: null
+  verbose: 1
+  n_jobs: -1
+📈 Metrics:
+  accuracy: 0.6888888888888889
+  f1_macro: 0.5644444444444444
+  precision_macro: 0.5421557921557922
+  recall_macro: 0.6123642439431913
+  roc_auc: 0.7339986620999648
+🔗 Git Info:
+  Commit Hash: 47b1fbdec586bba9426cb4ac0fe940713b8c437f
+  Reproduce With: git checkout 47b1fbdec586bba9426cb4ac0fe940713b8c437f
+🚀 Reproduction Guide:
+- '1. Clone the repo and checkout the commit:'
+- '   git checkout 47b1fbdec586bba9426cb4ac0fe940713b8c437f'
+- 2. Load and preprocess the dataset exactly as during training.
+- '3. Load the model using MLflow:'
+- '   mlflow.sklearn.load_model(''runs:/60bba4e509d64570be26eef05705b68f/model'')'
+- 4. Run inference or evaluation using the same pipeline/script.
+
+
+
+📦 Provenance Architecture Overview
+
++------------------+        +------------------+         +----------------+
+|   JupyterHub     |        |     GitHub       |         |     DBRepo     |
+| - Code Execution |        | - Version Control|         | - Dataset Mgmt |
+| - ML Workflows   |        | - Commits/Logs   |         | - Transforms   |
++------------------+        +------------------+         +----------------+
+          |                          |                             |
+          +-----------+--------------+--------------+-------------+
+                      |                             |
+               +------+----------------------+      |
+               |     Provenance Extractor    |<-----+
+               |  (Jupyter Instrumentation)  |
+               +--------------+--------------+
+                              |
+                +-------------v------------+
+                |     Metadata Storage     |
+                |        (Invenio)         |
+                +-------------+------------+
+                              |
+               +--------------v--------------+
+               |  Export & Schema Mapping    |
+               | (PROV-O, ModelCards, etc.)  |
+               +--------------+--------------+
+                              |
+                +-------------v-------------+
+                |  VRE & Provenance Viewer  |
+                +---------------------------+
+
+System Component    | Mapped Research Questions | Key Metadata Tracked                  | Purpose / Contribution
+--------------------|---------------------------|--------------------------------------|--------------------------
+JupyterHub          | RQ1.1, RQ1.2, RQ2, RQ3     | Execution history, transformations   | Code/workflow provenance
+                    |                           | ML training, hyperparams, env        | Workflow tracking
+GitHub              | RQ1, RQ2, RQ3, RQ4         | Code version, commits, branches      | Versioning & code mapping
+Invenio             | RQ1, RQ2, RQ4              | Metadata indexing, DOIs              | FAIR metadata repo
+DBRepo              | RQ1, RQ2, RQ4              | Dataset versions, transformations    | Dataset lineage + usage
+Metadata Schemas    | RQ1.1, RQ1.2, RQ2, RQ4     | Standard schema mappings             | Interoperability & auditability
+

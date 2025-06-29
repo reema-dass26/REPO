@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/reema/REPO/notebooks/RQ_notebooks/mlrunlogs/mlflow.db/889893412250031141/b3da2fdb1a0342f2a6bbe590a033bbae/artifacts
+end_time: 1751225667911
+entry_point_name: ''
+experiment_id: '889893412250031141'
+lifecycle_stage: active
+run_id: b3da2fdb1a0342f2a6bbe590a033bbae
+run_name: zealous-shrike-425
+run_uuid: b3da2fdb1a0342f2a6bbe590a033bbae
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751225564229
+status: 4
+tags: []
+user_id: reema

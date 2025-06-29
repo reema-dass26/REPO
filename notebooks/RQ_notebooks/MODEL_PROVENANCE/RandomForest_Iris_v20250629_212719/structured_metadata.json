@@ -1,0 +1,303 @@
+{
+  "FAIR": {
+    "dcterms:identifier": "e241e1ad-cd2d-4550-903b-4af424b196f9",
+    "dc:title": "Iris",
+    "dc:description": "https://archive.ics.uci.edu/dataset/53",
+    "dc:creator": "R. A. Fisher",
+    "dc:license": "info not available",
+    "dcterms:hasVersion": "v2",
+    "dcterms:created": "2023-03-16 12:57:44",
+    "dcterms:modified": "2025-04-18 08:55:20",
+    "dcat:landingPage": "https://archive.ics.uci.edu/dataset/53",
+    "dc:publisher": "UCI Machine Learning Repository",
+    "dcterms:issued": "1936",
+    "dc:language": "unknown",
+    "dcat:citationCount": "23",
+    "dc:subject": "info not available",
+    "dcat:relatedResource": "\"[]\"",
+    "dcat:schemaVersion": "http://datacite.org/schema/kernel-4",
+    "dcat:registered": "2023-03-16 12:57:45",
+    "dcat:citationsOverTime": "\"[{\\\"year\\\": \\\"2023\\\", \\\"total\\\": 5}, {\\\"year\\\": \\\"2024\\\", \\\"total\\\": 11}, {\\\"year\\\": \\\"2025\\\", \\\"total\\\": 7}]\""
+  },
+  "FAIR4ML": {
+    "fair4ml:experimentID": "None_specified",
+    "fair4ml:runID": "60bba4e509d64570be26eef05705b68f",
+    "fair4ml:sessionID": "a897f789-d9ae-421f-b003-1989e8a965fb",
+    "fair4ml:modelID": "model_randomforest_iris_v20250629_212719_20250629_212719",
+    "fair4ml:datasetID": "09b7f88b-7b4b-46ce-a75d-c72fdbc39bfb",
+    "fair4ml:trainedOn": "Iris",
+    "fair4ml:modelType": "Classifier",
+    "dcterms:source": "10.24432/C56C76",
+    "fair4ml:trainingStartTime": "2025-06-29T21:27:20.014208",
+    "fair4ml:trainingEndTime": "2025-06-29T21:28:14.839534",
+    "fair4ml:targetVariable": "species",
+    "fair4ml:trainingScriptVersion": "5cc7a1ed2655f5eecebf2dcf99d1dafac6657a2e",
+    "fair4ml:runEnvironment": "Windows 10 | Python 3.11.5"
+  },
+  "MLSEA": {
+    "mlsea:accuracy": "0.688888888888888900",
+    "mlsea:f1_score": "0.564444444444444400",
+    "mlsea:num_deleted_rows": "0E-18",
+    "mlsea:num_inserted_rows": "0E-18",
+    "mlsea:precision": "0.542155792155792200",
+    "mlsea:recall": "0.612364243943191300",
+    "mlsea:roc_auc": "0.733998662099964800",
+    "mlsea:row_count_end": "100.000000000000000000",
+    "mlsea:row_count_start": "100.000000000000000000",
+    "mlsea:training_accuracy_score": "1.000000000000000000",
+    "mlsea:training_f1_score": "1.000000000000000000",
+    "mlsea:training_log_loss": "0.173161171138738470",
+    "mlsea:training_precision_score": "1.000000000000000000",
+    "mlsea:training_recall_score": "1.000000000000000000",
+    "mlsea:training_roc_auc": "1.000000000000000000",
+    "mlsea:training_score": "1.000000000000000000",
+    "justification_bootstrap": "Best practices",
+    "justification_class_weight": "Best practices",
+    "justification_criterion": "No justification provided",
+    "justification_dataset_version": "Best practices",
+    "justification_drop_column_x": "Best practices",
+    "justification_ethical_considerations": "Best practices",
+    "justification_experiment_name": "Best practices",
+    "justification_intended_use": "Best practices",
+    "justification_max_depth": "Best practices",
+    "justification_max_features": "Best practices",
+    "justification_metric_choice": "Best practices",
+    "justification_min_samples_leaf": "Best practices",
+    "justification_min_samples_split": "No justification provided",
+    "justification_model_choice": "v45",
+    "justification_model_limitations": "Best practices",
+    "justification_not_intended_for": "Best practices",
+    "justification_n_estimators": "No justification provided",
+    "justification_n_jobs": "Best practices",
+    "justification_oob_score": "Best practices",
+    "justification_target_variable": "Best practices",
+    "justification_test_split": "Best practices",
+    "justification_threshold_accuracy": "Best practices",
+    "justification_verbose": "Best practices",
+    "mlsea:trainSplit": "0.100000000000000000",
+    "mlsea:testSplit": "0.900000000000000000",
+    "mlsea:featureSelection": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm",
+    "mlsea:labelMap": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}",
+    "mlsea:imbalanceRatio": "1.000000000000000000"
+  },
+  "Croissant": {
+    "mls:modelID": "model_randomforest_iris_v20250629_212719_20250629_212719",
+    "mls:modelName": "RandomForest_Iris_v20250629_212719",
+    "mls:learningAlgorithm": "RandomForestClassifier",
+    "mls:modelArchitecture": "RandomForestClassifier",
+    "mls:featureList": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "mls:targetVariable": "species",
+    "mls:labelEncoding": "species",
+    "mls:modelPath": "RandomForest_Iris_v20250629_212719.pkl",
+    "mls:serializationFormat": "pickle",
+    "mls:modelVersion": "v34",
+    "mls:hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}",
+    "mls:preprocessingSteps": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.9, \"random_state\": 67}, \"imbalance_ratio\": \"{0: 40, 1: 37, 2: 23}\", \"preprocessing_timestamp\": \"2025-06-29T21:28:35.433978\"}",
+    "mls:hasInput": "Iris",
+    "mls:hasOutput": "categorical"
+  },
+  "PROV-O": {
+    "prov:Entity": "e241e1ad-cd2d-4550-903b-4af424b196f9",
+    "prov:Activity": "60bba4e509d64570be26eef05705b68f",
+    "prov:Agent": "reema",
+    "prov:wasGeneratedBy": "60bba4e509d64570be26eef05705b68f",
+    "prov:wasAssociatedWith": "default_project",
+    "prov:startedAtTime": "2025-06-29T21:27:20.014208",
+    "prov:endedAtTime": "2025-06-29T21:28:14.839534",
+    "prov:used": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "fair4ml:usedNotebook": "RQ1_2.ipynb",
+    "prov:sessionID": "a897f789-d9ae-421f-b003-1989e8a965fb",
+    "prov:location": "Purplish",
+    "prov:platform": "Windows",
+    "prov:pythonVersion": "3.11.5",
+    "prov:osPlatform": "Windows 10",
+    "prov:role": "collaborator",
+    "prov:scriptName": "None_specified",
+    "prov:commit": "5cc7a1ed2655f5eecebf2dcf99d1dafac6657a2e",
+    "prov:commitTime": "2025-06-29T19:27:05.442630",
+    "prov:commitAuthor": "Reema George",
+    "prov:commitEmail": "106236154+reema-dass26@users.noreply.github.com",
+    "prov:branch": "main",
+    "prov:repository": "https://archive.ics.uci.edu/dataset/53"
+  },
+  "Uncategorized": {
+    "run_name": "melodic-crow-197",
+    "origin_url": "None_specified",
+    "invenio_metadata": {
+      "id": "mrady-xdh39",
+      "title": "RQ_notebooks",
+      "creator": "Dass, Reema",
+      "publication_date": "2025-04-24",
+      "files": [
+        {
+          "key": "RandomForest_Iris_v20250629_212719/pr_curve_cls_1.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/pr_curve_cls_1.png/content",
+          "size": 20077,
+          "mimetype": "image/png",
+          "checksum": "md5:a1f9870afe43e1117f2be55e57afdc84",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/confusion_matrix.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/confusion_matrix.png/content",
+          "size": 16301,
+          "mimetype": "image/png",
+          "checksum": "md5:18d2146bc959b5361de393cff7f9b771",
+          "metadata": {
+            "width": 600,
+            "height": 600
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/pr_curve_cls_2.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/pr_curve_cls_2.png/content",
+          "size": 19946,
+          "mimetype": "image/png",
+          "checksum": "md5:66efcf8a9b822d2b905e94227036915c",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/roc_curve_cls_1.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/roc_curve_cls_1.png/content",
+          "size": 24443,
+          "mimetype": "image/png",
+          "checksum": "md5:aa0b27c524774d72d7a92162bb263136",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/feature_importances.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/feature_importances.png/content",
+          "size": 19534,
+          "mimetype": "image/png",
+          "checksum": "md5:4fca927234760dc1f83a1a2e8992f40a",
+          "metadata": {
+            "width": 800,
+            "height": 600
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/RandomForest_Iris_v20250629_212719.pkl",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/RandomForest_Iris_v20250629_212719.pkl/content",
+          "size": 69375,
+          "mimetype": "application/octet-stream",
+          "checksum": "md5:de5834912d918ad800ac171fe0f20f74",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/prov_JSONLD_export.jsonld",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/prov_JSONLD_export.jsonld/content",
+          "size": 24453,
+          "mimetype": "application/ld+json",
+          "checksum": "md5:b2fbbde8261ccf503ca1e1fbb258f781",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/RandomForest_Iris_v20250629_212719_reproducibility.txt",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/RandomForest_Iris_v20250629_212719_reproducibility.txt/content",
+          "size": 3532,
+          "mimetype": "text/plain",
+          "checksum": "md5:896ba751c80668523fe34109a72a974c",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/prov_RDFXML_export.rdf",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/prov_RDFXML_export.rdf/content",
+          "size": 11561,
+          "mimetype": "application/rdf+xml",
+          "checksum": "md5:eba31ef4c078a0768dc5704297171312",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/roc_curve_cls_2.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/roc_curve_cls_2.png/content",
+          "size": 26995,
+          "mimetype": "image/png",
+          "checksum": "md5:0b20a1d6489daa43028f64a6d94a77a3",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/RandomForest_Iris_v20250629_212719_run_summary.json",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/RandomForest_Iris_v20250629_212719_run_summary.json/content",
+          "size": 11066,
+          "mimetype": "application/json",
+          "checksum": "md5:cdea0964a5f6e43c960cb8a7fdee19ac",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/pr_curve_cls_0.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/pr_curve_cls_0.png/content",
+          "size": 20572,
+          "mimetype": "image/png",
+          "checksum": "md5:61b4560a51df77572a73f56e69cbd704",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/requirements.txt",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/requirements.txt/content",
+          "size": 1020,
+          "mimetype": "text/plain",
+          "checksum": "md5:0aedf900a3c11ae67b2ac38ca3345906",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/roc_curve_cls_0.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/roc_curve_cls_0.png/content",
+          "size": 22579,
+          "mimetype": "image/png",
+          "checksum": "md5:0bd59bbe46b91480ac9b05f2835ca00e",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/shap_summary.png",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/shap_summary.png/content",
+          "size": 25613,
+          "mimetype": "image/png",
+          "checksum": "md5:4436e9c8a266e6aae510c637a3cf7aa7",
+          "metadata": {
+            "width": 1150,
+            "height": 660
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_212719/structured_metadata.json",
+          "url": "https://127.0.0.1:5000/api/records/mrady-xdh39/files/RandomForest_Iris_v20250629_212719/structured_metadata.json/content",
+          "size": 7072,
+          "mimetype": "application/json",
+          "checksum": "md5:03639f46928aa56eaf0a0352f53ebd3c",
+          "metadata": {}
+        }
+      ],
+      "pids": {
+        "oai": {
+          "identifier": "oai:my-site.com:mrady-xdh39",
+          "provider": "oai"
+        }
+      },
+      "version_info": {
+        "is_latest": true,
+        "index": 1
+      },
+      "status": "published",
+      "views": 0,
+      "downloads": 0
+    }
+  }
+}
