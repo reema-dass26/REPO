@@ -1,0 +1,303 @@
+{
+  "FAIR": {
+    "dcterms:identifier": "fb2957a5-e083-4faa-b7c6-85ec0978440c",
+    "dc:title": "Iris",
+    "dc:description": "https://archive.ics.uci.edu/dataset/53",
+    "dc:creator": "R. A. Fisher",
+    "dc:license": "info not available",
+    "dcterms:hasVersion": "v5",
+    "dcterms:created": "2023-03-16 12:57:44",
+    "dcterms:modified": "2025-04-18 08:55:20",
+    "dcat:landingPage": "https://archive.ics.uci.edu/dataset/53",
+    "dc:publisher": "UCI Machine Learning Repository",
+    "dcterms:issued": "1936",
+    "dc:language": "unknown",
+    "dcat:citationCount": "23",
+    "dc:subject": "info not available",
+    "dcat:relatedResource": "\"[]\"",
+    "dcat:schemaVersion": "http://datacite.org/schema/kernel-4",
+    "dcat:registered": "2023-03-16 12:57:45",
+    "dcat:citationsOverTime": "\"[{\\\"year\\\": \\\"2023\\\", \\\"total\\\": 5}, {\\\"year\\\": \\\"2024\\\", \\\"total\\\": 11}, {\\\"year\\\": \\\"2025\\\", \\\"total\\\": 7}]\""
+  },
+  "FAIR4ML": {
+    "fair4ml:experimentID": "None_specified",
+    "fair4ml:runID": "90f2652bd86d46c3b92b31307ec35b07",
+    "fair4ml:sessionID": "4535d672-3fcb-4f00-96d7-e15c307635cf",
+    "fair4ml:modelID": "model_randomforest_iris_v20250629_215045_20250629_215045",
+    "fair4ml:datasetID": "b5a8a63a-a7a1-4a47-a047-533cc15efdb1",
+    "fair4ml:trainedOn": "Iris",
+    "fair4ml:modelType": "Classifier",
+    "dcterms:source": "10.24432/C56C76",
+    "fair4ml:trainingStartTime": "2025-06-29T21:50:45.675209",
+    "fair4ml:trainingEndTime": "2025-06-29T21:51:16.818475",
+    "fair4ml:targetVariable": "species",
+    "fair4ml:trainingScriptVersion": "bcc870d55fa3e06a1ec386bc62ea8a316ef0737a",
+    "fair4ml:runEnvironment": "Windows 10 | Python 3.11.5"
+  },
+  "MLSEA": {
+    "mlsea:accuracy": "0.333333333333333300",
+    "mlsea:f1_score": "0.313508771929824570",
+    "mlsea:num_deleted_rows": "0E-18",
+    "mlsea:num_inserted_rows": "0E-18",
+    "mlsea:precision": "0.314814814814814800",
+    "mlsea:recall": "0.315750915750915800",
+    "mlsea:roc_auc": "0.441002454493503100",
+    "mlsea:row_count_end": "150.000000000000000000",
+    "mlsea:row_count_start": "150.000000000000000000",
+    "mlsea:training_accuracy_score": "1.000000000000000000",
+    "mlsea:training_f1_score": "1.000000000000000000",
+    "mlsea:training_log_loss": "0.374633000972980800",
+    "mlsea:training_precision_score": "1.000000000000000000",
+    "mlsea:training_recall_score": "1.000000000000000000",
+    "mlsea:training_roc_auc": "1.000000000000000000",
+    "mlsea:training_score": "1.000000000000000000",
+    "justification_bootstrap": "Project scope",
+    "justification_class_weight": "Project scope",
+    "justification_criterion": "Project scope",
+    "justification_dataset_version": "Project scope",
+    "justification_drop_column_x": "Project scope",
+    "justification_ethical_considerations": "Project scope#",
+    "justification_experiment_name": "Project scope",
+    "justification_intended_use": "Project scope",
+    "justification_max_depth": "Project scope",
+    "justification_max_features": "Project scope",
+    "justification_metric_choice": "Project scope",
+    "justification_min_samples_leaf": "Project scope",
+    "justification_min_samples_split": "Project scope",
+    "justification_model_choice": "Project scope",
+    "justification_model_limitations": "Project scope",
+    "justification_not_intended_for": "Project scope",
+    "justification_n_estimators": "Project scope",
+    "justification_n_jobs": "Project scope",
+    "justification_oob_score": "Project scope",
+    "justification_target_variable": "Project scope",
+    "justification_test_split": "Project scope",
+    "justification_threshold_accuracy": "Project scope",
+    "justification_verbose": "Project scope",
+    "mlsea:trainSplit": "0.800000000000000000",
+    "mlsea:testSplit": "0.200000000000000000",
+    "mlsea:featureSelection": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm",
+    "mlsea:labelMap": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}",
+    "mlsea:imbalanceRatio": "1.000000000000000000"
+  },
+  "Croissant": {
+    "mls:modelID": "model_randomforest_iris_v20250629_215045_20250629_215045",
+    "mls:modelName": "RandomForest_Iris_v20250629_215045",
+    "mls:learningAlgorithm": "RandomForestClassifier",
+    "mls:modelArchitecture": "RandomForestClassifier",
+    "mls:featureList": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "mls:targetVariable": "species",
+    "mls:labelEncoding": "species",
+    "mls:modelPath": "RandomForest_Iris_v20250629_215045.pkl",
+    "mls:serializationFormat": "pickle",
+    "mls:modelVersion": "Project scope",
+    "mls:hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}",
+    "mls:preprocessingSteps": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 42}, \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\", \"preprocessing_timestamp\": \"2025-06-29T21:53:11.965443\"}",
+    "mls:hasInput": "Iris",
+    "mls:hasOutput": "categorical"
+  },
+  "PROV-O": {
+    "prov:Entity": "fb2957a5-e083-4faa-b7c6-85ec0978440c",
+    "prov:Activity": "90f2652bd86d46c3b92b31307ec35b07",
+    "prov:Agent": "reema",
+    "prov:wasGeneratedBy": "90f2652bd86d46c3b92b31307ec35b07",
+    "prov:wasAssociatedWith": "default_project",
+    "prov:startedAtTime": "2025-06-29T21:50:45.675209",
+    "prov:endedAtTime": "2025-06-29T21:51:16.818475",
+    "prov:used": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "fair4ml:usedNotebook": "RQ1_2.ipynb",
+    "prov:sessionID": "4535d672-3fcb-4f00-96d7-e15c307635cf",
+    "prov:location": "Purplish",
+    "prov:platform": "Windows",
+    "prov:pythonVersion": "3.11.5",
+    "prov:osPlatform": "Windows 10",
+    "prov:role": "collaborator",
+    "prov:scriptName": "None_specified",
+    "prov:commit": "bcc870d55fa3e06a1ec386bc62ea8a316ef0737a",
+    "prov:commitTime": "2025-06-29T19:44:23.008088",
+    "prov:commitAuthor": "Reema George",
+    "prov:commitEmail": "106236154+reema-dass26@users.noreply.github.com",
+    "prov:branch": "main",
+    "prov:repository": "https://archive.ics.uci.edu/dataset/53"
+  },
+  "Uncategorized": {
+    "run_name": "amusing-snail-810",
+    "origin_url": "None_specified",
+    "invenio_metadata": {
+      "id": "kd37k-1ms42",
+      "title": "RQ_notebooks",
+      "creator": "Dass, Reema",
+      "publication_date": "2025-04-24",
+      "files": [
+        {
+          "key": "RandomForest_Iris_v20250629_215045/confusion_matrix.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/confusion_matrix.png/content",
+          "size": 17478,
+          "mimetype": "image/png",
+          "checksum": "md5:3bdd0d510418fffb600b0201c3190db7",
+          "metadata": {
+            "width": 600,
+            "height": 600
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045_reproducibility.txt",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045_reproducibility.txt/content",
+          "size": 3533,
+          "mimetype": "text/plain",
+          "checksum": "md5:9bfd6177e6043964b7fbcdf3790d31b8",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/feature_importances.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/feature_importances.png/content",
+          "size": 19224,
+          "mimetype": "image/png",
+          "checksum": "md5:31d57eef764ac46a8868b706f16de5d9",
+          "metadata": {
+            "width": 800,
+            "height": 600
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/prov_JSONLD_export.jsonld",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/prov_JSONLD_export.jsonld/content",
+          "size": 24419,
+          "mimetype": "application/ld+json",
+          "checksum": "md5:6c01fab433e6a180444eb5058ed954f6",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/shap_summary.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/shap_summary.png/content",
+          "size": 18965,
+          "mimetype": "image/png",
+          "checksum": "md5:ed4ca4a4a018f0d8231e04eef35ee0d5",
+          "metadata": {
+            "width": 1150,
+            "height": 660
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045_run_summary.json",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045_run_summary.json/content",
+          "size": 11046,
+          "mimetype": "application/json",
+          "checksum": "md5:d2c6894e6974a895b812b773a0929b8b",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/prov_RDFXML_export.rdf",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/prov_RDFXML_export.rdf/content",
+          "size": 11527,
+          "mimetype": "application/rdf+xml",
+          "checksum": "md5:386d860be94fa610190299ba2e270774",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/pr_curve_cls_0.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/pr_curve_cls_0.png/content",
+          "size": 20049,
+          "mimetype": "image/png",
+          "checksum": "md5:730f828f7b6d16f52a85daa4b12c6a4b",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/pr_curve_cls_1.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/pr_curve_cls_1.png/content",
+          "size": 19380,
+          "mimetype": "image/png",
+          "checksum": "md5:c3ab70f4b6865e1d0ae2b197a62e173b",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/requirements.txt",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/requirements.txt/content",
+          "size": 1020,
+          "mimetype": "text/plain",
+          "checksum": "md5:0aedf900a3c11ae67b2ac38ca3345906",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/pr_curve_cls_2.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/pr_curve_cls_2.png/content",
+          "size": 20024,
+          "mimetype": "image/png",
+          "checksum": "md5:849f0e8a5b216bdf5243d6b57a0c8c14",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045.pkl",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045.pkl/content",
+          "size": 647699,
+          "mimetype": "application/octet-stream",
+          "checksum": "md5:6189d58b25146d788a58ab7c6cacf055",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/roc_curve_cls_0.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/roc_curve_cls_0.png/content",
+          "size": 21040,
+          "mimetype": "image/png",
+          "checksum": "md5:3a40ab6ee945fa7879cfd681ccca1c71",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/structured_metadata.json",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/structured_metadata.json/content",
+          "size": 7039,
+          "mimetype": "application/json",
+          "checksum": "md5:37d5f91b95c4ab9c6995d5a9931155b7",
+          "metadata": {}
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/roc_curve_cls_1.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/roc_curve_cls_1.png/content",
+          "size": 20828,
+          "mimetype": "image/png",
+          "checksum": "md5:165b839c74d41ffd316c1e615171d685",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        },
+        {
+          "key": "RandomForest_Iris_v20250629_215045/roc_curve_cls_2.png",
+          "url": "https://127.0.0.1:5000/api/records/kd37k-1ms42/files/RandomForest_Iris_v20250629_215045/roc_curve_cls_2.png/content",
+          "size": 20890,
+          "mimetype": "image/png",
+          "checksum": "md5:4f0f85305780f7e41044e54e20bc0486",
+          "metadata": {
+            "width": 640,
+            "height": 480
+          }
+        }
+      ],
+      "pids": {
+        "oai": {
+          "identifier": "oai:my-site.com:kd37k-1ms42",
+          "provider": "oai"
+        }
+      },
+      "version_info": {
+        "is_latest": true,
+        "index": 1
+      },
+      "status": "published",
+      "views": 0,
+      "downloads": 0
+    }
+  }
+}

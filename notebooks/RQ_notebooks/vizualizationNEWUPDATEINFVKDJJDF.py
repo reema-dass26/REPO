@@ -594,16 +594,6 @@ Review comprehensive metadata for the datasets used in your machine learning exp
         else:
             st.info("ℹ️ No provenance metadata available for this run.")
 
-
-
-        # 🏛️ DBRepo Metadata
-        dbrepo_keys = [
-            k for k in row
-            if k.startswith("Uncategorized_session_metadata") or k.startswith("FAIR4ML_dataset_")
-        ]
-        if dbrepo_keys:
-            show_table("🏛️ DBRepo Metadata", dbrepo_keys)
-
         # 🧪 Preprocessing Info
         st.subheader("🧪 Preprocessing Info")
         prep_info = row.get("Croissant_mls:preprocessingSteps", row.get("Uncategorized_preprocessing_info"))
@@ -648,21 +638,9 @@ Detect which ML experiments were affected by **outdated code versions**.
     import subprocess
     import json
 
-    import json
+    df["_git_commit_hash"] = df["FAIR4ML_fair4ml:trainingScriptVersion"].fillna("—")
+    df["_git_version"] = df["FAIR_dcterms:hasVersion"].fillna("untagged")
 
-    # Parse git JSON metadata if available
-    git_col = "Uncategorized_git_metadata"
-    
-    if git_col in df.columns:
-        # Parse JSON strings safely into dicts
-        git_info = df[git_col].dropna().apply(lambda x: json.loads(x) if isinstance(x, str) else x)
-        # Extract commit hash & version as separate columns for easy filtering
-        df["_git_commit_hash"] = git_info.apply(lambda d: d.get("commit_hash", "—") if isinstance(d, dict) else "—")
-        df["_git_version"] = git_info.apply(lambda d: d.get("version", "untagged") if isinstance(d, dict) else "untagged")
-    else:
-        st.warning(f"⚠️ Column `{git_col}` not found in metadata.")
-        st.stop()
-    
     # Get current git commit hash from local repo (if applicable)
     def get_current_git_commit():
         import subprocess
@@ -685,13 +663,15 @@ Detect which ML experiments were affected by **outdated code versions**.
     # Show a dataframe with selected columns including flat keys
     st.dataframe(
         df[[
-            "run_id",
-            "PROV-O_prov:commit",         # flat commit hash from provenance
-            "FAIR_dcterms:hasVersion",   # flat dataset version
-                      # parsed from git JSON
+            "FAIR4ML_fair4ml:runID",
+            "PROV-O_prov:commit",
+            "FAIR_dcterms:hasVersion",
+            "_git_commit_hash",
+            "_git_version"
         ]],
         use_container_width=True
     )
+
     
     # # Input deprecated versions to flag experiments
     # deprecated_versions_input = st.text_area("Enter deprecated version tags (one per line):", height=100)
@@ -1026,7 +1006,7 @@ elif selected == "🧠 ML Model Metadata":
             k for k in row.keys()
             if k.lower().startswith("mlsea_")
             and not any(k.lower().startswith(prefix) for prefix in excluded_prefixes)
-            and any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"])
+            and any(m in k.lower() for m in ["accuracy", "f1_macro", "precision_macro", "recall_macro", "roc","f1_score","precision","recall"])
             and "training" not in k.lower()
         ]
         def is_valid_metric(value):
@@ -1037,7 +1017,7 @@ elif selected == "🧠 ML Model Metadata":
         
         # Now filter out invalid metrics
         cleaned_metrics = {k: v for k, v in metrics.items() if is_valid_metric(v)}
-        
+        print(cleaned_metrics)
 
 
 
@@ -1045,7 +1025,7 @@ elif selected == "🧠 ML Model Metadata":
         training_metric_keys = [
             k for k in row.keys()
             if k.startswith("MLSEA_") and 
-               any(m in k.lower() for m in ["accuracy", "f1", "precision", "recall", "roc"]) and
+               any(m in k.lower() for m in ["training_accuracy", "training_f1", "training_precision", "training_recall", "training_roc"]) and
                "training" in k.lower()
         ]
         
@@ -1305,10 +1285,6 @@ Use this view to inspect detailed provenance metadata for a specific training ru
             "FAIR4ML": {},
             "MLSEA": {},
             "PROV-O": {},
-            "Uncategorized": {
-                "session_metadata": flat_row.get("Uncategorized_session_metadata", {}),
-                "git_metadata": flat_row.get("Uncategorized_git_metadata", {})
-            },
             "run_id": flat_row.get("run_id", "—")
         }
     

@@ -1,0 +1,260 @@
+{
+  "run_id": "90f2652bd86d46c3b92b31307ec35b07",
+  "run_name": "amusing-snail-810",
+  "experiment_id": "781487299615960678",
+  "start_time": 1751226262842,
+  "end_time": null,
+  "params": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "None",
+    "criterion": "entropy",
+    "dropped_columns": "['id']",
+    "feature_matrix_shape": "(150, 4)",
+    "final_feature_names": "['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']",
+    "final_num_features": "4",
+    "hostname": "Purplish",
+    "input_row_count": "150",
+    "label_vector_shape": "(150,)",
+    "matplotlib_version": "3.7.2",
+    "max_depth": "10",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "1",
+    "min_samples_split": "3",
+    "min_weight_fraction_leaf": "0.0",
+    "numeric_columns_converted": "4",
+    "numpy_version": "1.24.4",
+    "n_estimators": "100",
+    "n_features": "4",
+    "n_jobs": "-1",
+    "n_test_samples": "30",
+    "n_train_samples": "120",
+    "oob_score": "True",
+    "os_platform": "Windows 10",
+    "os_version": "10.0.26100",
+    "pandas_version": "2.2.3",
+    "platform": "Windows",
+    "project_id": "default_project",
+    "python_version": "3.11.5",
+    "random_seed": "42",
+    "random_state": "None",
+    "raw_columns": "['id', 'sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm', 'species']",
+    "raw_row_count": "150",
+    "retrieval_time_utc": "2025-06-29T19:50:45.382912",
+    "role": "collaborator",
+    "seaborn_version": "0.12.2",
+    "session_id": "4535d672-3fcb-4f00-96d7-e15c307635cf",
+    "shap_version": "0.47.1",
+    "sklearn_version": "1.3.0",
+    "test_size": "0.2",
+    "timestamp_utc": "2025-06-29T19:44:23.008088",
+    "username": "reema",
+    "verbose": "1",
+    "warm_start": "False"
+  },
+  "metrics": {
+    "accuracy": 0.3333333333333333,
+    "f1_macro": 0.31350877192982457,
+    "num_deleted_rows": 0.0,
+    "num_inserted_rows": 0.0,
+    "precision_macro": 0.3148148148148148,
+    "recall_macro": 0.3157509157509158,
+    "roc_auc": 0.4410024544935031,
+    "row_count_end": 150.0,
+    "row_count_start": 150.0,
+    "training_accuracy_score": 1.0,
+    "training_f1_score": 1.0,
+    "training_log_loss": 0.3746330009729808,
+    "training_precision_score": 1.0,
+    "training_recall_score": 1.0,
+    "training_roc_auc": 1.0,
+    "training_score": 1.0
+  },
+  "tags": {
+    "accuracy": "0.3333333333333333",
+    "class_names": "Iris-setosa,Iris-versicolor,Iris-virginica",
+    "compute_environment": "{\"os\": \"Windows 10\", \"cpu\": \"AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD\", \"ram_gb\": 13.69, \"python_version\": \"3.11.5\", \"sklearn_version\": \"1.3.0\", \"pandas_version\": \"2.2.3\", \"numpy_version\": \"1.24.4\"}",
+    "dataset_id": "fb2957a5-e083-4faa-b7c6-85ec0978440c",
+    "dataset_name": "iris_v5",
+    "dataset_version": "v5",
+    "data_source": "http://localhost/api/database/c94c9774-8407-49fd-b21f-9e6e4af57d3b/table/fb2957a5-e083-4faa-b7c6-85ec0978440c/data?size=100000&page=0",
+    "DOI_citations_over_time": "[{\"year\": \"2023\", \"total\": 5}, {\"year\": \"2024\", \"total\": 11}, {\"year\": \"2025\", \"total\": 7}]",
+    "DOI_citation_count": "23",
+    "DOI_created": "2023-03-16T12:57:44.000Z",
+    "DOI_dataset_access_url": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_dataset_creator": "R. A. Fisher",
+    "DOI_dataset_description": "info not available",
+    "DOI_dataset_documentation": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_dataset_id": "10.24432/C56C76",
+    "DOI_dataset_license": "info not available",
+    "DOI_dataset_publication_date": "1936",
+    "DOI_dataset_publisher": "UCI Machine Learning Repository",
+    "DOI_dataset_subjects": "info not available",
+    "DOI_dataset_title": "Iris",
+    "DOI_metadata_standard": "Dataset",
+    "DOI_prov_activity": "Ingestion and Publication",
+    "DOI_prov_agent_dataset_creator": "R. A. Fisher",
+    "DOI_prov_entity": "Iris",
+    "DOI_prov_role_database_creator": "Database Ingestor and Maintainer",
+    "DOI_prov_role_dataset_creator": "Original Data Author",
+    "DOI_prov_startedAtTime": "1936",
+    "DOI_prov_used": "https://archive.ics.uci.edu/dataset/53",
+    "DOI_prov_wasAttributedTo": "R. A. Fisher",
+    "DOI_prov_wasDerivedFrom": "10.24432/C56C76",
+    "DOI_registered_date": "2023-03-16T12:57:45.000Z",
+    "DOI_related_resources": "[]",
+    "DOI_schema_version": "http://datacite.org/schema/kernel-4",
+    "DOI_updated": "2025-04-18T08:55:20.000Z",
+    "dropped_id_columns": "id",
+    "estimator_class": "sklearn.ensemble._forest.RandomForestClassifier",
+    "estimator_name": "RandomForestClassifier",
+    "f1_macro": "0.31350877192982457",
+    "feature_columns": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm",
+    "GIT_code_version": "Project scope",
+    "git_commit": "bcc870d55fa3e06a1ec386bc62ea8a316ef0737a",
+    "GIT_user": "Reema George",
+    "GIT_user_email": "106236154+reema-dass26@users.noreply.github.com",
+    "hyperparameters": "{\"n_estimators\": 100, \"criterion\": \"entropy\", \"max_depth\": 10, \"min_samples_split\": 3, \"min_samples_leaf\": 1, \"max_features\": \"sqrt\", \"bootstrap\": true, \"oob_score\": true, \"class_weight\": null, \"verbose\": 1, \"n_jobs\": -1}",
+    "Internal_DBRepo_table_last_modified": "2025-06-20T09:39:25.905Z",
+    "justification_bootstrap": "Project scope",
+    "justification_class_weight": "Project scope",
+    "justification_criterion": "Project scope",
+    "justification_dataset_version": "Project scope",
+    "justification_drop_column_X": "Project scope",
+    "justification_ethical_considerations": "Project scope#",
+    "justification_experiment_name": "Project scope",
+    "justification_intended_use": "Project scope",
+    "justification_max_depth": "Project scope",
+    "justification_max_features": "Project scope",
+    "justification_metric_choice": "Project scope",
+    "justification_min_samples_leaf": "Project scope",
+    "justification_min_samples_split": "Project scope",
+    "justification_model_choice": "Project scope",
+    "justification_model_limitations": "Project scope",
+    "justification_not_intended_for": "Project scope",
+    "justification_n_estimators": "Project scope",
+    "justification_n_jobs": "Project scope",
+    "justification_oob_score": "Project scope",
+    "justification_target_variable": "Project scope",
+    "justification_test_split": "Project scope",
+    "justification_threshold_accuracy": "Project scope",
+    "justification_verbose": "Project scope",
+    "label_map": "{\"0\": \"Iris-setosa\", \"1\": \"Iris-versicolor\", \"2\": \"Iris-virginica\"}",
+    "mlflow.log-model.history": "[{\"run_id\": \"90f2652bd86d46c3b92b31307ec35b07\", \"artifact_path\": \"model\", \"utc_time_created\": \"2025-06-29 19:50:59.844997\", \"model_uuid\": \"73fa427b29ce402e8a41d6fdb602f9c1\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.5\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.3.0\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+    "mlflow.runName": "amusing-snail-810",
+    "mlflow.source.name": "C:\\Users\\reema\\AppData\\Roaming\\Python\\Python311\\site-packages\\ipykernel_launcher.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.user": "reema",
+    "model_architecture": "RandomForestClassifier",
+    "model_name": "RandomForest_Iris_v20250629_215045",
+    "model_path": "RandomForest_Iris_v20250629_215045.pkl",
+    "model_serialization": "pickle",
+    "model_version": "Project scope",
+    "notebook_name": "RQ1_2.ipynb",
+    "precision_macro": "0.3148148148148148",
+    "preprocessing_hash": "f9caf4797ac28098ef5b3408ae6c6ea03c80e61f5d1dbb1d164d4e1f130ad9d0",
+    "preprocessing_info": "{\"dropped_columns\": [\"id\"], \"numeric_columns\": [\"sepallengthcm\", \"sepalwidthcm\", \"petallengthcm\", \"petalwidthcm\"], \"target_column\": \"species\", \"stratified\": false, \"coercion_strategy\": \"Numeric cast (auto)\", \"feature_engineering\": \"None\", \"missing_value_strategy\": \"None\", \"outlier_detection\": \"None\", \"encoding_strategy\": \"LabelEncoder (target only)\", \"scaling\": \"None\", \"sampling\": \"None\", \"feature_selection\": \"None\", \"train_test_split\": {\"test_size\": 0.2, \"random_state\": 42}, \"imbalance_ratio\": \"{0: 50, 1: 50, 2: 50}\", \"preprocessing_timestamp\": \"2025-06-29T21:53:11.965443\"}",
+    "random_state": "42",
+    "raw_columns": "id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm,species",
+    "recall_macro": "0.3157509157509158",
+    "roc_auc": "0.4410024544935031",
+    "row_hash_tracking": "enabled",
+    "run_id": "90f2652bd86d46c3b92b31307ec35b07",
+    "selected_model": "random_forest",
+    "startedAtTime": "2025-06-29T21:50:44.624420",
+    "target_variable": "species",
+    "target_variable_encoded": "species",
+    "test_size": "0.2",
+    "training_end_time": "2025-06-29T21:51:16.818475",
+    "training_start_time": "2025-06-29T21:50:45.675209"
+  },
+  "artifacts": [
+    {
+      "path": "RandomForest_Iris_v20250629_215045/RandomForest_Iris_v20250629_215045.pkl",
+      "type": "other"
+    },
+    {
+      "path": "confusion_matrix.png",
+      "type": "image"
+    },
+    {
+      "path": "estimator.html",
+      "type": "other"
+    },
+    {
+      "path": "feature_importances.png",
+      "type": "image"
+    },
+    {
+      "path": "label_mapping.json",
+      "type": "text"
+    },
+    {
+      "path": "metadata/doi_metadata_snapshot.json",
+      "type": "text"
+    },
+    {
+      "path": "model/MLmodel",
+      "type": "other"
+    },
+    {
+      "path": "model/conda.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "model/model.pkl",
+      "type": "other"
+    },
+    {
+      "path": "model/python_env.yaml",
+      "type": "other"
+    },
+    {
+      "path": "model/requirements.txt",
+      "type": "text"
+    },
+    {
+      "path": "model/serving_input_example.json",
+      "type": "text"
+    },
+    {
+      "path": "pr_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "pr_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_0.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_1.png",
+      "type": "image"
+    },
+    {
+      "path": "roc_curve_cls_2.png",
+      "type": "image"
+    },
+    {
+      "path": "shap_summary.png",
+      "type": "image"
+    },
+    {
+      "path": "training_confusion_matrix.png",
+      "type": "image"
+    }
+  ]
+}

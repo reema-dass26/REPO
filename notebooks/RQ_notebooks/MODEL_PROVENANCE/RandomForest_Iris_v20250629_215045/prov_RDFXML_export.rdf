@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ex="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:ns1="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/dcterms:"
+   xmlns:ns2="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/mls:"
+   xmlns:ns3="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/prov:"
+   xmlns:ns4="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/mlsea:"
+   xmlns:ns5="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/fair4ml:"
+   xmlns:ns6="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/dcat:"
+   xmlns:ns7="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/dc:"
+   xmlns:prov="http://www.w3.org/ns/prov#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/run_90f2652bd86d46c3b92b31307ec35b07">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+    <prov:startedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-06-29T21:50:45</prov:startedAtTime>
+    <prov:endedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-06-29T21:51:16</prov:endedAtTime>
+    <prov:used rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/dataset_fb2957a5-e083-4faa-b7c6-85ec0978440c"/>
+    <prov:used rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/code_bcc870d55fa3e06a1ec386bc62ea8a316ef0737a"/>
+    <prov:wasAssociatedWith rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/agent_reema"/>
+    <ns5:runID>90f2652bd86d46c3b92b31307ec35b07</ns5:runID>
+    <ns5:sessionID>4535d672-3fcb-4f00-96d7-e15c307635cf</ns5:sessionID>
+    <ns5:modelID>model_randomforest_iris_v20250629_215045_20250629_215045</ns5:modelID>
+    <ns5:datasetID>b5a8a63a-a7a1-4a47-a047-533cc15efdb1</ns5:datasetID>
+    <ns5:trainedOn>Iris</ns5:trainedOn>
+    <ns5:modelType>Classifier</ns5:modelType>
+    <ns1:source>10.24432/C56C76</ns1:source>
+    <ns5:trainingStartTime>2025-06-29T21:50:45.675209</ns5:trainingStartTime>
+    <ns5:trainingEndTime>2025-06-29T21:51:16.818475</ns5:trainingEndTime>
+    <ns5:targetVariable>species</ns5:targetVariable>
+    <ns5:trainingScriptVersion>bcc870d55fa3e06a1ec386bc62ea8a316ef0737a</ns5:trainingScriptVersion>
+    <ns5:runEnvironment>Windows 10 | Python 3.11.5</ns5:runEnvironment>
+    <ns4:accuracy>0.333333333333333300</ns4:accuracy>
+    <ns4:f1_score>0.313508771929824570</ns4:f1_score>
+    <ns4:num_deleted_rows>0E-18</ns4:num_deleted_rows>
+    <ns4:num_inserted_rows>0E-18</ns4:num_inserted_rows>
+    <ns4:precision>0.314814814814814800</ns4:precision>
+    <ns4:recall>0.315750915750915800</ns4:recall>
+    <ns4:roc_auc>0.441002454493503100</ns4:roc_auc>
+    <ns4:row_count_end>150.000000000000000000</ns4:row_count_end>
+    <ns4:row_count_start>150.000000000000000000</ns4:row_count_start>
+    <ns4:training_accuracy_score>1.000000000000000000</ns4:training_accuracy_score>
+    <ns4:training_f1_score>1.000000000000000000</ns4:training_f1_score>
+    <ns4:training_log_loss>0.374633000972980800</ns4:training_log_loss>
+    <ns4:training_precision_score>1.000000000000000000</ns4:training_precision_score>
+    <ns4:training_recall_score>1.000000000000000000</ns4:training_recall_score>
+    <ns4:training_roc_auc>1.000000000000000000</ns4:training_roc_auc>
+    <ns4:training_score>1.000000000000000000</ns4:training_score>
+    <ex:justification_bootstrap>Project scope</ex:justification_bootstrap>
+    <ex:justification_class_weight>Project scope</ex:justification_class_weight>
+    <ex:justification_criterion>Project scope</ex:justification_criterion>
+    <ex:justification_dataset_version>Project scope</ex:justification_dataset_version>
+    <ex:justification_drop_column_x>Project scope</ex:justification_drop_column_x>
+    <ex:justification_ethical_considerations>Project scope#</ex:justification_ethical_considerations>
+    <ex:justification_experiment_name>Project scope</ex:justification_experiment_name>
+    <ex:justification_intended_use>Project scope</ex:justification_intended_use>
+    <ex:justification_max_depth>Project scope</ex:justification_max_depth>
+    <ex:justification_max_features>Project scope</ex:justification_max_features>
+    <ex:justification_metric_choice>Project scope</ex:justification_metric_choice>
+    <ex:justification_min_samples_leaf>Project scope</ex:justification_min_samples_leaf>
+    <ex:justification_min_samples_split>Project scope</ex:justification_min_samples_split>
+    <ex:justification_model_choice>Project scope</ex:justification_model_choice>
+    <ex:justification_model_limitations>Project scope</ex:justification_model_limitations>
+    <ex:justification_not_intended_for>Project scope</ex:justification_not_intended_for>
+    <ex:justification_n_estimators>Project scope</ex:justification_n_estimators>
+    <ex:justification_n_jobs>Project scope</ex:justification_n_jobs>
+    <ex:justification_oob_score>Project scope</ex:justification_oob_score>
+    <ex:justification_target_variable>Project scope</ex:justification_target_variable>
+    <ex:justification_test_split>Project scope</ex:justification_test_split>
+    <ex:justification_threshold_accuracy>Project scope</ex:justification_threshold_accuracy>
+    <ex:justification_verbose>Project scope</ex:justification_verbose>
+    <ns4:trainSplit>0.800000000000000000</ns4:trainSplit>
+    <ns4:testSplit>0.200000000000000000</ns4:testSplit>
+    <ns4:featureSelection>id,sepallengthcm,sepalwidthcm,petallengthcm,petalwidthcm</ns4:featureSelection>
+    <ns4:labelMap>{"0": "Iris-setosa", "1": "Iris-versicolor", "2": "Iris-virginica"}</ns4:labelMap>
+    <ns4:imbalanceRatio>1.000000000000000000</ns4:imbalanceRatio>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/code_bcc870d55fa3e06a1ec386bc62ea8a316ef0737a">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <ns3:Entity>fb2957a5-e083-4faa-b7c6-85ec0978440c</ns3:Entity>
+    <ns3:Activity>90f2652bd86d46c3b92b31307ec35b07</ns3:Activity>
+    <ns3:Agent>reema</ns3:Agent>
+    <ns3:wasGeneratedBy>90f2652bd86d46c3b92b31307ec35b07</ns3:wasGeneratedBy>
+    <ns3:wasAssociatedWith>default_project</ns3:wasAssociatedWith>
+    <ns3:startedAtTime>2025-06-29T21:50:45.675209</ns3:startedAtTime>
+    <ns3:endedAtTime>2025-06-29T21:51:16.818475</ns3:endedAtTime>
+    <ns3:used>C:\Users\reema\AppData\Roaming\Python\Python311\site-packages\ipykernel_launcher.py</ns3:used>
+    <ns5:usedNotebook>RQ1_2.ipynb</ns5:usedNotebook>
+    <ns3:sessionID>4535d672-3fcb-4f00-96d7-e15c307635cf</ns3:sessionID>
+    <ns3:location>Purplish</ns3:location>
+    <ns3:platform>Windows</ns3:platform>
+    <ns3:pythonVersion>3.11.5</ns3:pythonVersion>
+    <ns3:osPlatform>Windows 10</ns3:osPlatform>
+    <ns3:role>collaborator</ns3:role>
+    <ns3:commit>bcc870d55fa3e06a1ec386bc62ea8a316ef0737a</ns3:commit>
+    <ns3:commitTime>2025-06-29T19:44:23.008088</ns3:commitTime>
+    <ns3:commitAuthor>Reema George</ns3:commitAuthor>
+    <ns3:commitEmail>106236154+reema-dass26@users.noreply.github.com</ns3:commitEmail>
+    <ns3:branch>main</ns3:branch>
+    <ns3:repository>https://archive.ics.uci.edu/dataset/53</ns3:repository>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/model_model_randomforest_iris_v20250629_215045_20250629_215045">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <prov:wasGeneratedBy rdf:resource="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/run_90f2652bd86d46c3b92b31307ec35b07"/>
+    <ns2:modelID>model_randomforest_iris_v20250629_215045_20250629_215045</ns2:modelID>
+    <ns2:modelName>RandomForest_Iris_v20250629_215045</ns2:modelName>
+    <ns2:learningAlgorithm>RandomForestClassifier</ns2:learningAlgorithm>
+    <ns2:modelArchitecture>RandomForestClassifier</ns2:modelArchitecture>
+    <ns2:featureList>['sepallengthcm', 'sepalwidthcm', 'petallengthcm', 'petalwidthcm']</ns2:featureList>
+    <ns2:targetVariable>species</ns2:targetVariable>
+    <ns2:labelEncoding>species</ns2:labelEncoding>
+    <ns2:modelPath>RandomForest_Iris_v20250629_215045.pkl</ns2:modelPath>
+    <ns2:serializationFormat>pickle</ns2:serializationFormat>
+    <ns2:modelVersion>Project scope</ns2:modelVersion>
+    <ns2:hyperparameters>{"n_estimators": 100, "criterion": "entropy", "max_depth": 10, "min_samples_split": 3, "min_samples_leaf": 1, "max_features": "sqrt", "bootstrap": true, "oob_score": true, "class_weight": null, "verbose": 1, "n_jobs": -1}</ns2:hyperparameters>
+    <ns2:preprocessingSteps>{"dropped_columns": ["id"], "numeric_columns": ["sepallengthcm", "sepalwidthcm", "petallengthcm", "petalwidthcm"], "target_column": "species", "stratified": false, "coercion_strategy": "Numeric cast (auto)", "feature_engineering": "None", "missing_value_strategy": "None", "outlier_detection": "None", "encoding_strategy": "LabelEncoder (target only)", "scaling": "None", "sampling": "None", "feature_selection": "None", "train_test_split": {"test_size": 0.2, "random_state": 42}, "imbalance_ratio": "{0: 50, 1: 50, 2: 50}", "preprocessing_timestamp": "2025-06-29T21:53:11.965443"}</ns2:preprocessingSteps>
+    <ns2:hasInput>Iris</ns2:hasInput>
+    <ns2:hasOutput>categorical</ns2:hasOutput>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/dataset_fb2957a5-e083-4faa-b7c6-85ec0978440c">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <ns1:identifier>fb2957a5-e083-4faa-b7c6-85ec0978440c</ns1:identifier>
+    <ns7:title>Iris</ns7:title>
+    <ns7:description>https://archive.ics.uci.edu/dataset/53</ns7:description>
+    <ns7:creator>R. A. Fisher</ns7:creator>
+    <ns7:license>info not available</ns7:license>
+    <ns1:hasVersion>v5</ns1:hasVersion>
+    <ns1:created>2023-03-16 12:57:44</ns1:created>
+    <ns1:modified>2025-04-18 08:55:20</ns1:modified>
+    <ns6:landingPage>https://archive.ics.uci.edu/dataset/53</ns6:landingPage>
+    <ns7:publisher>UCI Machine Learning Repository</ns7:publisher>
+    <ns1:issued>1936</ns1:issued>
+    <ns7:language>unknown</ns7:language>
+    <ns6:citationCount>23</ns6:citationCount>
+    <ns7:subject>info not available</ns7:subject>
+    <ns6:relatedResource>"[]"</ns6:relatedResource>
+    <ns6:schemaVersion>http://datacite.org/schema/kernel-4</ns6:schemaVersion>
+    <ns6:registered>2023-03-16 12:57:45</ns6:registered>
+    <ns6:citationsOverTime>"[{\"year\": \"2023\", \"total\": 5}, {\"year\": \"2024\", \"total\": 11}, {\"year\": \"2025\", \"total\": 7}]"</ns6:citationsOverTime>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/reema-dass26/ml-provenance/provenance/run_90f2652bd86d46c3b92b31307ec35b07/agent_reema">
+    <rdf:type rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+    <foaf:name>reema</foaf:name>
+  </rdf:Description>
+</rdf:RDF>
